@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Welcome!"
+            android:text="Sign up for new user!"
             android:textSize="24sp" />
 
         <TextView
@@ -45,8 +45,24 @@
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Please enter your password"
+            android:hint="Please create your password"
             android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/confirmPasswordTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="Confirm Password"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/confirmPasswordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirm your new password"
+            android:inputType="textPassword" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -56,24 +72,10 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/signinButton"
+            android:id="@+id/continueButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Signin" />
-
-        <TextView
-            android:id="@+id/signupTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Don't have an account?"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/signupButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Signup" />
+            android:text="Next" />
 
     </LinearLayout>
 
