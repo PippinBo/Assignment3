@@ -62,6 +62,13 @@
             android:layout_height="wrap_content"
             android:hint="Confirm your new password"
             android:inputType="textPassword" />
+        <TextView
+            android:id="@+id/formatTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:hint="Notice Password must contains at least 8 characters includes: 1 digit, 1 lower case letter, 1 upper case letter and 1 special character"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

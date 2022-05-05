@@ -7,10 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.assignment3.databinding.HomeActivityBinding;
 
+//Version 1.0.1: set home screen for test
+
 public class HomeActivity extends AppCompatActivity {
     private HomeActivityBinding binding;
 
-    //Version 1.0.1: set home screen for test
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +19,7 @@ public class HomeActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         
-        binding.welcomeTextView.setText("This is HOME activity");
+        //binding.welcomeTextView.setText("This is HOME activity");
     }
 }
 
