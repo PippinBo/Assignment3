@@ -7,25 +7,19 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import com.example.assignment3.databinding.SignupBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 //Version 1.0.2: set up --- Lichen
-//Note: user1: lichen100@gmail.com  Qq1234567!
-//      user2: lichen101@gmail.com  Qq1234567!
+//Note: user1: lichen100@gmail.com  Qq1234567! <Gym>
+//      user2: lichen101@gmail.com  Qq1234567! <User>
+//      user3: lichen102@gmail.com  Qq1234567! <User>
 
 public class SignupActivity extends AppCompatActivity {
-    private FirebaseAuth auth;
     private SignupBinding binding;
 
     @Override
@@ -35,43 +29,33 @@ public class SignupActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        auth = FirebaseAuth.getInstance();
-        binding.continueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email_txt = binding.emailEditText.getText().toString();
-                String password_txt_1 = binding.passwordEditText.getText().toString();
-                String password_txt_2 = binding.confirmPasswordEditText.getText().toString();
-                //validation
-                if (TextUtils.isEmpty(email_txt) || TextUtils.isEmpty(password_txt_1) || TextUtils.isEmpty(password_txt_2)) {
-                    String msg = "Please enter your information";
-                    toastMsg(msg);
-                } else if (!isValidPassword(password_txt_1)) {
-                    String msg = "Invalid password format";
-                    toastMsg(msg);
-                } else if (!password_txt_2.equals(password_txt_1)) {
-                    String msg = "Please confirm your password";
-                    toastMsg(msg);
-                } else
-                    registerUser(email_txt, password_txt_1);
-            }
+        binding.continueButton.setOnClickListener(v -> {
+            //Get Text
+            String email_txt = binding.emailEditText.getText().toString();
+            String password_txt_1 = binding.passwordEditText.getText().toString();
+            String password_txt_2 = binding.confirmPasswordEditText.getText().toString();
+            //validation
+            if (TextUtils.isEmpty(email_txt) || TextUtils.isEmpty(password_txt_1) || TextUtils.isEmpty(password_txt_2)) {
+                String msg = "Please enter your information";
+                toastMsg(msg);
+            } else if (!isValidPassword(password_txt_1)) {
+                String msg = "Invalid password format";
+                toastMsg(msg);
+            } else if (!password_txt_2.equals(password_txt_1)) {
+                String msg = "Please confirm your password";
+                toastMsg(msg);
+            } else
+                addUser(email_txt, password_txt_1);
         });
     }
 
-    private void registerUser(String email_txt, String password_txt_1) {
-        auth.createUserWithEmailAndPassword(email_txt,password_txt_1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
-                    String msg = "Registration Successful";
-                    toastMsg(msg);
-                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
-                }else {
-                    String msg = "Registration Unsuccessful";
-                    toastMsg(msg);
-                }
-            }
-        });
+    private void addUser(String email_txt, String password_txt_1) {
+        // create a User object and pass it to next view
+        Intent intent = new Intent(SignupActivity.this, DataEntryActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user", new User(email_txt, password_txt_1, "", "", ""));
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void toastMsg(String message){
