@@ -1,4 +1,4 @@
-package com.assignment3.fitbud.ui.gallery;
+package com.assignment3.fitbud.ui.share;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.assignment3.fitbud.databinding.FragmentGalleryBinding;
+import com.assignment3.fitbud.databinding.FragmentShareBinding;
 
-public class GalleryFragment extends Fragment {
 
-    private FragmentGalleryBinding binding;
+public class ShareFragment extends Fragment {
+
+    private FragmentShareBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        GalleryViewModel galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
+        ShareViewModel shareViewModel =
+                new ViewModelProvider(this).get(ShareViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentShareBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textSlideshow;
+        shareViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

@@ -1,4 +1,4 @@
-package com.assignment3.fitbud.ui.slideshow;
+package com.assignment3.fitbud.ui.report;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.assignment3.fitbud.databinding.FragmentSlideshowBinding;
+import com.assignment3.fitbud.databinding.FragmentReportBinding;
 
-public class SlideshowFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+public class ReportFragment extends Fragment {
+
+    private FragmentReportBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        ReportViewModel reportViewModel =
+                new ViewModelProvider(this).get(ReportViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentReportBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        reportViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

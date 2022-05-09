@@ -13,6 +13,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.assignment3.fitbud.R;
 import com.assignment3.fitbud.databinding.FragmentHomeBinding;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,7 +37,6 @@ public class HomeFragment extends Fragment {
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
         weatherApi();
         return view;
     }
@@ -50,49 +53,61 @@ public class HomeFragment extends Fragment {
 
         call.enqueue(new Callback<Root>() {
             @Override
-            public void onResponse(Call<Root> call, Response<Root> response) {
+            public void onResponse(@NonNull Call<Root> call, @NonNull Response<Root> response) {
                 Root root = response.body();
+                assert root != null;
                 double temp = root.getMain().getTemp() - 273.15;
                 String weather = root.getWeather().get(0).getDescription();
                 int weatherId = root.getWeather().get(0).getId();
-
                 int temps = (int) temp;
                 binding.tempTextView.setText(String.valueOf((int)temp + "°C"));
                 binding.tempDesc.setText(weather);
-
-                if(weatherId == 800){
-                    binding.weatherIcon.setImageResource(R.drawable.flood1);
-//                    wIcon.src = "https://bmcdn.nl/assets/weather-icons/v3.0/line/svg/clear-day.svg";
-                }else if(weatherId >= 200 && weatherId <= 232){
-                    //                   wIcon.src = "https://bmcdn.nl/assets/weather-icons/v3.0/line/svg/thunderstorms.svg";
-                }else if(weatherId >= 600 && weatherId <= 622){
-//                    wIcon.src = "https://bmcdn.nl/assets/weather-icons/v3.0/line/svg/snow.svg";
-                }else if(weatherId >= 300 && weatherId <= 321){
-//                    wIcon.src = "https://bmcdn.nl/assets/weather-icons/v3.0/line/svg/drizzle.svg";
-                }else if(weatherId >= 701 && weatherId <= 781){
-                    //                   wIcon.src = "https://bmcdn.nl/assets/weather-icons/v3.0/line/svg/overcast-haze.svg";
-                }else if(weatherId >= 801 && weatherId <= 804){
-
+                Calendar calendar = Calendar.getInstance();
+                int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
+                if(weatherId == 800 && (hour24hrs < 6 || hour24hrs > 20)) {
+                    binding.weatherIcon.setImageResource(R.drawable.ic_clear_night);
+                }
+                else if (weatherId == 800 && (hour24hrs > 6 && hour24hrs <20)){
+                    binding.weatherIcon.setImageResource(R.drawable.ic_clear_day);
+                }
+                else if(weatherId >= 200 && weatherId <= 232){
                     binding.weatherIcon.setImageResource(R.drawable.thunderstorms);
-//                    Picasso.get().load("https://github.com/basmilius/weather-icons/blob/dev/production/fill/png/512/thunderstorms.png?raw=true").into(addBinding.weatherIcon);
-
-                    //                   wIcon.src = "https://bmcdn.nl/assets/weather-icons/v3.0/line/svg/cloudy.svg";
-                }else if((weatherId >= 500 && weatherId <= 531) || (weatherId >= 300 && weatherId <= 321)){
-                    //                   wIcon.src = "https://bmcdn.nl/assets/weather-icons/v3.0/line/svg/rain.svg";
+                }
+                else if(weatherId >= 600 && weatherId <= 622){
+                    binding.weatherIcon.setImageResource(R.drawable.ic_snow);
+                }
+                else if(weatherId >= 300 && weatherId <= 321){
+                    binding.weatherIcon.setImageResource(R.drawable.ic_drizzle);
+                }
+                else if(weatherId >= 701 && weatherId <= 781){
+                    binding.weatherIcon.setImageResource(R.drawable.ic_haze);
+                 }
+                else if(weatherId >= 801 && weatherId <= 804){
+                    binding.weatherIcon.setImageResource(R.drawable.ic_cloudy);
+                }
+                else if(weatherId >= 500 && weatherId <= 531){
+                    binding.weatherIcon.setImageResource(R.drawable.ic_rain);
                 }
 
-
-                if (temps == 15) {
-                    binding.tempSuggestions.setText("GOOD");
+                if(hour24hrs < 6 || hour24hrs > 20) {
+                    binding.tempSuggestions.setText(R.string.weather_night);
                 }
-                else {
-                    binding.tempSuggestions.setText("bad");
+                else if (temps > 10 && temps < 30  && weatherId == 800 || (weatherId >= 801 && weatherId <= 804)) {
+                    binding.tempSuggestions.setText(R.string.weather_good);
                 }
-                System.out.println();
-
+                else if(
+                        temps < 9 || temps > 31 ||
+                                ((weatherId >= 600 && weatherId <= 622) ||           //snow
+                                        (weatherId >= 500 && weatherId <= 531) ||    //rain
+                                        (weatherId >= 300 && weatherId <= 321) ||    //drizzle
+                                        (weatherId >= 200 && weatherId <= 232) ||    //thunderstorms
+                                        (weatherId >= 701 && weatherId <= 781)       //haze
+                                ))
+                { binding.tempSuggestions.setText(R.string.weathet_bad); }
             }
+
             @Override
-            public void onFailure(Call<Root> call, Throwable t) {
+            public void onFailure(@NonNull Call<Root> call, Throwable t) {
                 System.out.println(t.getMessage());
             }
         });
