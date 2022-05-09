@@ -33,7 +33,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        final TextView textView = binding.textHome;
+        final TextView textView = binding.location;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         weatherApi();
         return view;

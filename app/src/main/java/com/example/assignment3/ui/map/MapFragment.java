@@ -15,9 +15,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapFragment extends Fragment {
-
 
 
     @Override
@@ -34,9 +34,14 @@ public class MapFragment extends Fragment {
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(-37.8136,144.9631) , 11.0f) );
+                googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(-37.915047, 145.129272) , 12.0f) );
                 googleMap.setMinZoomPreference(6.0f);
                 googleMap.setMaxZoomPreference(14.0f);
+
+                LatLng user1 = new LatLng( -37.915047, 145.129272);
+                googleMap.addMarker(new MarkerOptions()
+                        .position(user1)
+                        .title("Marker in user1"));
             }
         });
         // Return view
