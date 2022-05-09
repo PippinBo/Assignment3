@@ -8,7 +8,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.assignment3.databinding.LoginActivityBinding;
-import com.example.assignment3.ui.home.HomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 //Version 1.0.2: set up --- Lichen
@@ -41,10 +40,15 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        auth.signInWithEmailAndPassword(txt_email, txt_pwd).addOnSuccessListener(authResult -> {
-            String msg = "Login Successful";
-            toastMsg(msg);
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        auth.signInWithEmailAndPassword(txt_email, txt_pwd).addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                String msg = "Login Successful";
+                toastMsg(msg);
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            } else {
+                String msg = "Login in Fail, please check your email and password";
+                toastMsg(msg);
+            }
         });
     }
     public void toastMsg(String message){

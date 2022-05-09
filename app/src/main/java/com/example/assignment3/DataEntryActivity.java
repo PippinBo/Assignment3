@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.assignment3.databinding.DataEntryBinding;
+import com.example.assignment3.entity.User;
 
 //Version 1.0.3: data entry --- Lichen
 public class DataEntryActivity extends AppCompatActivity {
@@ -36,6 +37,8 @@ public class DataEntryActivity extends AppCompatActivity {
             String msg = "Clear All";
             toastMsg(msg);
         });
+        // return to login screen
+        binding.leaveButton.setOnClickListener(v -> startActivity(new Intent(DataEntryActivity.this, LoginActivity.class)));
         // Create button --- pass user object to check page
         binding.createButton.setOnClickListener(v -> {
             Bundle bundle = getIntent().getExtras();

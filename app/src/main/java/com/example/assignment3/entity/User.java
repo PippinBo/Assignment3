@@ -1,17 +1,28 @@
-package com.example.assignment3;
+package com.example.assignment3.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 //Version 1.0.3: data entry --- Lichen
-//@Entity
+@Entity(tableName = "User")
 public class User implements Parcelable {
 
-    //@PrimaryKey(autoGenerate = true)
-    //private int uid = 0;
+    @PrimaryKey(autoGenerate = true)
+    public int uid;
 
+    @ColumnInfo(name = "email")
+    @NonNull
     private String email;
+
+    @ColumnInfo(name = "password")
+    @NonNull
     private String password;
+
     private String role;
     private String name;
     private String address;
@@ -24,7 +35,7 @@ public class User implements Parcelable {
         this.address = in.readString();
     }
 
-    public User(String email, String password, String role, String name, String address) {
+    public User(@NonNull String email, @NonNull String password, String role, String name, String address) {
         this.email = email;
         this.password = password;
         this.role = role;
@@ -55,23 +66,25 @@ public class User implements Parcelable {
         }
     };
 
-    //public int getUid() { return uid; }
+    public int getUid() { return uid; }
 
-    //public void setUid(int uid) { this.uid = uid; }
+    public void setUid(int uid) { this.uid = uid; }
 
+    @NonNull
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(@NonNull String email) {
         this.email = email;
     }
 
+    @NonNull
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(@NonNull String password) {
         this.password = password;
     }
 
