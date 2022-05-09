@@ -3,7 +3,7 @@
     package="com.example.assignment3">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,10 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Assignment3">
-        <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".SignupActivity"></activity>
-        <activity android:name=".DataEntryActivity"></activity>
-        <activity android:name=".RegistrationCheckActivity"></activity>
+        <activity
+            android:name=".BarChartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReportActivity"
+            android:exported="false" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".DataEntryActivity" />
+        <activity android:name=".RegistrationCheckActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
