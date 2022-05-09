@@ -1,4 +1,4 @@
-package com.assignment3.fitbud.ui.map;
+package com.example.assignment3.ui.map;
 
 
 import android.os.Bundle;
@@ -9,14 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.assignment3.fitbud.R;
-import com.google.android.gms.maps.CameraUpdate;
+import com.example.assignment3.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapFragment extends Fragment {
 

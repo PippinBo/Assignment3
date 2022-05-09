@@ -1,4 +1,4 @@
-package com.assignment3.fitbud.ui.home;
+package com.example.assignment3.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,12 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.assignment3.fitbud.R;
-import com.assignment3.fitbud.databinding.FragmentHomeBinding;
+import com.example.assignment3.R;
+import com.example.assignment3.databinding.FragmentHomeBinding;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -1,4 +1,4 @@
-package com.assignment3.fitbud.ui.report;
+package com.example.assignment3.ui.report;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.assignment3.fitbud.databinding.FragmentReportBinding;
+import com.example.assignment3.databinding.FragmentReportBinding;
 
 
 public class ReportFragment extends Fragment {

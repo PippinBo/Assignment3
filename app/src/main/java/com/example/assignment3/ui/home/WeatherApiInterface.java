@@ -1,4 +1,4 @@
-package com.assignment3.fitbud.ui.home;
+package com.example.assignment3.ui.home;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

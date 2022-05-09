@@ -1,4 +1,4 @@
-package com.assignment3.fitbud.ui.report;
+package com.example.assignment3.ui.report;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

@@ -1,4 +1,4 @@
-package com.assignment3.fitbud.ui.home;
+package com.example.assignment3.ui.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
