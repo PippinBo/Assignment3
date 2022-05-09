@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 //Note: user1: lichen100@gmail.com  Qq1234567! <Gym>
 //      user2: lichen101@gmail.com  Qq1234567! <User>
 //      user3: lichen102@gmail.com  Qq1234567! <User>
+//      user4: lichen103@gmail.com  Qq1234567!
 
 public class SignupActivity extends AppCompatActivity {
     private SignupBinding binding;
