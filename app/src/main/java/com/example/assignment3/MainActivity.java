@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.assignment3.databinding.ContentMainBinding;
 import com.example.assignment3.ui.map.MapFragment;

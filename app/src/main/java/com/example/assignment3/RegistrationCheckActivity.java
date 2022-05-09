@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.assignment3.databinding.RegistrationCheckBinding;
+import com.example.assignment3.entity.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -38,6 +39,8 @@ public class RegistrationCheckActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://as3-5046-default-rtdb.asia-southeast1.firebasedatabase.app/");
         myRef = database.getReference("User");
 
+        // return to login screen
+        binding.redoButton.setOnClickListener(v -> startActivity(new Intent(RegistrationCheckActivity.this, LoginActivity.class)));
         binding.createButton.setOnClickListener(v -> registerUser(user));
     }
 
@@ -46,13 +49,15 @@ public class RegistrationCheckActivity extends AppCompatActivity {
             if(task.isSuccessful()) {
                 String msg = "Registration Successful";
                 toastMsg(msg);
-                // update to database --- use push() to auto generate the child nodes
+                // update to database
+
+                // update to firebase --- use push() to auto generate the child nodes
                 myRef.push().setValue(user);
 
                 Intent intent = new Intent(RegistrationCheckActivity.this, LoginActivity.class);
                 startActivity(intent);
-            }else {
-                String msg = "Registration Unsuccessful --- Unknown Error";
+            } else {
+                String msg = "Registration Unsuccessful";
                 toastMsg(msg);
             }
         });

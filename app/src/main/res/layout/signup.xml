@@ -82,7 +82,21 @@
             android:id="@+id/continueButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Next" />
+            android:text="Continue" />
+
+        <TextView
+            android:id="@+id/buttonTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Or"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/leaveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Leave" />
 
     </LinearLayout>
 

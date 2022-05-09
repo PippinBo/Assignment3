@@ -4,12 +4,14 @@ package com.example.assignment3;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.assignment3.databinding.SignupBinding;
+import com.example.assignment3.entity.User;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,6 +23,7 @@ import java.util.regex.Pattern;
 //      user4: lichen103@gmail.com  Qq1234567! <Gym>
 //      user5: test1@gmail.com      Password1! <User>
 //      user6: test2@gmail.com      Password2! <User>
+//      user7: test3@gmail.com      Password3! <User>
 
 public class SignupActivity extends AppCompatActivity {
     private SignupBinding binding;
@@ -33,13 +36,16 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(view);
 
         binding.continueButton.setOnClickListener(v -> {
-            //Get Text
+            // Get Text
             String email_txt = binding.emailEditText.getText().toString();
             String password_txt_1 = binding.passwordEditText.getText().toString();
             String password_txt_2 = binding.confirmPasswordEditText.getText().toString();
-            //validation
+            // validation
             if (TextUtils.isEmpty(email_txt) || TextUtils.isEmpty(password_txt_1) || TextUtils.isEmpty(password_txt_2)) {
                 String msg = "Please enter your information";
+                toastMsg(msg);
+            } else if (!Patterns.EMAIL_ADDRESS.matcher(email_txt).matches()) {
+                String msg = "Please enter an valid email";
                 toastMsg(msg);
             } else if (!isValidPassword(password_txt_1)) {
                 String msg = "Invalid password format";
@@ -50,13 +56,16 @@ public class SignupActivity extends AppCompatActivity {
             } else
                 addUser(email_txt, password_txt_1);
         });
+        // return to login screen
+        binding.leaveButton.setOnClickListener(v -> startActivity(new Intent(SignupActivity.this, LoginActivity.class)));
     }
 
     private void addUser(String email_txt, String password_txt_1) {
         // create a User object and pass it to next view
         Intent intent = new Intent(SignupActivity.this, DataEntryActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelable("user", new User(email_txt, password_txt_1, "", "", ""));
+        User newUser = new User(email_txt, password_txt_1, "", "", "");
+        bundle.putParcelable("user", newUser);
         intent.putExtras(bundle);
         startActivity(intent);
     }

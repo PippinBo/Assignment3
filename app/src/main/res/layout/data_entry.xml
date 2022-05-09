@@ -81,13 +81,13 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/clearButton"
+            android:id="@+id/createButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Clear All" />
+            android:text="Create Account" />
 
         <TextView
-            android:id="@+id/buttonTextView"
+            android:id="@+id/buttonTextView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -95,10 +95,24 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/createButton"
+            android:id="@+id/clearButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create Account" />
+            android:text="Clear All" />
+
+        <TextView
+            android:id="@+id/buttonTextView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Or"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/leaveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Leave" />
     </LinearLayout>
 
 </LinearLayout>
