@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".BarChartActivity">
+
+    <TextView
+        android:id="@+id/barChartTitle"
+        android:layout_width="427dp"
+        android:layout_height="29dp"
+        android:gravity="center_horizontal"
+        android:text="Hello" />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barReportChart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
