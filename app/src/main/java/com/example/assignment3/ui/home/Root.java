@@ -2,6 +2,7 @@ package com.example.assignment3.ui.home;
 
 import java.util.ArrayList;
 
+//version 1.0.1: get openWeather API data --Hongyu
 public class Root{
     public Coord coord;
     public ArrayList<Weather> weather;

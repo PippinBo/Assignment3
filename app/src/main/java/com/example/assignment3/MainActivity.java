@@ -1,8 +1,11 @@
 package com.example.assignment3;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -29,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
         drawerNavigation();
     }
 
+
+
+    //version 1.0.1: drawer navigation --Hongyu
     public void drawerNavigation() {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -55,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void logOut(MenuItem item) {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 
 }

@@ -21,6 +21,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+//version 1.0.1: home fragment --Hongyu
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;

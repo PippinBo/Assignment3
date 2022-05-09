@@ -17,6 +17,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+//version 1.0.1: map fragment --Hongyu
 public class MapFragment extends Fragment {
 
 

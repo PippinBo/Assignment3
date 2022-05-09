@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.assignment3.databinding.FragmentReportBinding;
 
+// this fragment is for report page, feel free to edit
 
 public class ReportFragment extends Fragment {
 
