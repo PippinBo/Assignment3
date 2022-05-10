@@ -6,9 +6,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.assignment3.databinding.RegistrationCheckBinding;
 import com.example.assignment3.entity.User;
+import com.example.assignment3.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -18,6 +20,7 @@ public class RegistrationCheckActivity extends AppCompatActivity {
     private RegistrationCheckBinding binding;
     private FirebaseAuth auth;
     DatabaseReference myRef;
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,8 @@ public class RegistrationCheckActivity extends AppCompatActivity {
         // Use database in Singapore... so URL is needed
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://as3-5046-default-rtdb.asia-southeast1.firebasedatabase.app/");
         myRef = database.getReference("User");
-
+        //Room database
+        userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(UserViewModel.class);
         // return to login screen
         binding.redoButton.setOnClickListener(v -> startActivity(new Intent(RegistrationCheckActivity.this, LoginActivity.class)));
         binding.createButton.setOnClickListener(v -> registerUser(user));
@@ -50,9 +54,9 @@ public class RegistrationCheckActivity extends AppCompatActivity {
                 String msg = "Registration Successful";
                 toastMsg(msg);
                 // update to database
-
+                userViewModel.insert(user);
                 // update to firebase --- use push() to auto generate the child nodes
-                myRef.push().setValue(user);
+                //myRef.push().setValue(user);
 
                 Intent intent = new Intent(RegistrationCheckActivity.this, LoginActivity.class);
                 startActivity(intent);
