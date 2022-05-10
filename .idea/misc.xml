@@ -18,13 +18,14 @@
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.14837341308593752" />
         <entry key="app/src/main/res/layout/data_entry.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.36395568847656257" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_share.xml" value="0.1" />
         <entry key="app/src/main/res/layout/login_activity.xml" value="0.5291863803205819" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/registration_check.xml" value="0.1" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.1360544217687075" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.19074074074074074" />
         <entry key="app/src/main/res/menu/main.xml" value="0.18333333333333332" />
       </map>
     </option>
