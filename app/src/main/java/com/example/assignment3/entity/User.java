@@ -3,8 +3,6 @@ package com.example.assignment3.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -13,16 +11,10 @@ import androidx.room.PrimaryKey;
 public class User implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
-    public int uid;
+    private int uid;
 
-    @ColumnInfo(name = "email")
-    @NonNull
     private String email;
-
-    @ColumnInfo(name = "password")
-    @NonNull
     private String password;
-
     private String role;
     private String name;
     private String address;
@@ -35,7 +27,7 @@ public class User implements Parcelable {
         this.address = in.readString();
     }
 
-    public User(@NonNull String email, @NonNull String password, String role, String name, String address) {
+    public User(String email, String password, String role, String name, String address) {
         this.email = email;
         this.password = password;
         this.role = role;
@@ -70,21 +62,19 @@ public class User implements Parcelable {
 
     public void setUid(int uid) { this.uid = uid; }
 
-    @NonNull
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(@NonNull String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    @NonNull
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(@NonNull String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
