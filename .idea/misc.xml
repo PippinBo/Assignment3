@@ -20,7 +20,9 @@
         <entry key="app/src/main/res/layout/data_entry.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_report.xml" value="0.17572463768115942" />
         <entry key="app/src/main/res/layout/fragment_share.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/list_report_type.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/login_activity.xml" value="0.5291863803205819" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/registration_check.xml" value="0.1" />
