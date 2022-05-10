@@ -3,6 +3,8 @@ package com.example.assignment3.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -15,8 +17,14 @@ public class User implements Parcelable {
 
     private String email;
     private String password;
+    @ColumnInfo(name = "role")
+    @NonNull
     private String role;
+    @ColumnInfo(name = "name")
+    @NonNull
     private String name;
+    @ColumnInfo(name = "address")
+    @NonNull
     private String address;
 
     public User(Parcel in) {
@@ -27,7 +35,7 @@ public class User implements Parcelable {
         this.address = in.readString();
     }
 
-    public User(String email, String password, String role, String name, String address) {
+    public User(String email, String password, @NonNull String role, @NonNull String name, @NonNull String address) {
         this.email = email;
         this.password = password;
         this.role = role;
@@ -52,15 +60,20 @@ public class User implements Parcelable {
         public User createFromParcel(Parcel in) {
             return new User(in);
         }
+
         @Override
         public User[] newArray(int size) {
             return new User[size];
         }
     };
 
-    public int getUid() { return uid; }
+    public int getUid() {
+        return uid;
+    }
 
-    public void setUid(int uid) { this.uid = uid; }
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
 
     public String getEmail() {
         return email;
@@ -78,27 +91,30 @@ public class User implements Parcelable {
         this.password = password;
     }
 
+    @NonNull
     public String getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(@NonNull String role) {
         this.role = role;
     }
 
+    @NonNull
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@NonNull String name) {
         this.name = name;
     }
 
+    @NonNull
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(@NonNull String address) {
         this.address = address;
     }
 }

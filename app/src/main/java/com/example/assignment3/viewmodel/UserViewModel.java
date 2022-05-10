@@ -13,22 +13,24 @@ import com.example.assignment3.repository.UserRepository;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class UserViewModel  extends AndroidViewModel {
+public class UserViewModel extends AndroidViewModel {
     private UserRepository uRepository;
     private LiveData<List<User>> allUsers;
-    public UserViewModel (Application application) {
+
+    public UserViewModel(Application application) {
         super(application);
         uRepository = new UserRepository(application);
         allUsers = uRepository.getAllUsers();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public CompletableFuture<User> findByIDFuture(final int userId){
-        return uRepository.findByIDFuture(userId);
+    public User findByEmail(final String email) {
+        return uRepository.findByEmail(email);
     }
+
     public LiveData<List<User>> getAllUsers() {
         return allUsers;
     }
+
     public void insert(User user) {
         uRepository.insert(user);
     }
@@ -36,6 +38,7 @@ public class UserViewModel  extends AndroidViewModel {
     public void deleteAll() {
         uRepository.deleteAll();
     }
+
     public void update(User user) {
         uRepository.updateUser(user);
     }

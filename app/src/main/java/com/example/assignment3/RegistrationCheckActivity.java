@@ -41,7 +41,7 @@ public class RegistrationCheckActivity extends AppCompatActivity {
         // Use database in Singapore... so URL is needed
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://as3-5046-default-rtdb.asia-southeast1.firebasedatabase.app/");
         myRef = database.getReference("User");
-        //Room database
+        // Room database
         userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(UserViewModel.class);
         // return to login screen
         binding.redoButton.setOnClickListener(v -> startActivity(new Intent(RegistrationCheckActivity.this, LoginActivity.class)));
@@ -61,7 +61,7 @@ public class RegistrationCheckActivity extends AppCompatActivity {
                 Intent intent = new Intent(RegistrationCheckActivity.this, LoginActivity.class);
                 startActivity(intent);
             } else {
-                String msg = "Registration Unsuccessful";
+                String msg = "Registration Unsuccessful, Please try another email";
                 toastMsg(msg);
             }
         });
