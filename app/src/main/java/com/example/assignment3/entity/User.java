@@ -13,16 +13,10 @@ import androidx.room.PrimaryKey;
 public class User implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
-    public int uid;
+    private int uid;
 
-    @ColumnInfo(name = "email")
-    @NonNull
     private String email;
-
-    @ColumnInfo(name = "password")
-    @NonNull
     private String password;
-
     private String role;
     private String name;
     private String address;
@@ -35,7 +29,7 @@ public class User implements Parcelable {
         this.address = in.readString();
     }
 
-    public User(@NonNull String email, @NonNull String password, String role, String name, String address) {
+    public User(String email, String password, String role, String name, String address) {
         this.email = email;
         this.password = password;
         this.role = role;
@@ -60,31 +54,34 @@ public class User implements Parcelable {
         public User createFromParcel(Parcel in) {
             return new User(in);
         }
+
         @Override
         public User[] newArray(int size) {
             return new User[size];
         }
     };
 
-    public int getUid() { return uid; }
+    public int getUid() {
+        return uid;
+    }
 
-    public void setUid(int uid) { this.uid = uid; }
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
 
-    @NonNull
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(@NonNull String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    @NonNull
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(@NonNull String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

@@ -26,12 +26,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SignupActivity" ></activity>
-        <activity android:name=".DataEntryActivity" ></activity>
-        <activity android:name=".RegistrationCheckActivity" ></activity>
-
-
-
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".DataEntryActivity" />
+        <activity android:name=".RegistrationCheckActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

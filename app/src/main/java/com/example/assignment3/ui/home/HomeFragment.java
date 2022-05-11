@@ -1,19 +1,32 @@
 package com.example.assignment3.ui.home;
 
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import com.example.assignment3.LoginActivity;
+import com.example.assignment3.MainActivity;
 import com.example.assignment3.R;
+import com.example.assignment3.SignupActivity;
 import com.example.assignment3.databinding.FragmentHomeBinding;
+import com.example.assignment3.ui.map.MapFragment;
 
 import java.util.Calendar;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,7 +51,10 @@ public class HomeFragment extends Fragment {
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         weatherApi();
         return view;
+
     }
+
+
 
     public void weatherApi(){
         Retrofit retrofit = new Retrofit.Builder()

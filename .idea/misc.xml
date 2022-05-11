@@ -25,8 +25,10 @@
         <entry key="app/src/main/res/layout/list_report_type.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/login_activity.xml" value="0.41906474820143885" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/record.xml" value="0.1" />
         <entry key="app/src/main/res/layout/registration_check.xml" value="0.1" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.1360544217687075" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.19074074074074074" />
         <entry key="app/src/main/res/menu/main.xml" value="0.18333333333333332" />
       </map>
     </option>

@@ -1,6 +1,7 @@
 package com.example.assignment3.entity;
 
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
@@ -8,7 +9,10 @@ import java.util.Date;
 @Entity(tableName = "Movement")
 public class Movement {
 
-    public int uid;
+    @PrimaryKey(autoGenerate = true)
+    private int mid;
+
+    private int uid;
     private Date time;
     private long movement;
 
@@ -17,6 +21,10 @@ public class Movement {
         this.time = time;
         this.movement = movement;
     }
+
+    public int getMid() { return mid; }
+
+    public void setMid(int mid) { this.mid = mid; }
 
     public int getUid() { return uid; }
 
