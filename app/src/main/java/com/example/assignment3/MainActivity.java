@@ -33,10 +33,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
 
-
         drawerNavigation();
     }
-
 
 
     //version 1.0.1: drawer navigation --Hongyu
@@ -47,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_map, R.id.nav_report, R.id.nav_share,
-                R.id.bottom_nav_home, R.id.bottom_nav_map, R.id.bottom_nav_report)
+                R.id.nav_home, R.id.nav_map, R.id.nav_report, R.id.nav_share,R.id.nav_record,
+                R.id.nav_generate_report, R.id.nav_pieChart)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

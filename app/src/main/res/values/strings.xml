@@ -8,13 +8,19 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Log Out</string>
 
+    <string name="background_image">Background Image</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_map">Map</string>
     <string name="menu_report">Report</string>
+    <string name="menu_generate_report">Generate Report</string>
     <string name="menu_record">Record</string>
     <string name="menu_share">Share</string>
 
+    <string name="generate_report">Generate Report</string>
+    <string name="generate_pieChart">Generate PieChart</string>
+
+    <string name="back_button">Back</string>
 
     <string name="weather_night">Good evening</string>
     <string name="weather_good">Good day for outdoor activities</string>
