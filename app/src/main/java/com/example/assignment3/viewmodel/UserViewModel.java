@@ -23,7 +23,7 @@ public class UserViewModel extends AndroidViewModel {
         allUsers = uRepository.getAllUsers();
     }
 
-    public User findByEmail(final String email) {
+    public LiveData<User> findByEmail(final String email) {
         return uRepository.findByEmail(email);
     }
 

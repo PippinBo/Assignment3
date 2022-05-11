@@ -17,8 +17,8 @@ public interface UserDao {
     @Query("SELECT * FROM user ORDER BY uid ASC")
     LiveData<List<User>> getAll();
 
-    @Query("SELECT uid, role, name, address FROM user WHERE email = :email")
-    User findByEmail(String email);
+    @Query("SELECT * FROM user WHERE email = :email")
+    LiveData<User> findByEmail(String email);
 
     @Insert
     void insert(User user);

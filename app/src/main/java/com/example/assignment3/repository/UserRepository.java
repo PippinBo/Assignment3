@@ -64,7 +64,7 @@ public class UserRepository {
         });
     }
 
-    public User findByEmail(final String email) {
+    public LiveData<User> findByEmail(final String email) {
         return userDao.findByEmail(email);
     }
 }

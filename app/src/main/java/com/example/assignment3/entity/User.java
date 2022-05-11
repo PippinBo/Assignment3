@@ -17,14 +17,8 @@ public class User implements Parcelable {
 
     private String email;
     private String password;
-    @ColumnInfo(name = "role")
-    @NonNull
     private String role;
-    @ColumnInfo(name = "name")
-    @NonNull
     private String name;
-    @ColumnInfo(name = "address")
-    @NonNull
     private String address;
 
     public User(Parcel in) {
@@ -35,7 +29,7 @@ public class User implements Parcelable {
         this.address = in.readString();
     }
 
-    public User(String email, String password, @NonNull String role, @NonNull String name, @NonNull String address) {
+    public User(String email, String password, String role, String name, String address) {
         this.email = email;
         this.password = password;
         this.role = role;
@@ -91,30 +85,27 @@ public class User implements Parcelable {
         this.password = password;
     }
 
-    @NonNull
     public String getRole() {
         return role;
     }
 
-    public void setRole(@NonNull String role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
-    @NonNull
     public String getName() {
         return name;
     }
 
-    public void setName(@NonNull String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    @NonNull
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(@NonNull String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 }

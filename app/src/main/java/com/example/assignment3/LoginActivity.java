@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.assignment3.databinding.LoginActivityBinding;
@@ -50,9 +51,13 @@ public class LoginActivity extends AppCompatActivity {
 
         auth.signInWithEmailAndPassword(txt_email, txt_pwd).addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
-                String msg = "Login Successful";
-                toastMsg(msg);
-
+                userViewModel.findByEmail(txt_email).observe(this, new Observer<User>() {
+                    @Override
+                    public void onChanged(User user) {
+                        String msg = "Hello " + user.getName();
+                        toastMsg(msg);
+                    }
+                });
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
             } else {
                 String msg = "Login in Fail, please check your email and password";
