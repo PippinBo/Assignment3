@@ -27,8 +27,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recordRecycle"
-        android:layout_width="369dp"
-        android:layout_height="497dp"
+        android:layout_width="347dp"
+        android:layout_height="445dp"
         android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recordRecycle"
-        app:layout_constraintVertical_bias="0.017" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
