@@ -2,6 +2,7 @@ package com.example.assignment3.ui.report;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.assignment3.BarChartActivity;
 import com.example.assignment3.R;
 import com.example.assignment3.databinding.FragmentReportBinding;
 
@@ -38,6 +41,8 @@ public class ReportFragment extends Fragment {
     private Button endDateButton;
     private DatePickerDialog startDatePickerDialog;
     private DatePickerDialog endDatePickerDialog;
+
+    private Button generateReportButton;
 
 
 
@@ -78,9 +83,35 @@ public class ReportFragment extends Fragment {
 
         endDateButton.setText(getTodaysDate());
 
+        // Generate Report
+        generateReportButton = (Button) root.findViewById(R.id.generateReportButton);
+        generateReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ((autoCompleteTxt.getText().toString()).equals("Bar-Chart"))
+                {
+                    openBarChartActivity();
+                } else if ((autoCompleteTxt.getText().toString()).equals("Pie-Chart")){
+                    openBarChartActivity();
+                }
+                else{
+                    Toast.makeText(getActivity(),"Select Report Type", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
         final TextView textView = binding.textSlideshow;
         reportViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
+    }
+
+    // Generate Report
+    public void openBarChartActivity(){
+        Intent barReportIntent = new Intent(getActivity(), BarChartActivity.class);
+        barReportIntent.putExtra("startDate",startDateButton.getText().toString());
+        barReportIntent.putExtra("endDate",endDateButton.getText().toString());
+        startActivity(barReportIntent);
     }
 
     private void initStartDatePicker(){
