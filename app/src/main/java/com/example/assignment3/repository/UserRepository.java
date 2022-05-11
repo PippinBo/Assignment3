@@ -23,37 +23,39 @@ public class UserRepository {
         userDao = db.userDao();
         allUsers = userDao.getAll();
     }
-        public LiveData<List<User>> getAllUsers() {
-            return allUsers;
-        }
 
-        public void insert(final User user){
-            UserDatabase.databaseWriteExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    userDao.insert(user);
-                }
-            });
-        }
+    public LiveData<List<User>> getAllUsers() {
+        return allUsers;
+    }
 
-        public void deleteAll(){
-            UserDatabase.databaseWriteExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    userDao.deleteAll();
-                }
-            });
-        }
-        public void delete(final User user){
-            UserDatabase.databaseWriteExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    userDao.delete(user);
-                }
-            });
-        }
+    public void insert(final User user) {
+        UserDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                userDao.insert(user);
+            }
+        });
+    }
 
-    public void updateUser(final User user){
+    public void deleteAll() {
+        UserDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                userDao.deleteAll();
+            }
+        });
+    }
+
+    public void delete(final User user) {
+        UserDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                userDao.delete(user);
+            }
+        });
+    }
+
+    public void updateUser(final User user) {
         UserDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -62,14 +64,8 @@ public class UserRepository {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public CompletableFuture<User> findByIDFuture(final int userId) {
-        return CompletableFuture.supplyAsync(new Supplier<User>() {
-            @Override
-            public User get() {
-                return userDao.findByID(userId);
-            }
-        }, UserDatabase.databaseWriteExecutor);
+    public LiveData<User> findByEmail(final String email) {
+        return userDao.findByEmail(email);
     }
 }
 

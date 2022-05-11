@@ -3,6 +3,8 @@ package com.example.assignment3.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -52,15 +54,20 @@ public class User implements Parcelable {
         public User createFromParcel(Parcel in) {
             return new User(in);
         }
+
         @Override
         public User[] newArray(int size) {
             return new User[size];
         }
     };
 
-    public int getUid() { return uid; }
+    public int getUid() {
+        return uid;
+    }
 
-    public void setUid(int uid) { this.uid = uid; }
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
 
     public String getEmail() {
         return email;
