@@ -6,15 +6,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.assignment3.databinding.LoginActivityBinding;
 import com.example.assignment3.entity.User;
 import com.example.assignment3.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.concurrent.CompletableFuture;
 
 //Version 1.0.2: set up --- Lichen
 
@@ -51,14 +48,21 @@ public class LoginActivity extends AppCompatActivity {
 
         auth.signInWithEmailAndPassword(txt_email, txt_pwd).addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
-                userViewModel.findByEmail(txt_email).observe(this, new Observer<User>() {
-                    @Override
-                    public void onChanged(User user) {
-                        String msg = "Hello " + user.getName();
-                        toastMsg(msg);
+                userViewModel.findByEmail(txt_email).observe(this, user -> {
+                    String msg;
+                    if (user != null) {
+                        msg = "Hello " + user.getName();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("loginUser", user);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                     }
+                    else {
+                        msg = "Login in Fail, no user in your Local database";
+                    }
+                    toastMsg(msg);
                 });
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
             } else {
                 String msg = "Login in Fail, please check your email and password";
                 toastMsg(msg);
