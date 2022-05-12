@@ -15,21 +15,30 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.assignment3.R;
-import com.example.assignment3.databinding.FragmentGenerateReportBinding;
-import com.example.assignment3.databinding.FragmentReportBinding;
+import com.example.assignment3.databinding.FragmentBarchartBinding;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
 
 // this fragment is for report page, feel free to edit
 
-public class GenerateReportFragment extends Fragment {
+public class BarChartFragment extends Fragment {
 
-    private FragmentGenerateReportBinding binding;
+    private FragmentBarchartBinding binding;
+    private BarChart barChart;
+    private ArrayList barArrayList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        GenerateReportViewModel generateReportViewModel =
-                new ViewModelProvider(this).get(GenerateReportViewModel.class);
+        BarChartViewModel barChartViewModel =
+                new ViewModelProvider(this).get(BarChartViewModel.class);
 
-        binding = FragmentGenerateReportBinding.inflate(inflater, container, false);
+        binding = FragmentBarchartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         Button shareButton = (Button) root.findViewById(R.id.facebook_button);
@@ -43,6 +52,11 @@ public class GenerateReportFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+
+        barChart = root.findViewById(R.id.barReportChart);
+        loadPieChartData();
+
 
         Button ID = (Button) root.findViewById(R.id.back_button);
         ID.setOnClickListener(new View.OnClickListener() {
@@ -58,8 +72,29 @@ public class GenerateReportFragment extends Fragment {
         });
 
         final TextView textView = binding.generateReport;
-        generateReportViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        barChartViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
+    }
+
+    private void loadPieChartData(){
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        getData();
+        BarDataSet barDataSet = new BarDataSet(barArrayList, "FitBud");
+        BarData barData = new BarData(barDataSet);
+        barChart.setData(barData);
+        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        barDataSet.setValueTextSize(16f);
+        barChart.getDescription().setEnabled(true);
+
+    }
+
+    private void getData(){
+        barArrayList = new ArrayList();
+        barArrayList.add(new BarEntry(2f,10));
+        barArrayList.add(new BarEntry(3f,20));
+        barArrayList.add(new BarEntry(4f,30));
+        barArrayList.add(new BarEntry(5f,40));
+
     }
 
     @Override

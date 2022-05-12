@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -93,7 +92,7 @@ public class ReportFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 assert fragmentManager != null;
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                GenerateReportFragment GenerateReport = new GenerateReportFragment();
+                BarChartFragment GenerateReport = new BarChartFragment();
                 fragmentTransaction.replace(R.id.nav_host_fragment, GenerateReport);
                 fragmentTransaction.commit();
             }

@@ -25,15 +25,15 @@
 
     <fragment
         android:id="@+id/nav_generate_report"
-        android:name="com.example.assignment3.ui.report.GenerateReportFragment"
+        android:name="com.example.assignment3.ui.report.BarChartFragment"
         android:label="@string/menu_generate_report"
-        tools:layout="@layout/fragment_generate_report"/>
+        tools:layout="@layout/fragment_barchart"/>
 
     <fragment
         android:id="@+id/nav_pieChart"
         android:name="com.example.assignment3.ui.report.PieChartFragment"
         android:label="@string/menu_generate_report"
-        tools:layout="@layout/fragment_generate_report"/>
+        tools:layout="@layout/fragment_barchart"/>
 
     <fragment
         android:id="@+id/nav_share"
