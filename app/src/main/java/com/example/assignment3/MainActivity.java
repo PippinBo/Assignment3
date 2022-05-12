@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.assignment3.databinding.ContentMainBinding;
@@ -47,14 +48,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
 
-//        setContentView(R.layout.nav_header_main);
-//        TextView userName = (TextView) findViewById(R.id.user_name);
-//
-//        Bundle bundle = getIntent().getExtras();
-//        User user = bundle.getParcelable("loginUser");
-//
-//        String nickName = user.getName();
-//        String email = user.getEmail();st
+
+        Bundle bundle = getIntent().getExtras();
+        User user = bundle.getParcelable("loginUser");
+        
+
+            NavigationView mNavigation = (NavigationView)findViewById(R.id.nav_view);
+            //Get the headerview first
+            View headerView = mNavigation.getHeaderView(0);
+            // Get Username and Email TextViews
+            TextView userName = headerView.findViewById(R.id.user_name);
+            TextView userEmail = headerView.findViewById(R.id.email_address);
+            // set user name and email
+            userName.setText(user.getName());
+            userEmail.setText(user.getEmail());
+
 
         drawerNavigation();
     }
