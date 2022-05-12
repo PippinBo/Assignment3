@@ -58,10 +58,10 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyView
                 confirmUpdate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String date = "2020";
+                        String date = "";
                         long distance = 0;
 
-                        //date = dateUpdateText.getText().toString();
+                        date = dateUpdateText.getText().toString();
                         distance = Long.parseLong(editDistance.getText().toString());
                         records.set(position,new Movement(111,date,distance));
                         notifyItemChanged(position);
