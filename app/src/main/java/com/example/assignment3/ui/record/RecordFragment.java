@@ -39,8 +39,8 @@ public class RecordFragment extends Fragment {
 
         View root = LayoutInflater.from(getContext()).inflate(R.layout.fragment_record,container,false);
 
-        recyclerView = root.findViewById(R.id.recordRecycle);
         setMovementInfo();
+        recyclerView = root.findViewById(R.id.recordRecycle);
         setAdapter();
 
         addRecordButtonDialog = root.findViewById(R.id.addRecordButton);
