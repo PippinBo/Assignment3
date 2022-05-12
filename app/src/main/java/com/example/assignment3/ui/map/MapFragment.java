@@ -47,13 +47,21 @@ public class MapFragment extends Fragment {
 
         UserViewModel userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(UserViewModel.class);
 
-        String email = "test1@gmail.com";
-        userViewModel.findByEmail(email).observe(getViewLifecycleOwner(), new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-               String address = user.getAddress();
-            }
-        });
+        Bundle bundle = getActivity().getIntent().getExtras();
+        User user = bundle.getParcelable("loginUser");
+        String address = user.getAddress();
+//        System.out.println(address);
+
+
+//
+//
+//        String email = "test1@gmail.com";
+//        userViewModel.findByEmail(email).observe(getViewLifecycleOwner(), new Observer<User>() {
+//            @Override
+//            public void onChanged(User user) {
+//               String address = user.getAddress();
+//            }
+//        });
 
         // Async map
         assert supportMapFragment != null;
@@ -67,7 +75,7 @@ public class MapFragment extends Fragment {
 
                 Context context = requireActivity().getApplicationContext();
                 LatLng latLng=getLocationFromAddress(context,
-                       "monash" );
+                       address );
 
                 googleMap.addMarker(new MarkerOptions()
                         .position(latLng)

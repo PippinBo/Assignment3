@@ -27,5 +27,7 @@
     <string name="weather_night">Good evening</string>
     <string name="weather_good">Good day for outdoor activities</string>
     <string name="weathet_bad">Better to do indoor activities</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
