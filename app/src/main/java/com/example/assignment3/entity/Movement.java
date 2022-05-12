@@ -3,21 +3,19 @@ package com.example.assignment3.entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
-
-//Might needed for report
+// version 1.0.5 : movement --- Lichen
 @Entity(tableName = "Movement")
 public class Movement {
 
     @PrimaryKey(autoGenerate = true)
     private int mid;
 
-    private int uid;
-    private Date time;
+    private int userId;
+    private String time;
     private long movement;
 
-    public Movement(int uid, Date time, long movement) {
-        this.uid = uid;
+    public Movement(int userId, String time, long movement) {
+        this.userId = userId;
         this.time = time;
         this.movement = movement;
     }
@@ -26,13 +24,13 @@ public class Movement {
 
     public void setMid(int mid) { this.mid = mid; }
 
-    public int getUid() { return uid; }
+    public int getUserId() { return userId; }
 
-    public void setUid(int uid) { this.uid = uid; }
+    public void setUserId(int userId) { this.userId = userId; }
 
-    public Date getTime() { return time; }
+    public String getTime() { return time; }
 
-    public void setTime(Date time) { this.time = time; }
+    public void setTime(String time) { this.time = time; }
 
     public long getMovement() { return movement; }
 

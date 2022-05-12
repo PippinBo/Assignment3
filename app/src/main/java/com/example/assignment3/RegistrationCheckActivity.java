@@ -54,7 +54,7 @@ public class RegistrationCheckActivity extends AppCompatActivity {
                 String msg = "Registration Successful";
                 toastMsg(msg);
                 // update to database
-                userViewModel.insert(user);
+                userViewModel.insertUser(user);
                 // update to firebase --- use push() to auto generate the child nodes
                 //myRef.push().setValue(user);
 
