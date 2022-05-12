@@ -47,14 +47,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
 
-        setContentView(R.layout.nav_header_main);
-        TextView userName = (TextView) findViewById(R.id.user_name);
-
-        Bundle bundle = getIntent().getExtras();
-        User user = bundle.getParcelable("loginUser");
-
-        String nickName = user.getName();
-        String email = user.getEmail();
+//        setContentView(R.layout.nav_header_main);
+//        TextView userName = (TextView) findViewById(R.id.user_name);
+//
+//        Bundle bundle = getIntent().getExtras();
+//        User user = bundle.getParcelable("loginUser");
+//
+//        String nickName = user.getName();
+//        String email = user.getEmail();st
 
         drawerNavigation();
     }
