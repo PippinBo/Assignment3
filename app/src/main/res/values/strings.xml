@@ -26,4 +26,8 @@
     <string name="weather_good">Good day for outdoor activities</string>
     <string name="weathet_bad">Better to do indoor activities</string>
 
+    <string name="facebook_app_id">322674936666004</string>
+    <string name="fb_login_protocol_scheme">fb322674936666004</string>
+    <string name="facebook_client_token">6b0768855d6586c8bf7d6056cf1b3eae</string>
+
 </resources>
