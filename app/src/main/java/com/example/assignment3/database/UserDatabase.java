@@ -7,12 +7,13 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.assignment3.dao.UserDao;
+import com.example.assignment3.entity.Movement;
 import com.example.assignment3.entity.User;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class}, version = 3, exportSchema = false)
+@Database(entities = {User.class, Movement.class}, version = 4, exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
