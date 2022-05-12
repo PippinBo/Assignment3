@@ -14,7 +14,6 @@ import com.example.assignment3.databinding.FragmentRecordBinding;
 public class RecordFragment extends Fragment {
 
     private FragmentRecordBinding binding;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         RecordViewModel recordViewModel =

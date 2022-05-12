@@ -19,7 +19,7 @@ public class User implements Parcelable {
     private String password;
     private String role;
     private String name;
-    private String address;
+    public String address;
 
     public User(Parcel in) {
         this.email = in.readString();

@@ -10,6 +10,8 @@
 
     <string name="background_image">Background Image</string>
 
+    <string name="activity">Todays activity</string>
+
     <string name="menu_home">Home</string>
     <string name="menu_map">Map</string>
     <string name="menu_report">Report</string>

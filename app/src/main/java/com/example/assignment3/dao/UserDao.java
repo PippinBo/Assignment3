@@ -20,6 +20,8 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE email = :email")
     LiveData<User> findByEmail(String email);
 
+
+
     @Insert
     void insert(User user);
 
