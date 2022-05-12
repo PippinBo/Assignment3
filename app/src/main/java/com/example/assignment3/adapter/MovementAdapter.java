@@ -1,16 +1,20 @@
 package com.example.assignment3.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.assignment3.R;
@@ -40,6 +44,31 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyView
         long distance = records.get(position).getMovement();
         String distanceString = String.valueOf(distance);
         holder.distanceText.setText(distanceString);
+
+        holder.deleteIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext())
+                        .setTitle("Delete Record")
+                        .setMessage("Are you sure you want to delete?")
+                        .setIcon(R.drawable.ic_baseline_delete_24)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                records.remove(position);
+                                notifyItemRemoved(position);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                builder.show();
+
+            }
+        });
 
         holder.llCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -82,15 +111,17 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView dateText;
-        TextView distanceText;
-        LinearLayout llCard;
+        public TextView dateText;
+        public TextView distanceText;
+        public ConstraintLayout llCard;
+        public ImageView deleteIcon;
 
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
             dateText = itemView.findViewById(R.id.recordCardDate);
             distanceText = itemView.findViewById(R.id.recordCardDistance);
             llCard = itemView.findViewById(R.id.llCard);
+            deleteIcon = itemView.findViewById(R.id.recordCardDelete);
         }
     }
 
