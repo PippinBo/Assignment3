@@ -3,6 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/activity_main.xml" value="0.1875" />
+        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/fragment_facebook.xml" value="0.1875" />
+        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/fragment_generate_report.xml" value="0.33" />
+        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/fragment_home.xml" value="0.3451086956521739" />
+        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/fragment_piechart.xml" value="0.1875" />
+        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/fragment_record.xml" value="0.1875" />
+        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/fragment_report.xml" value="0.1875" />
+        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/fragment_share.xml" value="0.1875" />
+        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/list_report_type.xml" value="0.3451086956521739" />
+        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/login_activity.xml" value="0.3451086956521739" />
+        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/nav_header_main.xml" value="0.3451086956521739" />
         <entry key="..\:/Users/lenovo/Desktop/Semester3/FIT5046/A_Project/Assignment3/app/src/main/res/layout/activity_main.xml" value="0.21" />
         <entry key="..\:/Users/lenovo/Desktop/Semester3/FIT5046/A_Project/Assignment3/app/src/main/res/layout/data_entry.xml" value="0.22" />
         <entry key="..\:/Users/lenovo/Desktop/Semester3/FIT5046/A_Project/Assignment3/app/src/main/res/layout/fragment_home.xml" value="0.1" />
@@ -16,23 +27,21 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.10778985507246377" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.14837341308593752" />
         <entry key="app/src/main/res/layout/data_entry.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_drawer_head.xml" value="0.16843971631205673" />
         <entry key="app/src/main/res/layout/fragment_drawer_navigation_header.xml" value="0.16843971631205673" />
         <entry key="app/src/main/res/layout/fragment_generate_report.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.29349365234375" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_piechart.xml" value="0.1413373860182371" />
-        <entry key="app/src/main/res/layout/fragment_record.xml" value="0.10157041540020263" />
-        <entry key="app/src/main/res/layout/fragment_report.xml" value="0.17613636363636365" />
         <entry key="app/src/main/res/layout/fragment_share.xml" value="0.1" />
         <entry key="app/src/main/res/layout/login_activity.xml" value="0.5291863803205819" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.293015332197615" />
         <entry key="app/src/main/res/layout/record.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/registration_check.xml" value="0.1" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.1360544217687075" />
-        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="app/src/main/res/menu/main.xml" value="0.18333333333333332" />
       </map>
     </option>

@@ -1,5 +1,6 @@
 package com.example.assignment3.ui.report;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,17 @@ public class GenerateReportFragment extends Fragment {
         binding = FragmentGenerateReportBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        Button shareButton = (Button) root.findViewById(R.id.facebook_button);
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Intent intent = new Intent(getActivity(), FacebookActivity.class);
+                startActivity(intent);
+                fragmentTransaction.commit();
+            }
+        });
 
         Button ID = (Button) root.findViewById(R.id.back_button);
         ID.setOnClickListener(new View.OnClickListener() {
@@ -45,12 +57,10 @@ public class GenerateReportFragment extends Fragment {
             }
         });
 
-
         final TextView textView = binding.generateReport;
         generateReportViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
-
 
     @Override
     public void onDestroyView() {
