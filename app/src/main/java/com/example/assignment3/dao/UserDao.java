@@ -30,6 +30,8 @@ public interface UserDao {
     @Insert
     void insertUser(User user);
 
+
+
     @Insert
     void insertMovement(Movement movement);
 

@@ -27,5 +27,6 @@ public abstract class UserDatabase extends RoomDatabase {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), UserDatabase.class, "UserDatabase").fallbackToDestructiveMigration().build();
         }
         return INSTANCE;
+
     }
 }
