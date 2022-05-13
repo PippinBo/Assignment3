@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,12 +79,10 @@ public class MapFragment extends Fragment {
 
 
         UserViewModel userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(UserViewModel.class);
-
+        Context context = requireActivity().getApplicationContext();
         Bundle bundle = getActivity().getIntent().getExtras();
         User user = bundle.getParcelable("loginUser");
         String address = user.getAddress();
-
-
 
 
 
@@ -96,22 +95,29 @@ public class MapFragment extends Fragment {
 //               String address = user.getAddress();
 //            }
 //        });
+
+
         // Async map
         assert supportMapFragment != null;
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 PlacesSearchResult[] placesSearchResults = NearlyPlace.run().results;
-                Context context = requireActivity().getApplicationContext();
-
-
-
-                int height = 130;
-                int width = 130;
+                int height = 110;
+                int width = 110;
                 @SuppressLint("UseCompatLoadingForDrawables")
-                BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.ic_gym);
-                Bitmap b = bitmapdraw.getBitmap();
-                Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                BitmapDrawable bitMapDraw1 = (BitmapDrawable)getResources().getDrawable(R.drawable.gym1);
+                @SuppressLint("UseCompatLoadingForDrawables")
+                BitmapDrawable bitMapDraw2 = (BitmapDrawable)getResources().getDrawable(R.drawable.gym2);
+                @SuppressLint("UseCompatLoadingForDrawables")
+                BitmapDrawable bitMapDraw3 = (BitmapDrawable)getResources().getDrawable(R.drawable.ic_user);
+
+                Bitmap b1 = bitMapDraw1.getBitmap();
+                Bitmap b2 = bitMapDraw2.getBitmap();
+                Bitmap b3 = bitMapDraw3.getBitmap();
+                Bitmap APIGymLogo = Bitmap.createScaledBitmap(b1, width, height, false);
+                Bitmap UserGymLogo = Bitmap.createScaledBitmap(b2, width, height, false);
+                Bitmap UserLogo = Bitmap.createScaledBitmap(b3, width, height, false);
 
                 for (PlacesSearchResult placesSearchResult : placesSearchResults) {
                     double lat = placesSearchResult.geometry.location.lat;
@@ -120,9 +126,40 @@ public class MapFragment extends Fragment {
                     googleMap.addMarker(new MarkerOptions()
                             .position(new LatLng(lat, lng))
                             .title(placesSearchResult.name)
-                            .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                            .icon(BitmapDescriptorFactory.fromBitmap(APIGymLogo))
                     );
                 }
+//
+//                userViewModel.getAllGym("Gym").observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+//                    @Override
+//                    public void onChanged(List<String> strings) {
+//                        for (int i=0; i < strings.size(); i++) {
+//                            LatLng latLngGym = getLocationFromAddress(context,strings.get(i));
+//                            System.out.println(latLngGym);
+//                            googleMap.addMarker(new MarkerOptions()
+//                                    .position(latLngGym)
+//                                    .title(strings.get(i))
+//                   //                 .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+//                            );
+//                        }
+//                    }
+//                });
+
+
+                userViewModel.getAllUsers().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
+                    @Override
+                    public void onChanged(List<User> users) {
+                        for (int i=0; i < users.size(); i++) {
+                            LatLng latLngGym = getLocationFromAddress(context,users.get(i).getAddress());
+                            System.out.println(latLngGym);
+                            googleMap.addMarker(new MarkerOptions()
+                                            .position(latLngGym)
+                                            .title(users.get(i).getName())
+                                            .icon(BitmapDescriptorFactory.fromBitmap(UserGymLogo))
+                            );
+                        }
+                    }
+                });
 
 
                 LatLng latLng=getLocationFromAddress(context,
@@ -139,6 +176,14 @@ public class MapFragment extends Fragment {
                     }
                 });
 
+                ImageButton locationButton = (ImageButton) view.findViewById(R.id.location);
+                locationButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(latLng , 12.0f) );
+                    }
+                });
+
 
 
                 Button zoomInButton = (Button) view.findViewById(R.id.zoom_in);
@@ -150,10 +195,14 @@ public class MapFragment extends Fragment {
                 });
 
 
-                googleMap.addMarker(new MarkerOptions()
+                Marker userLocation = googleMap.addMarker(new MarkerOptions()
                         .position(latLng)
                         .title("You are here")
-                        .draggable(true));
+                        .draggable(true)
+                        .icon(BitmapDescriptorFactory.fromBitmap(UserLogo))
+                        );
+                assert userLocation != null;
+                userLocation.showInfoWindow();
             }
         });
 

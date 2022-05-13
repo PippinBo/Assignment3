@@ -10,10 +10,12 @@ import com.example.assignment3.entity.relationship.UserWithMovements;
 import com.example.assignment3.repository.UserRepository;
 
 import java.util.List;
+import java.util.PrimitiveIterator;
 
 public class UserViewModel extends AndroidViewModel {
     private UserRepository uRepository;
     private LiveData<List<User>> allUsers;
+    private LiveData<List<String>> allAddress;
 
     public UserViewModel(Application application) {
         super(application);
@@ -23,6 +25,11 @@ public class UserViewModel extends AndroidViewModel {
 
     public LiveData<User> findByEmail(final String email) {
         return uRepository.findByEmail(email);
+    }
+
+
+    public  LiveData<List<String>> getAllGym(final String role) {
+        return uRepository.getAddressByRole(role);
     }
 
     public LiveData<List<UserWithMovements>> getMovementByEmail(final String email) { return uRepository.getMovementByEmail(email); }
