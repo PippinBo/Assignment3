@@ -20,6 +20,8 @@ import com.example.assignment3.R;
 import com.example.assignment3.adapter.MovementAdapter;
 import com.example.assignment3.databinding.FragmentRecordBinding;
 import com.example.assignment3.entity.Movement;
+import com.example.assignment3.entity.User;
+import com.example.assignment3.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 
@@ -30,19 +32,24 @@ public class RecordFragment extends Fragment {
     private Button addRecordButtonDialog;
     private RecyclerView recyclerView;
     private MovementAdapter adapter;
+    private UserViewModel userViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecordViewModel recordViewModel = new ViewModelProvider(this).get(RecordViewModel.class);
 
         binding = FragmentRecordBinding.inflate(inflater, container, false);
         //View root = binding.getRoot();
-
         View root = LayoutInflater.from(getContext()).inflate(R.layout.fragment_record,container,false);
 
+        //
+        userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(UserViewModel.class);
+
+        // Recycler View
         setMovementInfo();
         recyclerView = root.findViewById(R.id.recordRecycle);
         setAdapter();
 
+        // Add Record
         addRecordButtonDialog = root.findViewById(R.id.addRecordButton);
         addRecordButtonDialog.setOnClickListener(new View.OnClickListener() {
             @Override
