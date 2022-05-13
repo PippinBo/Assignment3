@@ -32,12 +32,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder viewHolder, int
             position) {
-        final MovementResult unit = movementResults.get(position);
-        viewHolder.binding.tvRvmark.setText(unit.getTime());
+        final MovementResult result = movementResults.get(position);
+        viewHolder.binding.tvRvtime.setText(result.getTime());
+        viewHolder.binding.tvRvmovement.setText((Double.toString(result.getMovement())));
         viewHolder.binding.ivItemDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                movementResults.remove(unit);
+                movementResults.remove(result);
                 notifyDataSetChanged();
             }
         });

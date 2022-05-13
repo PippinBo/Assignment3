@@ -5,23 +5,23 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_unit"
+        android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please enter unit code:" />
+        android:text="Please enter your sport time:" />
     <EditText
-        android:id="@+id/et_unit"
+        android:id="@+id/et_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text" />
     <TextView
-        android:id="@+id/tv_mark"
+        android:id="@+id/tv_movement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Please enter your result:" />
+        android:text="Please enter your sport movement:" />
     <EditText
-        android:id="@+id/et_mark"
+        android:id="@+id/et_movement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number" />

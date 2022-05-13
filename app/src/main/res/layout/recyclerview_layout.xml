@@ -14,18 +14,21 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/blueBlack">
         <TextView
-            android:id="@+id/tv_Rvunit"
+            android:id="@+id/tv_Rvtime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@color/lightGreen"
             />
         <TextView
-            android:id="@+id/tv_Rvmark"
+            android:id="@+id/tv_Rvmovement"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@color/lightGreen"
             />
         <ImageView
             android:id="@+id/iv_item_delete"
@@ -33,6 +36,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="8dp"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"/>
+            android:src="@drawable/ic_baseline_fitness_center_24"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

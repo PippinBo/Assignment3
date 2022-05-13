@@ -18,7 +18,7 @@ import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
-    private List<MovementResult> units;
+    private List<MovementResult> movementResults;
     private RecyclerViewAdapter adapter;
     private RecyclerviewMainBinding binding;
     @Override
@@ -27,9 +27,10 @@ public class HistoryActivity extends AppCompatActivity {
         binding = RecyclerviewMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        units=new ArrayList<MovementResult>();
-        units = MovementResult.createContactsList();
-        adapter = new RecyclerViewAdapter(units);
+
+        movementResults = new ArrayList<MovementResult>();
+        movementResults = MovementResult.createContactsList();
+        adapter = new RecyclerViewAdapter(movementResults);
         //this just creates a line divider between rows
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         binding.recyclerView.setAdapter(adapter);
@@ -38,18 +39,18 @@ public class HistoryActivity extends AppCompatActivity {
         binding.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String unit = binding.etUnit.getText().toString().trim();
-                String smark= binding.etMark.getText().toString().trim();
-                if (!unit.isEmpty() || !smark.isEmpty()) {
-                    int mark=new Integer(smark).intValue();
-                    saveData(unit, mark);
+                String time = binding.etTime.getText().toString().trim();
+                String sMovement= binding.etMovement.getText().toString().trim();
+                if (!time.isEmpty() || !sMovement.isEmpty()) {
+                    int movement =new Integer(sMovement).intValue();
+                    saveData(time, movement);
                 }
             }
         });
     }
-    private void saveData(String unit, int mark) {
-        MovementResult movementResult = new MovementResult(unit, mark);
-        units.add(movementResult);
-        adapter.addUnits(units);
+    private void saveData(String time, double movement) {
+        MovementResult movementResult = new MovementResult(time, movement);
+        movementResults.add(movementResult);
+        adapter.addUnits(movementResults);
     }
 }
