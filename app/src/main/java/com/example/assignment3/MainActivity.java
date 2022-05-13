@@ -26,14 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
-
-
-
-        // read bundle
-        //Bundle bundle = getIntent().getExtras();
-        //User user = bundle.getParcelable("loginUser");
-        //user.get.....
-
         @Override
         protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

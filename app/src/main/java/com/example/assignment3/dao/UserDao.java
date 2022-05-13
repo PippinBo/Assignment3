@@ -27,6 +27,9 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE email = :email")
     LiveData<List<UserWithMovements>> getMovementByEmail(String email);
 
+    @Query("DELETE FROM movement WHERE userId = :userId AND time = :time AND movement = :movement")
+    void deleteMovement(int userId, String time, long movement);
+
     @Insert
     void insertUser(User user);
 

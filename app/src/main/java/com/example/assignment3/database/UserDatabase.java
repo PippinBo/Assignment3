@@ -13,7 +13,7 @@ import com.example.assignment3.entity.User;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Movement.class}, version = 4, exportSchema = false)
+@Database(entities = {User.class, Movement.class}, version = 5, exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();

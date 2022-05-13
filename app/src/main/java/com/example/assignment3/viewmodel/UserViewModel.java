@@ -31,6 +31,10 @@ public class UserViewModel extends AndroidViewModel {
         return allUsers;
     }
 
+    public void deleteMovement(final int userId, final String time, final long movement) {
+        uRepository.deleteMovement(userId, time, movement);
+    }
+
     public void insertUser(User user) {
         uRepository.insertUser(user);
     }

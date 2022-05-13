@@ -7,12 +7,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.assignment3.databinding.LoginActivityBinding;
+import com.example.assignment3.entity.Movement;
 import com.example.assignment3.entity.User;
+import com.example.assignment3.entity.relationship.UserWithMovements;
 import com.example.assignment3.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.List;
 
 //Version 1.0.2: set up --- Lichen
 
@@ -101,5 +106,19 @@ public class LoginActivity extends AppCompatActivity {
                 userViewModel.insertUser(user2);
             }
         });
+        //
+        // Hi benson, here is the sample code for changing all movements' times attribute for one User
+        //
+        //userViewModel.getMovementByEmail( USER EMAIL HERE).observe(this, new Observer<List<UserWithMovements>>() {
+        //    @Override
+        //    public void onChanged(List<UserWithMovements> userWithMovements) {
+        //        for (UserWithMovements temp : userWithMovements){
+        //            for (Movement m : temp.movements){
+        //                m.setTime("11111");
+        //                userViewModel.updateMovement(m);
+        //            }
+        //        }
+        //    }
+        //});
     }
 }
