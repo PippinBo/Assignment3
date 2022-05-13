@@ -79,5 +79,9 @@ public class UserRepository {
         UserDatabase.databaseWriteExecutor.execute(() -> userDao.editDistanceByRecord(id,date,distance,newDistance));
     }
 
+    public List<Movement> checkDailyEntry(final int id, final String date){ return userDao.checkDailyEntry(id,date);}
+
+    public List<Movement> getMovementListByID(final int id){ return userDao.getMovementListByID(id);}
+
 }
 

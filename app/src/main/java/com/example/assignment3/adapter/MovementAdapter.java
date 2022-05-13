@@ -18,6 +18,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -27,6 +29,7 @@ import com.example.assignment3.R;
 import com.example.assignment3.dao.UserDao;
 import com.example.assignment3.entity.Movement;
 import com.example.assignment3.entity.User;
+import com.example.assignment3.entity.relationship.UserWithMovements;
 import com.example.assignment3.repository.UserRepository;
 import com.example.assignment3.viewmodel.UserViewModel;
 
@@ -39,10 +42,10 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyView
     private long oldDistance;
 
     public MovementAdapter(List<Movement> records, UserViewModel userViewModel, User user) {
+
         this.records = records;
         this.userViewModel = userViewModel;
         this.user = user;
-
 
     }
 
@@ -103,9 +106,6 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyView
                 TextView dateUpdateText = dialog.findViewById(R.id.dateTextView);
                 EditText editDistance = dialog.findViewById(R.id.addRecordDistance);
                 Button confirmUpdate = dialog.findViewById(R.id.confirmAddRecord);
-
-
-
 
 
                 dateUpdateText.setText(records.get(position).getTime());

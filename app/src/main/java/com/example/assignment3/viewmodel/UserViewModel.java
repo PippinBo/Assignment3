@@ -63,4 +63,6 @@ public class UserViewModel extends AndroidViewModel {
     public void deleteByRecord(int id, String date, long distance){uRepository.deleteByRecord(id,date,distance);}
     public void editByRecord(int id, String date, long distance){ uRepository.editByRecord(id,date,distance);}
     public void editDistanceByRecord(int id, String date, long distance, long newDistance){ uRepository.editDistanceByRecord(id, date, distance, newDistance);}
+    public List<Movement> checkDailyEntry(int id, String date){return uRepository.checkDailyEntry(id,date);}
+    public List<Movement> getMovementListByID(int id){return uRepository.getMovementListByID(id);}
 }

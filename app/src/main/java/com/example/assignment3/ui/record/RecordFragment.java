@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -69,18 +70,30 @@ public class RecordFragment extends Fragment {
         User user = bundle.getParcelable("loginUser");
 
 
-
-
         // Add Record
         addRecordButtonDialog = root.findViewById(R.id.addRecordButton);
         addRecordButtonDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+
+                //Check if today's entry already in database
+                //List<Movement> checkList = userViewModel.checkDailyEntry(user.getUid(),dateFormat.format(date));
+                //if (checkList.size() == 0){
+                  //  Toast.makeText(getActivity(), "Already recorded today!", Toast.LENGTH_SHORT).show();
+                   //return ;
+                //}
+
+
+
+                // Return error if so
+
                 Dialog dialog = new Dialog(root.getContext());
                 dialog.setContentView(R.layout.layout_add_record);
                 TextView dateTxt = dialog.findViewById(R.id.dateTextView);
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                Date date = new Date();
+
                 dateTxt.setText(dateFormat.format(date));
                 EditText editDistance = dialog.findViewById(R.id.addRecordDistance);
                 Button confirmButton = dialog.findViewById(R.id.confirmAddRecord);
@@ -139,13 +152,13 @@ public class RecordFragment extends Fragment {
         userViewModel.getMovementByEmail(user.getEmail()).observe(getActivity(), new Observer<List<UserWithMovements>>() {
             @Override
             public void onChanged(List<UserWithMovements> userWithMovements) {
-                for (UserWithMovements temp : userWithMovements)
+                for (UserWithMovements temp : userWithMovements){
                     for (Movement temp2 : temp.movements){
                         Movement test1 = new Movement(temp2.getUserId(),temp2.getTime(),temp2.getMovement());
                         recordList.add(test1);
                     }
             }
-        });
+        }});
     }
 
     @Override

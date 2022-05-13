@@ -20,6 +20,7 @@ import com.example.assignment3.R;
 import com.example.assignment3.databinding.FragmentBarchartBinding;
 import com.example.assignment3.entity.Movement;
 import com.example.assignment3.entity.User;
+import com.example.assignment3.entity.relationship.UserWithMovements;
 import com.example.assignment3.viewmodel.UserViewModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -101,18 +102,22 @@ public class BarChartFragment extends Fragment {
         barArrayList = new ArrayList();
         Bundle bundle = getActivity().getIntent().getExtras();
         User user = bundle.getParcelable("loginUser");
-        LiveData<List<Movement>> movementList = userViewModel.getMovementById(user.getUid());
-        movementList.observe(getActivity(), new Observer<List<Movement>>() {
+
+        barArrayList.add(new BarEntry(20f,100));
+
+        userViewModel.getMovementByEmail(user.getEmail()).observe(getActivity(), new Observer<List<UserWithMovements>>() {
             @Override
-            public void onChanged(List<Movement> movements) {
-                int count = 1;
-                for (Movement temp: movements){
-                    count += 1;
-                    barArrayList.add(new BarEntry(Float.valueOf(count),temp.getMovement()));
+            public void onChanged(List<UserWithMovements> userWithMovements) {
+                int count = 0;
+                for (UserWithMovements temp : userWithMovements){
+                    for (Movement temp2 : temp.movements){
+                        count += 1;
+                        barArrayList.add(new BarEntry((float) count,temp2.getMovement()));
 
-                }}});
+                    }
 
-        barArrayList.add(new BarEntry(4f,10));
+            }
+        }});
         }
 
     @Override
