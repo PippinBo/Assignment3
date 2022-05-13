@@ -1,6 +1,7 @@
 package com.example.assignment3.ui.record;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -52,6 +54,7 @@ public class RecordFragment extends Fragment {
     private UserRepository userRepository;
     private View root;
     private User user;
+    private Context context = getActivity();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecordViewModel recordViewModel = new ViewModelProvider(this).get(RecordViewModel.class);
@@ -116,7 +119,7 @@ public class RecordFragment extends Fragment {
 
                         // Recycler
                         recordList.add(0, new Movement(user.getUid(), todayDate, distanceNum));
-                        adapter.notifyItemInserted(0);
+                        adapter.notifyItemInserted(recordList.size()-1);
                         recyclerView.scrollToPosition(0);
 
                         dialog.dismiss();
@@ -154,12 +157,19 @@ public class RecordFragment extends Fragment {
         userViewModel.getMovementByEmail(user.getEmail()).observe(getActivity(), new Observer<List<UserWithMovements>>() {
             @Override
             public void onChanged(List<UserWithMovements> userWithMovements) {
+                recordList = new ArrayList<Movement>();
+                //Toast.makeText(getActivity(),"yo",Toast.LENGTH_SHORT).show();
                 for (UserWithMovements temp : userWithMovements){
                     for (Movement temp2 : temp.movements){
                         Movement test1 = new Movement(temp2.getUserId(),temp2.getTime(),temp2.getMovement());
                         recordList.add(test1);
+                        Collections.reverse(recordList);
                     }
+
             }
+                setAdapter();
+                recyclerView.getAdapter().notifyDataSetChanged();
+
         }});
     }
 

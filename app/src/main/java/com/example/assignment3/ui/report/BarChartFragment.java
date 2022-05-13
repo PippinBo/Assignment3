@@ -105,12 +105,7 @@ public class BarChartFragment extends Fragment {
 
         barArrayList.add(new BarEntry(20f,100));
 
-        //List<Movement> movementList = userViewModel.getMovementListByID(user.getUid());
-        //int count = 0;
-        //for (Movement temp : movementList){
-            //count += 1;
-          //  barArrayList.add(new BarEntry((float) count,temp.getMovement()));
-        //};
+
 
     }
 

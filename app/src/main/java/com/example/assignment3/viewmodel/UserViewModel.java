@@ -2,11 +2,15 @@ package com.example.assignment3.viewmodel;
 
 import android.app.Application;
 import android.os.Build;
+import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
+import com.example.assignment3.dao.UserDao;
+import com.example.assignment3.database.UserDatabase;
 import com.example.assignment3.entity.Movement;
 import com.example.assignment3.entity.User;
 import com.example.assignment3.entity.relationship.UserWithMovements;
@@ -18,16 +22,24 @@ import java.util.concurrent.CompletableFuture;
 public class UserViewModel extends AndroidViewModel {
     private UserRepository uRepository;
     private LiveData<List<User>> allUsers;
+    //private UserDatabase userDB;
+    //private UserDao userDao;
+    //private LiveData<List<UserWithMovements>> allUserMovements;
 
     public UserViewModel(Application application) {
         super(application);
         uRepository = new UserRepository(application);
         allUsers = uRepository.getAllUsers();
+        //userDB = UserDatabase.getDatabase(application);
+        //userDao = userDB.userDao() ;
+        //allUserMovements = userDao.getMovementByEmail("r@gmail.com");
+
     }
 
     public LiveData<User> findByEmail(final String email) {
         return uRepository.findByEmail(email);
     }
+
 
     public LiveData<List<UserWithMovements>> getMovementByEmail(final String email) { return uRepository.getMovementByEmail(email); }
 
