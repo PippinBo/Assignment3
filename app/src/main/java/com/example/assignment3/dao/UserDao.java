@@ -50,4 +50,20 @@ public interface UserDao {
 
     @Query("DELETE FROM movement")
     void deleteAllMovement();
+
+    // Get movement by user id
+    @Query("SELECT * FROM movement WHERE userId = :userID")
+    LiveData<List<Movement>> getMovementByID(int userID);
+
+    // Edit
+    @Query("UPDATE Movement SET movement = :distance WHERE userId = :id  AND time = :date")
+    void editByRecord(int id, String date, long distance);
+
+    // Delete
+    @Query("DELETE FROM Movement WHERE userId = :id AND time = :date AND movement = :distance")
+    void  deleteByRecord(int id,String date, long distance);
+
+    @Query("UPDATE Movement SET movement = :newDistance WHERE userId = :id  AND time =:date AND movement = :distance")
+    void editDistanceByRecord(int id, String date, long distance, long newDistance);
+
 }

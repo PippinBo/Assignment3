@@ -12,10 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.assignment3.R;
 import com.example.assignment3.databinding.FragmentBarchartBinding;
+import com.example.assignment3.entity.Movement;
+import com.example.assignment3.entity.User;
+import com.example.assignment3.viewmodel.UserViewModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -24,6 +29,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // this fragment is for report page, feel free to edit
 
@@ -32,6 +38,7 @@ public class BarChartFragment extends Fragment {
     private FragmentBarchartBinding binding;
     private BarChart barChart;
     private ArrayList barArrayList;
+    private UserViewModel userViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +47,8 @@ public class BarChartFragment extends Fragment {
 
         binding = FragmentBarchartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(UserViewModel.class);
 
         Button shareButton = (Button) root.findViewById(R.id.facebook_button);
         shareButton.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +64,7 @@ public class BarChartFragment extends Fragment {
 
 
         barChart = root.findViewById(R.id.barReportChart);
-        loadPieChartData();
+        loadBarChartData();
 
 
         Button ID = (Button) root.findViewById(R.id.back_button);
@@ -76,8 +85,8 @@ public class BarChartFragment extends Fragment {
         return root;
     }
 
-    private void loadPieChartData(){
-        ArrayList<PieEntry> entries = new ArrayList<>();
+    private void loadBarChartData(){
+        ArrayList<BarEntry> entries = new ArrayList<>();
         getData();
         BarDataSet barDataSet = new BarDataSet(barArrayList, "FitBud");
         BarData barData = new BarData(barDataSet);
@@ -90,12 +99,21 @@ public class BarChartFragment extends Fragment {
 
     private void getData(){
         barArrayList = new ArrayList();
-        barArrayList.add(new BarEntry(2f,10));
-        barArrayList.add(new BarEntry(3f,20));
-        barArrayList.add(new BarEntry(4f,30));
-        barArrayList.add(new BarEntry(5f,40));
+        Bundle bundle = getActivity().getIntent().getExtras();
+        User user = bundle.getParcelable("loginUser");
+        LiveData<List<Movement>> movementList = userViewModel.getMovementById(user.getUid());
+        movementList.observe(getActivity(), new Observer<List<Movement>>() {
+            @Override
+            public void onChanged(List<Movement> movements) {
+                int count = 1;
+                for (Movement temp: movements){
+                    count += 1;
+                    barArrayList.add(new BarEntry(Float.valueOf(count),temp.getMovement()));
 
-    }
+                }}});
+
+        barArrayList.add(new BarEntry(4f,10));
+        }
 
     @Override
     public void onDestroyView() {

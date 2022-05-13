@@ -12,6 +12,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,8 +24,10 @@ import com.example.assignment3.adapter.MovementAdapter;
 import com.example.assignment3.databinding.FragmentRecordBinding;
 import com.example.assignment3.entity.Movement;
 import com.example.assignment3.entity.User;
+import com.example.assignment3.entity.relationship.UserWithMovements;
 import com.example.assignment3.repository.UserRepository;
 import com.example.assignment3.viewmodel.UserViewModel;
+import com.github.mikephil.charting.data.BarEntry;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,6 +35,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class RecordFragment extends Fragment {
 
@@ -114,6 +119,8 @@ public class RecordFragment extends Fragment {
     }
 
     private void setAdapter() {
+        Bundle bundle = getActivity().getIntent().getExtras();
+        user = bundle.getParcelable("loginUser");
         adapter = new MovementAdapter(recordList, userViewModel,user);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -123,8 +130,22 @@ public class RecordFragment extends Fragment {
 
     private void setMovementInfo() {
         recordList = new ArrayList<Movement>();
-        recordList.add(new Movement(111,"20/12/2022",100));
-        recordList.add(new Movement(111,"19/12/2022",200));
+
+        // Database
+        Bundle bundle = getActivity().getIntent().getExtras();
+        User user = bundle.getParcelable("loginUser");
+        LiveData<List<Movement>> movementList = userViewModel.getMovementById(user.getUid());
+
+        userViewModel.getMovementByEmail(user.getEmail()).observe(getActivity(), new Observer<List<UserWithMovements>>() {
+            @Override
+            public void onChanged(List<UserWithMovements> userWithMovements) {
+                for (UserWithMovements temp : userWithMovements)
+                    for (Movement temp2 : temp.movements){
+                        Movement test1 = new Movement(temp2.getUserId(),temp2.getTime(),temp2.getMovement());
+                        recordList.add(test1);
+                    }
+            }
+        });
     }
 
     @Override
