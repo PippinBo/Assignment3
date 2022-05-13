@@ -3,6 +3,7 @@ package com.example.assignment3.adapter;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,19 +16,29 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
+import com.example.assignment3.MainActivity;
 import com.example.assignment3.R;
+import com.example.assignment3.dao.UserDao;
 import com.example.assignment3.entity.Movement;
+import com.example.assignment3.entity.User;
+import com.example.assignment3.repository.UserRepository;
+import com.example.assignment3.viewmodel.UserViewModel;
 
 import java.util.List;
 
 public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyViewHolder>{
-    private static List<Movement> records;
+    private List<Movement> records;
+    private UserViewModel userViewModel;
 
-
-    public MovementAdapter(List<Movement> records) {
+    public MovementAdapter(List<Movement> records, UserViewModel userViewModel) {
         this.records = records;
+        this.userViewModel = userViewModel;
+
     }
 
     @NonNull
@@ -39,11 +50,13 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MovementAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
+
         String date = records.get(position).getTime();
         holder.dateText.setText(date);
         long distance = records.get(position).getMovement();
         String distanceString = String.valueOf(distance);
         holder.distanceText.setText(distanceString);
+
 
         holder.deleteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,8 +68,12 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyView
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                Movement move1  =  new Movement(111,"13/05/2022",200);
+                                userViewModel.deleteMovement(move1);
+
                                 records.remove(position);
                                 notifyItemRemoved(position);
+
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {

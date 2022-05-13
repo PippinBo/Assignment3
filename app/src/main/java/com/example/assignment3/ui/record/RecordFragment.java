@@ -22,6 +22,7 @@ import com.example.assignment3.adapter.MovementAdapter;
 import com.example.assignment3.databinding.FragmentRecordBinding;
 import com.example.assignment3.entity.Movement;
 import com.example.assignment3.entity.User;
+import com.example.assignment3.repository.UserRepository;
 import com.example.assignment3.viewmodel.UserViewModel;
 
 import java.text.DateFormat;
@@ -39,13 +40,15 @@ public class RecordFragment extends Fragment {
     private RecyclerView recyclerView;
     private MovementAdapter adapter;
     private UserViewModel userViewModel;
+    private UserRepository userRepository;
+    private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecordViewModel recordViewModel = new ViewModelProvider(this).get(RecordViewModel.class);
 
         binding = FragmentRecordBinding.inflate(inflater, container, false);
         //View root = binding.getRoot();
-        View root = LayoutInflater.from(getContext()).inflate(R.layout.fragment_record,container,false);
+        root = LayoutInflater.from(getContext()).inflate(R.layout.fragment_record,container,false);
 
         //
         userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(UserViewModel.class);
@@ -54,6 +57,7 @@ public class RecordFragment extends Fragment {
         setMovementInfo();
         recyclerView = root.findViewById(R.id.recordRecycle);
         setAdapter();
+
 
         // Add Record
         addRecordButtonDialog = root.findViewById(R.id.addRecordButton);
@@ -105,7 +109,7 @@ public class RecordFragment extends Fragment {
     }
 
     private void setAdapter() {
-        adapter = new MovementAdapter(recordList);
+        adapter = new MovementAdapter(recordList, userViewModel);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
