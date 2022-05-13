@@ -83,18 +83,11 @@ public class RecordFragment extends Fragment {
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = new Date();
 
-                //Check if today's entry already in database
-                //CompletableFuture<Movement> checkList = userViewModel.checkDailyEntry(user.getUid(),dateFormat.format(date));
-                //if (checkList != null){
+                //CompletableFuture<Movement> test = userViewModel.checkDailyEntry(user.getUid(),dateFormat.format(date));
+                //if (test != null){
                   //  Toast.makeText(getActivity(), "Already recorded today!", Toast.LENGTH_SHORT).show();
-                    //return ;
+                    //return;
                 //}
-
-                CompletableFuture<Movement> test = userViewModel.checkDailyEntry(user.getUid(),dateFormat.format(date));
-                if (test != null){
-                    Toast.makeText(getActivity(), "Already recorded today!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
 
                 // Return error if so
