@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -23,7 +24,12 @@ import com.example.assignment3.entity.Movement;
 import com.example.assignment3.entity.User;
 import com.example.assignment3.viewmodel.UserViewModel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class RecordFragment extends Fragment {
 
@@ -57,6 +63,9 @@ public class RecordFragment extends Fragment {
                 Dialog dialog = new Dialog(root.getContext());
                 dialog.setContentView(R.layout.layout_add_record);
                 TextView dateTxt = dialog.findViewById(R.id.dateTextView);
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = new Date();
+                dateTxt.setText(dateFormat.format(date));
                 EditText editDistance = dialog.findViewById(R.id.addRecordDistance);
                 Button confirmButton = dialog.findViewById(R.id.confirmAddRecord);
 
@@ -65,12 +74,19 @@ public class RecordFragment extends Fragment {
 
                     public void onClick(View view) {
                         String distance = "";
-                        String date = "";
+                        String todayDate = "";
                         distance = editDistance.getText().toString();
-                        date = dateTxt.getText().toString();
+                        todayDate = dateTxt.getText().toString();
                         long distanceNum = Long.parseLong(distance);
 
-                        recordList.add(0, new Movement(111,"21/10/2022", distanceNum));
+                        Bundle bundle = getActivity().getIntent().getExtras();
+                        User user = bundle.getParcelable("loginUser");
+
+
+                        Movement movement = new Movement(user.getUid(),todayDate,distanceNum);
+                        userViewModel.insertMovement(movement);
+
+                        recordList.add(0, new Movement(user.getUid(), todayDate, distanceNum));
                         adapter.notifyItemInserted(0);
                         recyclerView.scrollToPosition(0);
 
