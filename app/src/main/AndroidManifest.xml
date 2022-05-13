@@ -33,7 +33,7 @@
         <activity android:name=".DataEntryActivity" />
         <activity android:name=".RegistrationCheckActivity" />
         <activity android:name=".ui.report.FacebookActivity"/>
-
+        <activity android:name=".ResetActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -9,26 +9,39 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.assignment3.databinding.SignupBinding;
-import com.example.assignment3.entity.User;
+import com.example.assignment3.databinding.ResetPasswordBinding;
+import com.example.assignment3.viewmodel.UserViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//Version 1.0.2: set up --- Lichen
+// Almost same as signup activity
 
-public class SignupActivity extends AppCompatActivity {
-    private SignupBinding binding;
+public class ResetActivity extends AppCompatActivity {
+    private ResetPasswordBinding binding;
+    private UserViewModel userViewModel;
+    private FirebaseAuth auth;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = SignupBinding.inflate(getLayoutInflater());
+        binding = ResetPasswordBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
-        binding.continueButton.setOnClickListener(v -> {
+        auth = FirebaseAuth.getInstance();
+        firebaseUser = auth.getCurrentUser();
+
+        userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(UserViewModel.class);
+        // return to login screen
+        binding.leaveButton.setOnClickListener(v -> startActivity(new Intent(ResetActivity.this, LoginActivity.class)));
+
+        binding.resetButton.setOnClickListener(v -> {
             // Get Text
             String email_txt = binding.emailEditText.getText().toString();
             String password_txt_1 = binding.passwordEditText.getText().toString();
@@ -47,20 +60,29 @@ public class SignupActivity extends AppCompatActivity {
                 String msg = "Please confirm your password";
                 toastMsg(msg);
             } else
-                addUser(email_txt, password_txt_1);
+                resetPassword(email_txt, password_txt_1);
         });
-        // return to login screen
-        binding.leaveButton.setOnClickListener(v -> startActivity(new Intent(SignupActivity.this, LoginActivity.class)));
     }
 
-    private void addUser(String email_txt, String password_txt_1) {
-        // create a User object and pass it to next view
-        Intent intent = new Intent(SignupActivity.this, DataEntryActivity.class);
-        Bundle bundle = new Bundle();
-        User newUser = new User(email_txt, password_txt_1, "", "", "");
-        bundle.putParcelable("user", newUser);
-        intent.putExtras(bundle);
-        startActivity(intent);
+    private void resetPassword(String email_txt, String password_txt_1) {
+        userViewModel.findByEmail(email_txt).observe(this, user -> {
+            String msg;
+            if (user != null) {
+                msg = "Reset success";
+                user.setPassword(password_txt_1);
+                userViewModel.updateUser(user);
+                firebaseUser.updatePassword(password_txt_1);
+                auth.updateCurrentUser(firebaseUser);
+                startActivity(new Intent(ResetActivity.this, LoginActivity.class));
+            }
+            else {
+                msg = "No such user, please check your email again!";
+                binding.emailEditText.setText("");
+                binding.passwordEditText.setText("");
+                binding.confirmPasswordEditText.setText("");
+            }
+            toastMsg(msg);
+        });
     }
 
     public void toastMsg(String message){
