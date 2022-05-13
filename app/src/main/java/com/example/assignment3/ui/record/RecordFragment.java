@@ -1,6 +1,7 @@
 package com.example.assignment3.ui.record;
 
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -37,6 +39,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class RecordFragment extends Fragment {
 
@@ -73,6 +76,7 @@ public class RecordFragment extends Fragment {
         // Add Record
         addRecordButtonDialog = root.findViewById(R.id.addRecordButton);
         addRecordButtonDialog.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
 
@@ -80,12 +84,17 @@ public class RecordFragment extends Fragment {
                 Date date = new Date();
 
                 //Check if today's entry already in database
-                //List<Movement> checkList = userViewModel.checkDailyEntry(user.getUid(),dateFormat.format(date));
-                //if (checkList.size() == 0){
+                //CompletableFuture<Movement> checkList = userViewModel.checkDailyEntry(user.getUid(),dateFormat.format(date));
+                //if (checkList != null){
                   //  Toast.makeText(getActivity(), "Already recorded today!", Toast.LENGTH_SHORT).show();
-                   //return ;
+                    //return ;
                 //}
 
+                CompletableFuture<Movement> test = userViewModel.checkDailyEntry(user.getUid(),dateFormat.format(date));
+                if (test != null){
+                    Toast.makeText(getActivity(), "Already recorded today!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
 
                 // Return error if so

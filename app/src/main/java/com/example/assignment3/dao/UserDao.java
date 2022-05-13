@@ -27,8 +27,9 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE email = :email")
     LiveData<List<UserWithMovements>> getMovementByEmail(String email);
 
-    @Query("SELECT * FROM movement WHERE userId = :id")
-    List<Movement> getMovementListByID(int id);
+    //@Transaction
+    //@Query("SELECT * FROM movement WHERE userId = :id LIMIT 1")
+    //Movement getMovementListByID(int id);
 
     @Insert
     void insertUser(User user);
@@ -69,7 +70,7 @@ public interface UserDao {
     @Query("UPDATE Movement SET movement = :newDistance WHERE userId = :id  AND time =:date AND movement = :distance")
     void editDistanceByRecord(int id, String date, long distance, long newDistance);
 
-    @Query("SELECT * FROM movement WHERE userId = :id AND time = :date")
-    List<Movement> checkDailyEntry(int id, String date);
+    @Query("SELECT * FROM movement WHERE userId = :id AND time = :date LIMIT 1")
+    Movement checkDailyEntry(int id, String date);
 
 }

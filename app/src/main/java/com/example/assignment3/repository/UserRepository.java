@@ -2,7 +2,9 @@ package com.example.assignment3.repository;
 
 import com.example.assignment3.dao.UserDao;
 import android.app.Application;
+import android.os.Build;
 
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.LiveData;
 import androidx.room.Query;
 
@@ -12,6 +14,8 @@ import com.example.assignment3.entity.User;
 import com.example.assignment3.entity.relationship.UserWithMovements;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 public class UserRepository {
     private UserDao userDao;
@@ -79,9 +83,17 @@ public class UserRepository {
         UserDatabase.databaseWriteExecutor.execute(() -> userDao.editDistanceByRecord(id,date,distance,newDistance));
     }
 
-    public List<Movement> checkDailyEntry(final int id, final String date){ return userDao.checkDailyEntry(id,date);}
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public CompletableFuture<Movement> checkDailyEntry(final int id, final String date){
+        return CompletableFuture.supplyAsync(new Supplier<Movement>() {
+            @Override
+            public Movement get() {
+                return userDao.checkDailyEntry(id,date);
+            }
+        }, UserDatabase.databaseWriteExecutor);
+    };
 
-    public List<Movement> getMovementListByID(final int id){ return userDao.getMovementListByID(id);}
+    //  public List<Movement> getMovementListByID(final int id){ return (List<Movement>) userDao.getMovementListByID(id);}
 
 }
 

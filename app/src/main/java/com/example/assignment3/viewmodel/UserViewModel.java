@@ -1,6 +1,9 @@
 package com.example.assignment3.viewmodel;
 
 import android.app.Application;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
@@ -10,6 +13,7 @@ import com.example.assignment3.entity.relationship.UserWithMovements;
 import com.example.assignment3.repository.UserRepository;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class UserViewModel extends AndroidViewModel {
     private UserRepository uRepository;
@@ -63,6 +67,10 @@ public class UserViewModel extends AndroidViewModel {
     public void deleteByRecord(int id, String date, long distance){uRepository.deleteByRecord(id,date,distance);}
     public void editByRecord(int id, String date, long distance){ uRepository.editByRecord(id,date,distance);}
     public void editDistanceByRecord(int id, String date, long distance, long newDistance){ uRepository.editDistanceByRecord(id, date, distance, newDistance);}
-    public List<Movement> checkDailyEntry(int id, String date){return uRepository.checkDailyEntry(id,date);}
-    public List<Movement> getMovementListByID(int id){return uRepository.getMovementListByID(id);}
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public CompletableFuture<Movement> checkDailyEntry(final int id, final String date){
+        return uRepository.checkDailyEntry(id,date);}
+
+    //public List<Movement> getMovementListByID(int id){return uRepository.getMovementListByID(id);}
 }

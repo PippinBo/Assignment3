@@ -105,20 +105,14 @@ public class BarChartFragment extends Fragment {
 
         barArrayList.add(new BarEntry(20f,100));
 
-        userViewModel.getMovementByEmail(user.getEmail()).observe(getActivity(), new Observer<List<UserWithMovements>>() {
-            @Override
-            public void onChanged(List<UserWithMovements> userWithMovements) {
-                int count = 0;
-                for (UserWithMovements temp : userWithMovements){
-                    for (Movement temp2 : temp.movements){
-                        count += 1;
-                        barArrayList.add(new BarEntry((float) count,temp2.getMovement()));
+        //List<Movement> movementList = userViewModel.getMovementListByID(user.getUid());
+        //int count = 0;
+        //for (Movement temp : movementList){
+            //count += 1;
+          //  barArrayList.add(new BarEntry((float) count,temp.getMovement()));
+        //};
 
-                    }
-
-            }
-        }});
-        }
+    }
 
     @Override
     public void onDestroyView() {
