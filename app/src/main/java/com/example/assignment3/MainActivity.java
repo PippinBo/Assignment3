@@ -8,16 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.assignment3.databinding.ContentMainBinding;
-import com.example.assignment3.databinding.NavHeaderMainBinding;
 import com.example.assignment3.entity.User;
-import com.example.assignment3.ui.map.MapFragment;
-import com.example.assignment3.viewmodel.UserViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -31,14 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-
-
-
-
-        // read bundle
-        //Bundle bundle = getIntent().getExtras();
-        //User user = bundle.getParcelable("loginUser");
-        //user.get.....
 
         @Override
         protected void onCreate (Bundle savedInstanceState){

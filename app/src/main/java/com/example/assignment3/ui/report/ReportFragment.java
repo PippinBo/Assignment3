@@ -2,6 +2,8 @@ package com.example.assignment3.ui.report;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.assignment3.R;
 import com.example.assignment3.databinding.FragmentReportBinding;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
+
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 
 import java.util.Calendar;
 
@@ -40,8 +52,6 @@ public class ReportFragment extends Fragment {
     private Button endDateButton;
     private DatePickerDialog startDatePickerDialog;
     private DatePickerDialog endDatePickerDialog;
-
-
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) { ReportViewModel reportViewModel = new ViewModelProvider(this).get(ReportViewModel.class);
 
@@ -107,9 +117,6 @@ public class ReportFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-
-
-
 
         final TextView textView = binding.textSlideshow;
         reportViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);

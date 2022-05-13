@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegistrationCheckActivity extends AppCompatActivity {
     private RegistrationCheckBinding binding;
     private FirebaseAuth auth;
-    DatabaseReference myRef;
+    //DatabaseReference myRef;
     private UserViewModel userViewModel;
 
     @Override
@@ -39,8 +39,8 @@ public class RegistrationCheckActivity extends AppCompatActivity {
         binding.nameTextView.setText(user.getName());
         binding.addressTextView.setText(user.getAddress());
         // Use database in Singapore... so URL is needed
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://as3-5046-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        myRef = database.getReference("User");
+        //FirebaseDatabase database = FirebaseDatabase.getInstance("https://as3-5046-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        //myRef = database.getReference("User");
         // Room database
         userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(UserViewModel.class);
         // return to login screen

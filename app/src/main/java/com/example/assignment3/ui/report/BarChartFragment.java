@@ -1,11 +1,14 @@
 package com.example.assignment3.ui.report;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,6 +35,9 @@ public class BarChartFragment extends Fragment {
     private FragmentBarchartBinding binding;
     private BarChart barChart;
     private ArrayList barArrayList;
+    private Bitmap bitmap;
+
+    private static final String TAG = "BarChartFragment";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
