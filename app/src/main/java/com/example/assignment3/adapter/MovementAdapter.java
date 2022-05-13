@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,10 +35,12 @@ import java.util.List;
 public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyViewHolder>{
     private List<Movement> records;
     private UserViewModel userViewModel;
+    private User user;
 
-    public MovementAdapter(List<Movement> records, UserViewModel userViewModel) {
+    public MovementAdapter(List<Movement> records, UserViewModel userViewModel, User user) {
         this.records = records;
         this.userViewModel = userViewModel;
+        this.user = user;
 
     }
 
@@ -55,7 +58,7 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyView
         holder.dateText.setText(date);
         long distance = records.get(position).getMovement();
         String distanceString = String.valueOf(distance);
-        holder.distanceText.setText(distanceString);
+        holder.distanceText.setText(distanceString + " metres");
 
 
         holder.deleteIcon.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +72,8 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyView
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Movement move1  =  new Movement(111,"13/05/2022",200);
+
+                                // Add code to remove record
                                 userViewModel.deleteMovement(move1);
 
                                 records.remove(position);
@@ -109,7 +114,11 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyView
 
                         date = dateUpdateText.getText().toString();
                         distance = Long.parseLong(editDistance.getText().toString());
-                        records.set(position,new Movement(111,date,distance));
+
+                        // Add code to edit movement record
+                        //userViewModel.updateMovement();
+
+                        records.set(position,new Movement(user.getUid(), date,distance));
                         notifyItemChanged(position);
                         dialog.dismiss();
                     }

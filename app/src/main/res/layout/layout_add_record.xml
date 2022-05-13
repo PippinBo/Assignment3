@@ -33,7 +33,7 @@
         android:background="#fff"
         android:gravity="center"
         android:layout_gravity="center"
-        android:hint="Enter Distance"
+        android:hint="Enter Distance (metres)"
 
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/confirmAddRecord"

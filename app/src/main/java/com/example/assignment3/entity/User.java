@@ -20,6 +20,7 @@ public class User implements Parcelable {
     public String address;
 
     public User(Parcel in) {
+        this.uid = in.readInt();
         this.email = in.readString();
         this.password = in.readString();
         this.role = in.readString();
@@ -28,6 +29,7 @@ public class User implements Parcelable {
     }
 
     public User(String email, String password, String role, String name, String address) {
+        this.uid = uid;
         this.email = email;
         this.password = password;
         this.role = role;
@@ -36,6 +38,7 @@ public class User implements Parcelable {
     }
 
     public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeInt(uid);
         parcel.writeString(email);
         parcel.writeString(password);
         parcel.writeString(role);

@@ -42,6 +42,7 @@ public class RecordFragment extends Fragment {
     private UserViewModel userViewModel;
     private UserRepository userRepository;
     private View root;
+    private User user;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecordViewModel recordViewModel = new ViewModelProvider(this).get(RecordViewModel.class);
@@ -57,6 +58,12 @@ public class RecordFragment extends Fragment {
         setMovementInfo();
         recyclerView = root.findViewById(R.id.recordRecycle);
         setAdapter();
+
+        // User
+        Bundle bundle = getActivity().getIntent().getExtras();
+        User user = bundle.getParcelable("loginUser");
+
+
 
 
         // Add Record
@@ -83,13 +90,11 @@ public class RecordFragment extends Fragment {
                         todayDate = dateTxt.getText().toString();
                         long distanceNum = Long.parseLong(distance);
 
-                        Bundle bundle = getActivity().getIntent().getExtras();
-                        User user = bundle.getParcelable("loginUser");
-
-
+                        // Database
                         Movement movement = new Movement(user.getUid(),todayDate,distanceNum);
                         userViewModel.insertMovement(movement);
 
+                        // Recycler
                         recordList.add(0, new Movement(user.getUid(), todayDate, distanceNum));
                         adapter.notifyItemInserted(0);
                         recyclerView.scrollToPosition(0);
@@ -109,7 +114,7 @@ public class RecordFragment extends Fragment {
     }
 
     private void setAdapter() {
-        adapter = new MovementAdapter(recordList, userViewModel);
+        adapter = new MovementAdapter(recordList, userViewModel,user);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
