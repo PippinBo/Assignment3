@@ -35,6 +35,8 @@ public class UserViewModel extends AndroidViewModel {
         uRepository.deleteMovement(userId, time, movement);
     }
 
+    public LiveData<List<String>> getAddressByRole(final String role) { return uRepository.getAddressByRole(role); }
+
     public void insertUser(User user) {
         uRepository.insertUser(user);
     }

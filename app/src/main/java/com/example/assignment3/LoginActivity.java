@@ -120,5 +120,15 @@ public class LoginActivity extends AppCompatActivity {
         //        }
         //    }
         //});
+
+        // Hi hongyu, Sample code for reading address
+        //userViewModel.getAddressByRole("Gym").observe(this, new Observer<List<String>>() {
+        //    @Override
+        //    public void onChanged(List<String> strings) {
+        //        for (String address : strings) {
+        //            System.out.println(address);
+        //        }
+        //    }
+        //});
     }
 }

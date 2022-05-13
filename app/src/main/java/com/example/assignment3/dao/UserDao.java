@@ -30,6 +30,9 @@ public interface UserDao {
     @Query("DELETE FROM movement WHERE userId = :userId AND time = :time AND movement = :movement")
     void deleteMovement(int userId, String time, long movement);
 
+    @Query("SELECT address FROM user WHERE role = :role")
+    LiveData<List<String>> getAddressByRole(String role);
+
     @Insert
     void insertUser(User user);
 
