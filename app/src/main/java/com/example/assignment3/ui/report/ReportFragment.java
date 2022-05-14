@@ -69,20 +69,6 @@ public class ReportFragment extends Fragment {
         binding = FragmentReportBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
-        // Report Type Input
-        /*autoCompleteTxt = root.findViewById(R.id.dropMenuReportType);
-        adapterReportTypes = new ArrayAdapter<String>(getActivity(),R.layout.list_report_type,reportTypes);
-        autoCompleteTxt.setAdapter(adapterReportTypes);
-        autoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String itemType = adapterView.getItemAtPosition(i).toString();
-            }
-        });*/
-
-
-
         // Start/End Date Picker
         initStartDatePicker();
         initEndDatePicker();
