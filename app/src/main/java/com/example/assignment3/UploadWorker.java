@@ -35,17 +35,20 @@ public class UploadWorker extends Worker {
     public Result doWork() {
 
         String userJsonString = getInputData().getString("UserTest");
-        System.out.println(userJsonString);
+        if (userJsonString != null) {
+            System.out.println(userJsonString);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://as3-5046-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        DatabaseReference databaseReference = database.getReference("User");
+            FirebaseDatabase database = FirebaseDatabase.getInstance("https://as3-5046-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            DatabaseReference databaseReference = database.getReference("User");
 
-        Gson gson = new Gson();
-        Type userMapType = new TypeToken<Map<String, User>>() {}.getType();
+            Gson gson = new Gson();
+            Type userMapType = new TypeToken<Map<String, User>>() {}.getType();
 
-        Map<String, User> userMap = gson.fromJson(userJsonString, userMapType);
+            Map<String, User> userMap = gson.fromJson(userJsonString, userMapType);
 
-        databaseReference.setValue(userMap);
+            databaseReference.setValue(userMap);
+        }
+
         //Data data = getInputData();
         // Do the work here--in this case, upload the images.
         /*
