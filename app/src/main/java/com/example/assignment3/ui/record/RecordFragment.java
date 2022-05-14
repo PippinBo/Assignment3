@@ -1,14 +1,20 @@
 package com.example.assignment3.ui.record;
 
+
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
+
+import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 import android.widget.EditText;
+
 import android.widget.TextView;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -19,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +50,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+//import com.example.assignment3.ui.record.adapter.RecyclerViewAdapter;
+
+
 public class RecordFragment extends Fragment {
 
     private ArrayList<Movement> recordList;
@@ -58,6 +68,7 @@ public class RecordFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecordViewModel recordViewModel = new ViewModelProvider(this).get(RecordViewModel.class);
+
 
         binding = FragmentRecordBinding.inflate(inflater, container, false);
         //View root = binding.getRoot();
@@ -132,6 +143,7 @@ public class RecordFragment extends Fragment {
 
         //final TextView textView = binding.textRecord;
         //recordViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
         return root;
 
     }

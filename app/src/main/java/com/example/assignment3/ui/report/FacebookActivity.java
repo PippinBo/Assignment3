@@ -1,31 +1,35 @@
 package com.example.assignment3.ui.report;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.assignment3.BitmapUtil;
 import com.example.assignment3.R;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.login.widget.LoginButton;
+import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
+
+import java.io.FileNotFoundException;
+import java.nio.ByteBuffer;
 
 public class FacebookActivity extends AppCompatActivity {
 
@@ -34,11 +38,13 @@ public class FacebookActivity extends AppCompatActivity {
     ShareButton sbPhoto;
     CallbackManager callbackManager;
     ImageView imageView;
+    ShareDialog shareDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_facebook);
+
 
         loginButton = findViewById(R.id.loginButton);
         imageView = findViewById(R.id.fb_photo);
@@ -46,16 +52,50 @@ public class FacebookActivity extends AppCompatActivity {
         sbPhoto = findViewById(R.id.sb_photo);
         callbackManager = CallbackManager.Factory.create();
         imageView.setImageResource(R.drawable.unnamed);
+        shareDialog = new ShareDialog(this);
+        Intent intent = getIntent();
+        if (intent != null) {
+            //显示图像
+            Uri imgUri = Uri.parse(intent.getStringExtra("bitmap"));
+            try {
+                Bitmap srcBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imgUri));
+                if (srcBitmap == null) {
+                    Toast.makeText(FacebookActivity.this, "can not load the picture", Toast.LENGTH_SHORT).show();
+                    Log.i("TAG", "can not load the picture");
+                    finish();
+                }
+                Bitmap myBitmap = Bitmap.createScaledBitmap(srcBitmap, 800, 700, true);
+                imageView.setImageBitmap(myBitmap); //显示拍照图片
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(@NonNull FacebookException e) {
+
+            }
+        });
 
     }
 
     @Override
-    protected void onActivityResult (int requestCode, int resultCode, @Nullable Intent data) {
-
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode,resultCode,data);
-        imageView.setImageResource(R.drawable.unnamed);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+//        imageView.setImageResource(R.drawable.unnamed);
 
         ShareLinkContent shareLinkContent = new ShareLinkContent.Builder()
                 .setContentUrl(Uri.parse("https://www.facebook.com/profile.php?id=100080892737577"))
@@ -67,6 +107,7 @@ public class FacebookActivity extends AppCompatActivity {
 
         BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
         Bitmap bitmap = bitmapDrawable.getBitmap();
+
 
         SharePhoto sharePhoto = new SharePhoto.Builder()
                 .setBitmap(bitmap)

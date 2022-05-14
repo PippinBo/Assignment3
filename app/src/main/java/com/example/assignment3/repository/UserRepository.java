@@ -96,5 +96,12 @@ public class UserRepository {
 
     //  public List<Movement> getMovementListByID(final int id){ return (List<Movement>) userDao.getMovementListByID(id);}
 
+
+    public void deleteMovement(final int userId, final String time, final long movement) {
+        UserDatabase.databaseWriteExecutor.execute(() -> userDao.deleteMovement(userId, time, movement));
+    }
+
+    public LiveData<List<String>> getAddressByRole(final String role) { return userDao.getAddressByRole(role); }
+
 }
 

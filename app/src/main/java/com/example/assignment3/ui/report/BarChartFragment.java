@@ -1,7 +1,12 @@
 package com.example.assignment3.ui.report;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,6 +23,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.assignment3.BitmapUtil;
 import com.example.assignment3.R;
 import com.example.assignment3.databinding.FragmentBarchartBinding;
 import com.example.assignment3.entity.Movement;
@@ -29,6 +37,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +48,24 @@ public class BarChartFragment extends Fragment {
     private FragmentBarchartBinding binding;
     private BarChart barChart;
     private ArrayList barArrayList;
+
     private UserViewModel userViewModel;
+
+    private Bitmap bitmap;
+    private Button shareButton;
+    private Button id;
+
+    /**
+     * 截取全屏
+     *
+     * @return
+     */
+    public Bitmap captureScreenWindow() {
+        getActivity().getWindow().getDecorView().setDrawingCacheEnabled(true);
+        Bitmap bmp = getActivity().getWindow().getDecorView().getDrawingCache();
+        return bmp;
+    }
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,15 +77,21 @@ public class BarChartFragment extends Fragment {
 
         userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(UserViewModel.class);
 
-        Button shareButton = (Button) root.findViewById(R.id.facebook_button);
+        id = (Button) root.findViewById(R.id.back_button);
+        shareButton = (Button) root.findViewById(R.id.facebook_button);
+
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Intent intent = new Intent(getActivity(), FacebookActivity.class);
-                startActivity(intent);
-                fragmentTransaction.commit();
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    //请求权限
+                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+//                    ActivityCompat.requestPermissions(getContext(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                } else {
+                    //调用
+                    extracted(shareButton, id);
+                }
+
             }
         });
 
@@ -68,8 +100,7 @@ public class BarChartFragment extends Fragment {
         loadBarChartData();
 
 
-        Button ID = (Button) root.findViewById(R.id.back_button);
-        ID.setOnClickListener(new View.OnClickListener() {
+        id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentManager fragmentManager = getFragmentManager();
@@ -86,8 +117,39 @@ public class BarChartFragment extends Fragment {
         return root;
     }
 
-    private void loadBarChartData(){
-        ArrayList<BarEntry> entries = new ArrayList<>();
+
+    private void extracted(Button shareButton, Button ID) {
+        shareButton.setVisibility(View.GONE);
+        ID.setVisibility(View.GONE);
+        Bitmap bitmap = captureScreenWindow();
+        shareButton.setVisibility(View.VISIBLE);
+        ID.setVisibility(View.VISIBLE);
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        File file = BitmapUtil.compressImage(bitmap, getContext());
+        Uri uriForFile = FileProvider.getUriForFile(getContext(), "com.example.assignment3.fileprovider", file);
+        Log.d("TAG", "uriForFile" + uriForFile);
+        Intent intent = new Intent(getActivity(), FacebookActivity.class).putExtra("bitmap", uriForFile.toString());
+        startActivity(intent);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.d("TAG", "fragmentonRequestPermissionsResult: ");
+        if (grantResults != null && grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            switch (requestCode) {
+                case 1: {
+                    Log.d("TAG", "onRequestPermissionsResult: ");
+                    extracted(shareButton, id);
+                }
+                break;
+            }
+        }
+    }
+
+    private void loadBarChartData() {
+        ArrayList<PieEntry> entries = new ArrayList<>();
         getData();
         BarDataSet barDataSet = new BarDataSet(barArrayList, "FitBud");
         BarData barData = new BarData(barDataSet);
@@ -98,13 +160,17 @@ public class BarChartFragment extends Fragment {
 
     }
 
-    private void getData(){
+    private void getData() {
         barArrayList = new ArrayList();
+
         Bundle bundle = getActivity().getIntent().getExtras();
         User user = bundle.getParcelable("loginUser");
 
-        barArrayList.add(new BarEntry(20f,100));
 
+        barArrayList.add(new BarEntry(2f, 10));
+        barArrayList.add(new BarEntry(3f, 20));
+        barArrayList.add(new BarEntry(4f, 30));
+        barArrayList.add(new BarEntry(5f, 40));
 
 
     }

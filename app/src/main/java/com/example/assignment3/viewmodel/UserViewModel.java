@@ -17,14 +17,18 @@ import com.example.assignment3.entity.relationship.UserWithMovements;
 import com.example.assignment3.repository.UserRepository;
 
 import java.util.List;
+
 import java.util.concurrent.CompletableFuture;
+
+import java.util.PrimitiveIterator;
+
 
 public class UserViewModel extends AndroidViewModel {
     private UserRepository uRepository;
     private LiveData<List<User>> allUsers;
-    //private UserDatabase userDB;
-    //private UserDao userDao;
-    //private LiveData<List<UserWithMovements>> allUserMovements;
+
+    private LiveData<List<String>> allAddress;
+
 
     public UserViewModel(Application application) {
         super(application);
@@ -41,11 +45,22 @@ public class UserViewModel extends AndroidViewModel {
     }
 
 
+
+    public  LiveData<List<String>> getAllGym(final String role) {
+        return uRepository.getAddressByRole(role);
+    }
+
     public LiveData<List<UserWithMovements>> getMovementByEmail(final String email) { return uRepository.getMovementByEmail(email); }
 
     public LiveData<List<User>> getAllUsers() {
         return allUsers;
     }
+
+    public void deleteMovement(final int userId, final String time, final long movement) {
+        uRepository.deleteMovement(userId, time, movement);
+    }
+
+    public LiveData<List<String>> getAddressByRole(final String role) { return uRepository.getAddressByRole(role); }
 
     public void insertUser(User user) {
         uRepository.insertUser(user);
