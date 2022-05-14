@@ -2,34 +2,21 @@ package com.example.assignment3.ui.home;
 
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
-import com.example.assignment3.LoginActivity;
-import com.example.assignment3.MainActivity;
 import com.example.assignment3.R;
-import com.example.assignment3.SignupActivity;
 import com.example.assignment3.databinding.FragmentHomeBinding;
 import com.example.assignment3.entity.Movement;
 import com.example.assignment3.entity.User;
-import com.example.assignment3.ui.map.MapFragment;
 import com.example.assignment3.viewmodel.UserViewModel;
 
 import java.text.DateFormat;
@@ -37,7 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -118,12 +104,8 @@ public class HomeFragment extends Fragment {
                 String weather = root.getWeather().get(0).getDescription();
                 int weatherId = root.getWeather().get(0).getId();
                 int temps = (int) temp;
-                String degree = String.valueOf((int)temp + "°C");
-                if (degree.isEmpty()) {
-                    binding.tempTextView.setText("- °C");
-                } else {
-                    binding.tempTextView.setText(String.valueOf((int) temp + "°C"));
-                }
+                String degree = temps + "°C";
+                binding.tempTextView.setText(degree);
                 binding.tempDesc.setText(weather);
                 Calendar calendar = Calendar.getInstance();
                 int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);

@@ -3,24 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/drawable/ic_baseline_fitness_center_24.xml" value="0.261" />
-        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/activity_main.xml" value="0.1875" />
-        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/fragment_facebook.xml" value="0.1875" />
-        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/fragment_generate_report.xml" value="0.33" />
-        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/fragment_home.xml" value="0.3451086956521739" />
-        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/fragment_piechart.xml" value="0.1875" />
-        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/fragment_record.xml" value="0.1875" />
-        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/fragment_report.xml" value="0.1875" />
-        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/fragment_share.xml" value="0.1875" />
-        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/list_report_type.xml" value="0.3451086956521739" />
-        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/login_activity.xml" value="0.3451086956521739" />
-        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/nav_header_main.xml" value="0.3451086956521739" />
-        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/recyclerview_layout.xml" value="0.2346014492753623" />
-        <entry key="..\:/Users/ROG/AndroidStudioProjects/Test2/app/src/main/res/layout/recyclerview_main.xml" value="0.2346014492753623" />
         <entry key="..\:/Users/lenovo/Desktop/Semester3/FIT5046/A_Project/Assignment3/app/src/main/res/layout/activity_main.xml" value="0.21" />
         <entry key="..\:/Users/lenovo/Desktop/Semester3/FIT5046/A_Project/Assignment3/app/src/main/res/layout/data_entry.xml" value="0.22" />
         <entry key="..\:/Users/lenovo/Desktop/Semester3/FIT5046/A_Project/Assignment3/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/lenovo/Desktop/Semester3/FIT5046/A_Project/Assignment3/app/src/main/res/layout/fragment_record.xml" value="0.25" />
+        <entry key="..\:/Users/lenovo/Desktop/Semester3/FIT5046/A_Project/Assignment3/app/src/main/res/layout/fragment_report.xml" value="0.15806159420289856" />
         <entry key="..\:/Users/lenovo/Desktop/Semester3/FIT5046/A_Project/Assignment3/app/src/main/res/layout/home_activity.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/lenovo/Desktop/Semester3/FIT5046/A_Project/Assignment3/app/src/main/res/layout/login_activity.xml" value="0.1" />
         <entry key="..\:/Users/lenovo/Desktop/Semester3/FIT5046/A_Project/Assignment3/app/src/main/res/layout/main_activity.xml" value="0.1" />
@@ -33,27 +20,19 @@
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.174658203125" />
         <entry key="app/src/main/res/layout/custom_info_contents.xml" value="0.16018518518518518" />
-        <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/data_entry.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_barchart.xml" value="0.24139492753623187" />
         <entry key="app/src/main/res/layout/fragment_drawer_head.xml" value="0.16843971631205673" />
         <entry key="app/src/main/res/layout/fragment_drawer_navigation_header.xml" value="0.16843971631205673" />
         <entry key="app/src/main/res/layout/fragment_generate_report.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.20238095238095238" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3639797788677794" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.15058898925781244" />
         <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.16018518518518518" />
-        <entry key="app/src/main/res/layout/fragment_generate_report.xml" value="0.2776268115942029" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_map.xml" value="0.1" />
-
-        <entry key="app/src/main/res/layout/fragment_piechart.xml" value="0.2776268115942029" />
-        <entry key="app/src/main/res/layout/fragment_record.xml" value="0.2776268115942029" />
+        <entry key="app/src/main/res/layout/fragment_piechart.xml" value="0.1413373860182371" />
+        <entry key="app/src/main/res/layout/fragment_record.xml" value="0.2611683848797251" />
         <entry key="app/src/main/res/layout/fragment_report.xml" value="0.17613636363636365" />
-
         <entry key="app/src/main/res/layout/fragment_share.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/layout_add_record.xml" value="0.2776268115942029" />
-        <entry key="app/src/main/res/layout/layout_record_item.xml" value="0.2776268115942029" />
-        <entry key="app/src/main/res/layout/login_activity.xml" value="0.5291863803205819" />
+        <entry key="app/src/main/res/layout/login_activity.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/marker_popup.xml" value="0.16018518518518518" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.179156494140625" />
         <entry key="app/src/main/res/layout/record.xml" value="0.1" />
         <entry key="app/src/main/res/layout/registration_check.xml" value="0.1" />
