@@ -6,20 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.map.MapFragment">
 
-
-
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/google_map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"/>
-
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <Button
         android:id="@+id/zoom_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="zoom in"
+        android:text="@string/zoom_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.246"
@@ -31,7 +28,7 @@
         android:id="@+id/zoom_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="zoom out"
+        android:text="@string/zoom_out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.775"
@@ -44,9 +41,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/fui_transparent"
+        android:contentDescription="@string/current_location"
         android:src="@android:drawable/ic_menu_mylocation"
-
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.957"

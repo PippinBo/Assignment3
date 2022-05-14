@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.report.ReportFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.report.ReportFragment">
 
 
     <TextView
@@ -30,15 +29,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Start Date"
-        android:textSize="20dp"
+        android:text="@string/start_date"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/startDatePickerButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:ignore="MissingConstraints"></TextView>
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/startDatePickerButton"
@@ -65,14 +64,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="End Date"
-        android:textSize="20dp"
+        android:text="@string/end_date"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.357"></TextView>
+        app:layout_constraintVertical_bias="0.357" />
 
     <Button
         android:id="@+id/endDatePickerButton"
@@ -81,9 +80,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:onClick="openEndDatePicker"
-        android:text="JAN 01 2020"
+        android:text="@string/jan_01_2020"
         android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -132,7 +131,7 @@
         android:layout_height="68dp"
         android:layout_marginBottom="124dp"
         android:gravity="center"
-        android:text="Generate Barchart"
+        android:text="@string/generate_barchart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
@@ -143,7 +142,7 @@
         android:id="@+id/generate_pieChart"
         android:layout_width="207dp"
         android:layout_height="63dp"
-        android:text="Generate PieChart"
+        android:text="@string/generate_piechart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
