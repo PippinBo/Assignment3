@@ -25,8 +25,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -36,11 +34,11 @@
         <activity android:name=".RegistrationCheckActivity" />
         <activity android:name=".ResetActivity" />
         <activity android:name=".ui.report.FacebookActivity" />
-        <activity android:name=".ui.share.HistoryActivity"/>
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCXFqRRFtTpVqba8_b6AHnmMqktyMwItMM" />
+            android:value="@string/google_map_API_key" />
 
         <activity
             android:name="com.example.assignment3.MainActivity"

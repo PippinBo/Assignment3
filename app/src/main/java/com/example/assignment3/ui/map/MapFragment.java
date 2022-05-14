@@ -71,11 +71,11 @@ public class MapFragment extends Fragment {
             int height = 110;
             int width = 110;
             @SuppressLint("UseCompatLoadingForDrawables")
-            BitmapDrawable bitMapDraw1 = (BitmapDrawable) getResources().getDrawable(R.drawable.gym1);
+            BitmapDrawable bitMapDraw1 = (BitmapDrawable) getResources().getDrawable(R.drawable.gym1, null);
             @SuppressLint("UseCompatLoadingForDrawables")
-            BitmapDrawable bitMapDraw2 = (BitmapDrawable) getResources().getDrawable(R.drawable.gym2);
+            BitmapDrawable bitMapDraw2 = (BitmapDrawable) getResources().getDrawable(R.drawable.gym2, null);
             @SuppressLint("UseCompatLoadingForDrawables")
-            BitmapDrawable bitMapDraw3 = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_user);
+            BitmapDrawable bitMapDraw3 = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_user, null);
             Bitmap b1 = bitMapDraw1.getBitmap();
             Bitmap b2 = bitMapDraw2.getBitmap();
             Bitmap b3 = bitMapDraw3.getBitmap();

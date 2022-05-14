@@ -1,5 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">FitBud</string>
+    <string name="open_weather_API_key">0891ee5dc748292618ab5b5fc73361bf</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">FitBud</string>
@@ -22,6 +24,7 @@
     <string name="zoom_in">zoom in</string>
     <string name="zoom_out">zoom out</string>
     <string name="current_location">back to current location</string>
+    <string name="google_map_API_key">AIzaSyCXFqRRFtTpVqba8_b6AHnmMqktyMwItM</string>
 
 
     <string name="menu_home">Home</string>
@@ -55,7 +58,6 @@
     <string name="_22_05_2022">22/05/2022</string>
     <string name="enter_distance_metres">Enter Distance (metres)</string>
     <string name="add">ADD</string>
-    <string name="enter_distance_metres">Enter Distance (metres)</string>
     <string name="test">test</string>
     <string name="please_enter_your_password">Please enter your password</string>
     <string name="please_enter_your_email">Please enter your email</string>

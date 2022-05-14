@@ -107,9 +107,10 @@ public class HomeFragment extends Fragment {
                 binding.tempDesc.setText(weather);
                 Calendar calendar = Calendar.getInstance();
                 int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
-                if (weatherId == 800 && (hour24hrs < 6 || hour24hrs > 20)) {
+ //               binding.weatherIcon.setImageResource(R.drawable.ic_clear_night);
+                if (weatherId == 800 && (hour24hrs <= 6 || hour24hrs >= 20)) {
                     binding.weatherIcon.setImageResource(R.drawable.ic_clear_night);
-                } else if (weatherId == 800 && (hour24hrs > 6 && hour24hrs < 20)) {
+                } else if (weatherId == 800) {
                     binding.weatherIcon.setImageResource(R.drawable.ic_clear_day);
                 } else if (weatherId >= 200 && weatherId <= 232) {
                     binding.weatherIcon.setImageResource(R.drawable.thunderstorms);
@@ -125,7 +126,7 @@ public class HomeFragment extends Fragment {
                     binding.weatherIcon.setImageResource(R.drawable.ic_rain);
                 }
 
-                if (hour24hrs < 6 || hour24hrs > 20) {
+                if (hour24hrs <= 6 || hour24hrs >= 20) {
                     binding.tempSuggestions.setText(R.string.weather_night);
                 } else if (temps > 10 && temps < 30 && weatherId == 800 || (weatherId >= 801 && weatherId <= 804)) {
                     binding.tempSuggestions.setText(R.string.weather_good);
@@ -140,14 +141,12 @@ public class HomeFragment extends Fragment {
                     binding.tempSuggestions.setText(R.string.weathet_bad);
                 }
             }
-
             @Override
             public void onFailure(@NonNull Call<Root> call, @NonNull Throwable t) {
                 System.out.println(t.getMessage());
             }
         });
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
