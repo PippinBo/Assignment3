@@ -97,11 +97,11 @@ public class RecordFragment extends Fragment {
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = new Date();
 
-                //CompletableFuture<Movement> test = userViewModel.checkDailyEntry(user.getUid(),dateFormat.format(date));
-                //if (test != null){
-                  //  Toast.makeText(getActivity(), "Already recorded today!", Toast.LENGTH_SHORT).show();
-                    //return;
-                //}
+                CompletableFuture<Movement> test = userViewModel.checkDailyEntry(user.getUid(),dateFormat.format(date));
+                if (test != null){
+                    Toast.makeText(getActivity(), "Already recorded today!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
 
                 // Return error if so

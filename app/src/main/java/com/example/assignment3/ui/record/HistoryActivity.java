@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.assignment3.databinding.RecyclerviewMainBinding;
+import com.example.assignment3.entity.User;
 import com.example.assignment3.ui.record.adapter.RecyclerViewAdapter;
 import com.example.assignment3.ui.record.model.MovementResult;
 
@@ -45,6 +46,9 @@ public class HistoryActivity extends AppCompatActivity {
                     int movement =new Integer(sMovement).intValue();
                     saveData(time, movement);
                 }
+
+
+
             }
         });
     }

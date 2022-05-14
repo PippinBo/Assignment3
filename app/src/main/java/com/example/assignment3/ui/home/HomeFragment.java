@@ -1,8 +1,10 @@
 package com.example.assignment3.ui.home;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -24,9 +27,16 @@ import com.example.assignment3.MainActivity;
 import com.example.assignment3.R;
 import com.example.assignment3.SignupActivity;
 import com.example.assignment3.databinding.FragmentHomeBinding;
+import com.example.assignment3.entity.Movement;
+import com.example.assignment3.entity.User;
 import com.example.assignment3.ui.map.MapFragment;
+import com.example.assignment3.viewmodel.UserViewModel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -50,6 +60,35 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+        Bundle bundle = getActivity().getIntent().getExtras();
+        User user = bundle.getParcelable("loginUser");
+        int id = user.getUid();
+//
+//
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        String dates = dateFormat.format(date);
+
+        UserViewModel userViewModel = ViewModelProvider
+                .AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(UserViewModel.class);
+        userViewModel.getMovementById(id).observe(getViewLifecycleOwner(), new Observer<List<Movement>>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onChanged(List<Movement> movements) {
+                for (int i=0; i< movements.size(); i++){
+                    if (movements.get(i).getTime().equals(dates)){
+                        long distance = movements.get(i).getMovement();
+                        String dailyDistance = String.valueOf(distance);
+                        String calories = String.valueOf((int)distance*0.062);
+                        binding.dailyCalories.setText(calories + "Kcal");
+                        binding.dailyDistance.setText(dailyDistance +  "m");
+
+                    }
+                }
+            }
+        });
+
 
 
         final TextView textView = binding.location;
