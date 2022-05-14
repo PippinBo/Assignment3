@@ -166,12 +166,18 @@ public class BarChartFragment extends Fragment {
         Bundle bundle = getActivity().getIntent().getExtras();
         User user = bundle.getParcelable("loginUser");
 
-
-        barArrayList.add(new BarEntry(2f, 10));
-        barArrayList.add(new BarEntry(3f, 20));
-        barArrayList.add(new BarEntry(4f, 30));
-        barArrayList.add(new BarEntry(5f, 40));
-
+        userViewModel.getMovementByEmail(user.getEmail()).observe(getViewLifecycleOwner(), new Observer<List<UserWithMovements>>() {
+            @Override
+            public void onChanged(List<UserWithMovements> userWithMovements) {
+                float count =0;
+                for (UserWithMovements temp : userWithMovements){
+                    for(Movement temp2: temp.movements){
+                        count += 1;
+                        barArrayList.add(new BarEntry(count,temp2.getMovement()));
+                    }
+                }
+            }
+        });
 
     }
 
