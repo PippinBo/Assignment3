@@ -42,16 +42,16 @@
 
         <ImageView
             android:id="@+id/recordCardDelete"
-            android:layout_width="61dp"
-            android:layout_height="58dp"
+            android:layout_width="43dp"
+            android:layout_height="46dp"
             android:src="@drawable/ic_baseline_delete_24"
             android:text="test"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.984"
+            app:layout_constraintHorizontal_bias="0.98"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.042" />
+            app:layout_constraintVertical_bias="0.47" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

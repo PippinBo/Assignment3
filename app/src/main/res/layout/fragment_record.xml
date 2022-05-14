@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
         android:layout_marginEnd="23dp"
-        android:layout_marginBottom="79dp"
+        android:layout_marginBottom="16dp"
         android:text="History"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button7"
