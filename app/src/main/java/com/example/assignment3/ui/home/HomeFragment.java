@@ -118,7 +118,12 @@ public class HomeFragment extends Fragment {
                 String weather = root.getWeather().get(0).getDescription();
                 int weatherId = root.getWeather().get(0).getId();
                 int temps = (int) temp;
-                binding.tempTextView.setText(String.valueOf((int)temp + "°C"));
+                String degree = String.valueOf((int)temp + "°C");
+                if (degree.isEmpty()) {
+                    binding.tempTextView.setText("- °C");
+                } else {
+                    binding.tempTextView.setText(String.valueOf((int) temp + "°C"));
+                }
                 binding.tempDesc.setText(weather);
                 Calendar calendar = Calendar.getInstance();
                 int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);

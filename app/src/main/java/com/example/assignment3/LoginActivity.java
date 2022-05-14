@@ -112,19 +112,5 @@ public class LoginActivity extends AppCompatActivity {
                 userViewModel.insertMovement(move2);
             }
         });
-        //
-        // Hi benson, here is the sample code for changing all movements' times attribute for one User
-        //
-        //userViewModel.getMovementByEmail( USER EMAIL HERE).observe(this, new Observer<List<UserWithMovements>>() {
-        //    @Override
-        //    public void onChanged(List<UserWithMovements> userWithMovements) {
-        //        for (UserWithMovements temp : userWithMovements){
-        //            for (Movement m : temp.movements){
-        //                m.setTime("11111");
-        //                userViewModel.updateMovement(m);
-        //            }
-        //        }
-        //    }
-        //});
     }
 }
