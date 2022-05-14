@@ -13,16 +13,12 @@ import java.io.IOException;
 
 public class NearlyPlace {
 
-    public static PlacesSearchResponse run(){
+    public static PlacesSearchResponse run(Double latitude, Double longitude){
         PlacesSearchResponse request = new PlacesSearchResponse();
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey("AIzaSyCXFqRRFtTpVqba8_b6AHnmMqktyMwItMM")
                 .build();
-        //     LatLng location = new LatLng(-33.865143, 334,417.07)
 
-        String[] latlong =  "-37.915047,145.129272".split(",");
-        double latitude = Double.parseDouble(latlong[0]);
-        double longitude = Double.parseDouble(latlong[1]);
         LatLng location = new LatLng(latitude, longitude);
 
         try {

@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.assignment3.MainActivity;
 import com.example.assignment3.R;
+import com.example.assignment3.entity.Movement;
 import com.example.assignment3.entity.User;
 import com.example.assignment3.ui.record.RecordViewModel;
 import com.example.assignment3.ui.report.FacebookActivity;
@@ -80,21 +81,10 @@ public class MapFragment extends Fragment {
 
         UserViewModel userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(UserViewModel.class);
         Context context = requireActivity().getApplicationContext();
+
         Bundle bundle = getActivity().getIntent().getExtras();
         User user = bundle.getParcelable("loginUser");
         String address = user.getAddress();
-
-
-
-//
-//
-//        String email = "test1@gmail.com";
-//        userViewModel.findByEmail(email).observe(getViewLifecycleOwner(), new Observer<User>() {
-//            @Override
-//            public void onChanged(User user) {
-//               String address = user.getAddress();
-//            }
-//        });
 
 
         // Async map
@@ -102,7 +92,13 @@ public class MapFragment extends Fragment {
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
-                PlacesSearchResult[] placesSearchResults = NearlyPlace.run().results;
+
+                LatLng latLng=getLocationFromAddress(context,
+                        address );
+                Double latitude = latLng.latitude;
+                Double longitude = latLng.longitude;
+
+                PlacesSearchResult[] placesSearchResults = NearlyPlace.run(latitude,longitude).results;
                 int height = 110;
                 int width = 110;
                 @SuppressLint("UseCompatLoadingForDrawables")
@@ -129,44 +125,55 @@ public class MapFragment extends Fragment {
                             .icon(BitmapDescriptorFactory.fromBitmap(APIGymLogo))
                     );
                 }
-//
-//                userViewModel.getAllGym("Gym").observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-//                    @Override
-//                    public void onChanged(List<String> strings) {
-//                        for (int i=0; i < strings.size(); i++) {
-//                            LatLng latLngGym = getLocationFromAddress(context,strings.get(i));
-//                            System.out.println(latLngGym);
-//                            googleMap.addMarker(new MarkerOptions()
-//                                    .position(latLngGym)
-//                                    .title(strings.get(i))
-//                   //                 .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-//                            );
-//                        }
-//                    }
-//                });
-
 
                 userViewModel.getAllUsers().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
                     @Override
                     public void onChanged(List<User> users) {
                         for (int i=0; i < users.size(); i++) {
-                            LatLng latLngGym = getLocationFromAddress(context,users.get(i).getAddress());
-                            System.out.println(latLngGym);
-                            googleMap.addMarker(new MarkerOptions()
-                                            .position(latLngGym)
-                                            .title(users.get(i).getName())
-                                            .icon(BitmapDescriptorFactory.fromBitmap(UserGymLogo))
-                            );
+                            if (users.get(i).getRole().equals("Gym")) {
+                                LatLng latLngGym = getLocationFromAddress(context,users.get(i).getAddress());
+                                System.out.println(latLngGym);
+                                googleMap.addMarker(new MarkerOptions()
+                                        .position(latLngGym)
+                                        .title(users.get(i).getName())
+                                        .icon(BitmapDescriptorFactory.fromBitmap(UserGymLogo))
+                                );
+                            }
                         }
                     }
                 });
 
+                if (!latLng.equals(new LatLng (-37.8136663,144.9633777))){
+                    googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(latLng , 12.0f) );
+                    googleMap.setMinZoomPreference(6.0f);
+                    googleMap.setMaxZoomPreference(14.0f);
+                    Marker userLocation = googleMap.addMarker(new MarkerOptions()
+                            .position(latLng)
+                            .title("You are here")
+                            .draggable(true)
+                            .icon(BitmapDescriptorFactory.fromBitmap(UserLogo))
+                    );
+                    assert userLocation != null;
+                    userLocation.showInfoWindow();
+                }
+                else {
+                    googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(latLng, 12.0f) );
+                    googleMap.setMinZoomPreference(6.0f);
+                    googleMap.setMaxZoomPreference(14.0f);
+                    Marker userLocation = googleMap.addMarker(new MarkerOptions()
+                            .position(latLng)
+                            .title("Position not find/default position")
+                            .draggable(true)
 
-                LatLng latLng=getLocationFromAddress(context,
-                        address );
-                googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(latLng , 12.0f) );
-                googleMap.setMinZoomPreference(6.0f);
-                googleMap.setMaxZoomPreference(14.0f);
+                    );
+                    assert userLocation != null;
+                    userLocation.showInfoWindow();
+                }
+
+
+//                googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(latLng , 12.0f) );
+//                googleMap.setMinZoomPreference(6.0f);
+//                googleMap.setMaxZoomPreference(14.0f);
 
                 Button zoomOutButton = (Button) view.findViewById(R.id.zoom_out);
                 zoomOutButton.setOnClickListener(new View.OnClickListener() {
@@ -194,26 +201,8 @@ public class MapFragment extends Fragment {
                     }
                 });
 
-
-                Marker userLocation = googleMap.addMarker(new MarkerOptions()
-                        .position(latLng)
-                        .title("You are here")
-                        .draggable(true)
-                        .icon(BitmapDescriptorFactory.fromBitmap(UserLogo))
-                        );
-                assert userLocation != null;
-                userLocation.showInfoWindow();
             }
         });
-
-         NearlyPlace.run();
-//        PlacesSearchResult[] results22 = request.results;
-//        String test1 = results22.toString();
-//        System.out.println(request);
-//        System.out.println(results22);
-//        System.out.println(test1);
-
-        // Return view
         return view;
     }
 
@@ -225,7 +214,7 @@ public class MapFragment extends Fragment {
     public LatLng getLocationFromAddress(Context context, String strAddress) {
         Geocoder geocoder = new Geocoder(context);
         //if the address is valid use this default address
-        String defaultAddress = "350 Bourke Street, Melbourne";
+        String defaultAddress = "350 Bourke Street Melbourne VIC 3000";
         List<Address> addressList;
         LatLng latLng = null;
             try {
@@ -250,41 +239,4 @@ public class MapFragment extends Fragment {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//    public GeoPoint getLocationFromAddress(Context context, String strAddress) {
-//
-//        Geocoder coder = new Geocoder(context);
-//        List<Address> address;
-//        GeoPoint p1 = null;
-//
-//        try {
-//            address = coder.getFromLocationName(strAddress, 5);
-//            if (address == null) {
-//                return null;
-//            }
-//            Address location = address.get(0);
-//            location.getLatitude();
-//            location.getLongitude();
-//
-//            p1 = new GeoPoint((double) (location.getLatitude() * 1E6),
-//                    (double) (location.getLongitude() * 1E6));
-//
-//            return p1;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
 }
