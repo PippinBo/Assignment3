@@ -118,7 +118,7 @@ public class RecordFragment extends Fragment {
                         userViewModel.insertMovement(movement);
 
                         // Recycler
-                        recordList.add(0, new Movement(user.getUid(), todayDate, distanceNum));
+                        recordList.add(recordList.size()-1, new Movement(user.getUid(), todayDate, distanceNum));
                         adapter.notifyItemInserted(recordList.size()-1);
                         recyclerView.scrollToPosition(0);
 
@@ -158,17 +158,16 @@ public class RecordFragment extends Fragment {
             @Override
             public void onChanged(List<UserWithMovements> userWithMovements) {
                 recordList = new ArrayList<Movement>();
-                //Toast.makeText(getActivity(),"yo",Toast.LENGTH_SHORT).show();
                 for (UserWithMovements temp : userWithMovements){
                     for (Movement temp2 : temp.movements){
                         Movement test1 = new Movement(temp2.getUserId(),temp2.getTime(),temp2.getMovement());
                         recordList.add(test1);
-                        Collections.reverse(recordList);
+                        //Collections.reverse(recordList);
                     }
 
-            }
+                }
                 setAdapter();
-                recyclerView.getAdapter().notifyDataSetChanged();
+
 
         }});
     }

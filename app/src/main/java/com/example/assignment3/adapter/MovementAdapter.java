@@ -33,6 +33,7 @@ import com.example.assignment3.entity.relationship.UserWithMovements;
 import com.example.assignment3.repository.UserRepository;
 import com.example.assignment3.viewmodel.UserViewModel;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyViewHolder>{
@@ -44,6 +45,7 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyView
     public MovementAdapter(List<Movement> records, UserViewModel userViewModel, User user) {
 
         this.records = records;
+        Collections.reverse(this.records);
         this.userViewModel = userViewModel;
         this.user = user;
 
