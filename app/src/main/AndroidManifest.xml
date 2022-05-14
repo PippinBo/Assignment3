@@ -34,6 +34,7 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".DataEntryActivity" />
         <activity android:name=".RegistrationCheckActivity" />
+        <activity android:name=".ResetActivity" />
         <activity android:name=".ui.report.FacebookActivity" />
         <activity android:name=".ui.record.HistoryActivity"/>
 
@@ -66,8 +67,7 @@
 
         <activity
             android:name="com.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">

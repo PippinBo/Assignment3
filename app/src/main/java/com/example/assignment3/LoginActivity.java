@@ -102,8 +102,14 @@ public class LoginActivity extends AppCompatActivity {
             if (user == null) {
                 User user1 = new User("TestGym1@gmail.com", "Password1!", "Gym", "Test Gym 1", "Campus Centre, Clayton, VIC 3168");
                 User user2 = new User("TestGym2@gmail.com", "Password2!", "Gym", "Test Gym 2", "Balwyn Park, Balwyn, VIC 3103");
+                User user3 = new User("TestUser1@gmail.com", "Password1!", "User", "Test User 1", "Treyvaud Memorial Park, 32A Chadstone Rd, VIC 3145");
                 userViewModel.insertUser(user1);
                 userViewModel.insertUser(user2);
+                userViewModel.insertUser(user3);
+                Movement move1 = new Movement(3, "2022/05/03", 600);
+                Movement move2 = new Movement(3, "2022/05/13", 700);
+                userViewModel.insertMovement(move1);
+                userViewModel.insertMovement(move2);
             }
         });
         //
@@ -117,16 +123,6 @@ public class LoginActivity extends AppCompatActivity {
         //                m.setTime("11111");
         //                userViewModel.updateMovement(m);
         //            }
-        //        }
-        //    }
-        //});
-
-        // Hi hongyu, Sample code for reading address
-        //userViewModel.getAddressByRole("Gym").observe(this, new Observer<List<String>>() {
-        //    @Override
-        //    public void onChanged(List<String> strings) {
-        //        for (String address : strings) {
-        //            System.out.println(address);
         //        }
         //    }
         //});
