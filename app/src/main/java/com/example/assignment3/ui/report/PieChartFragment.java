@@ -214,12 +214,17 @@ public class PieChartFragment extends Fragment {
                         if(!movementDate.before(startReportDate) && !movementDate.after(endReportDate)){
                             totalDistance += temp2.getMovement();
                         }
+                    }
+                    for(Movement temp2: temp.movements){
+
+                        Date movementDate = convertStringDate(temp2.getTime());
                         if(!movementDate.before(startReportDate) && !movementDate.after(endReportDate)){
-                            entries.add(new PieEntry((float) (temp2.getMovement()/totalDistance),temp2.getTime()));
+                            entries.add(new PieEntry(((float) ((float)temp2.getMovement()/(float)totalDistance)),temp2.getTime()));
                         }
                     }
                 }
 
+                System.out.println(entries.size());
                 PieDataSet pieDataSet = new PieDataSet(entries, "FitBud");
                 pieDataSet.setColors(pieColors);
                 PieData data = new PieData(pieDataSet);
