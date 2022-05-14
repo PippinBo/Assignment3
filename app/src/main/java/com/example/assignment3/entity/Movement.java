@@ -35,4 +35,14 @@ public class Movement {
     public long getMovement() { return movement; }
 
     public void setMovement(long movement) { this.movement = movement; }
+
+    @Override
+    public String toString() {
+        return "Movement{" +
+                "mid=" + mid +
+                ", userId=" + userId +
+                ", time='" + time + '\'' +
+                ", movement=" + movement +
+                '}';
+    }
 }

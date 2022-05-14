@@ -7,8 +7,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.work.Data;
@@ -19,14 +17,13 @@ import androidx.work.WorkRequest;
 import com.example.assignment3.databinding.LoginActivityBinding;
 import com.example.assignment3.entity.Movement;
 import com.example.assignment3.entity.User;
-import com.example.assignment3.entity.relationship.UserWithMovements;
 import com.example.assignment3.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -160,6 +157,20 @@ public class LoginActivity extends AppCompatActivity {
                 Movement move2 = new Movement(3, "2022/05/13", 700);
                 userViewModel.insertMovement(move1);
                 userViewModel.insertMovement(move2);
+            }
+        });
+
+        // Hi zhixue, here
+        userViewModel.getAllUsers().observe(this, new Observer<List<User>>() {
+            ArrayList<String> userList = new ArrayList<String>();
+            @Override
+            public void onChanged(List<User> users) {
+                for (User user : users) {
+                    userList.add(user.toString());
+                }
+                for (String u : userList) {
+                    System.out.println(u);
+                }
             }
         });
     }
