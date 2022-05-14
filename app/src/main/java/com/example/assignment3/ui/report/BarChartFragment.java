@@ -15,6 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -40,8 +44,11 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 // this fragment is for report page, feel free to edit
 
@@ -52,12 +59,13 @@ public class BarChartFragment extends Fragment {
     private ArrayList barArrayList;
 
     private UserViewModel userViewModel;
-    private String startReportDate;
-    private String endReportDate;
+    private Date startReportDate;
+    private Date endReportDate;
 
     private Bitmap bitmap;
     private Button shareButton;
     private Button id;
+
 
     /**
      * 截取全屏
@@ -99,12 +107,15 @@ public class BarChartFragment extends Fragment {
             }
         });
 
-        SharedPreferences sharedPref = requireActivity().getSharedPreferences("Message",  Context.MODE_PRIVATE);
-        startReportDate = sharedPref.getString("startDate",null);
-        System.out.println(startReportDate);
-        endReportDate = sharedPref.getString("endDate",null);
-        System.out.println(endReportDate);
+        // Dates
 
+        SharedPreferences sharedPref = requireActivity().getSharedPreferences("Message",  Context.MODE_PRIVATE);
+        String startReportDateString = sharedPref.getString("startDate",null);
+        String endReportDateString = sharedPref.getString("endDate",null);
+        startReportDate = convertStringDate(startReportDateString);
+        endReportDate = convertStringDate(endReportDateString);
+
+        System.out.println(startReportDate);
 
         barChart = root.findViewById(R.id.barReportChart);
         getData();
@@ -158,8 +169,6 @@ public class BarChartFragment extends Fragment {
         }
     }
 
-
-
     private void getData() {
         barArrayList = new ArrayList();
 
@@ -172,9 +181,15 @@ public class BarChartFragment extends Fragment {
                 float count =0;
                 for (UserWithMovements temp : userWithMovements){
                     for(Movement temp2: temp.movements){
-                        count += 1;
-                        barArrayList.add(new BarEntry(count,(int)temp2.getMovement()));
-                        System.out.println(temp2.getMovement());
+
+                        Date movementDate = convertStringDate(temp2.getTime());
+                        //Get date
+                        if(!movementDate.before(startReportDate) && !movementDate.after(endReportDate)){
+                            //if (temp2.getTime().toString()
+                            count += 1;
+                            barArrayList.add(new BarEntry(count,(int)temp2.getMovement()));
+                            System.out.println(temp2.getMovement());
+                        }
                     }
                 }
                 BarDataSet barDataSet = new BarDataSet(barArrayList, "FitBud");
@@ -186,9 +201,24 @@ public class BarChartFragment extends Fragment {
             }
 
         });
-        System.out.println(barArrayList.size() + 4);
 
     }
+
+    private Date convertStringDate(String stringDate){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
+        try {
+            Date date = sdf.parse(stringDate);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            System.out.println("hey");
+            return null;
+        }
+    }
+
+
+
+
 
     @Override
     public void onDestroyView() {

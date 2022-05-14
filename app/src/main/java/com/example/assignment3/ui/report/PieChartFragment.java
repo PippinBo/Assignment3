@@ -2,7 +2,9 @@ package com.example.assignment3.ui.report;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -21,13 +23,21 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.assignment3.BitmapUtil;
 import com.example.assignment3.R;
 import com.example.assignment3.databinding.FragmentPiechartBinding;
+import com.example.assignment3.entity.Movement;
+import com.example.assignment3.entity.User;
+import com.example.assignment3.entity.relationship.UserWithMovements;
+import com.example.assignment3.viewmodel.UserViewModel;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -35,7 +45,12 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class PieChartFragment extends Fragment {
     private Button facebookButton;
@@ -43,6 +58,12 @@ public class PieChartFragment extends Fragment {
     private PieChart pieChart;
     private FragmentPiechartBinding binding;
     private Button id;
+
+    private UserViewModel userViewModel;
+    private Date startReportDate;
+    private Date endReportDate;
+    private ArrayList<Integer> pieColors;
+
 
     /**
      * 截取全屏
@@ -55,14 +76,28 @@ public class PieChartFragment extends Fragment {
         return bmp;
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        PieChartViewModel pieChartViewModel =
-                new ViewModelProvider(this).get(PieChartViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        PieChartViewModel pieChartViewModel = new ViewModelProvider(this).get(PieChartViewModel.class);
 
         binding = FragmentPiechartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         id = (Button) root.findViewById(R.id.back_button);
+
+        // User ViewModel
+        userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(UserViewModel.class);
+
+        // Start and End Date
+        SharedPreferences sharedPref = requireActivity().getSharedPreferences("Message",  Context.MODE_PRIVATE);
+        String startReportDateString = sharedPref.getString("startDate",null);
+        String endReportDateString = sharedPref.getString("endDate",null);
+        startReportDate = convertStringDate(startReportDateString);
+        endReportDate = convertStringDate(endReportDateString);
+
+        // Pie Chart Color Palette
+        pieColors = new ArrayList<>();
+        for (int color : ColorTemplate.MATERIAL_COLORS) { pieColors.add(color); }
+        for (int color : ColorTemplate.VORDIPLOM_COLORS) { pieColors.add(color); }
+
 
         facebookButton = (Button) root.findViewById(R.id.facebook_button);
         facebookButton.setOnClickListener(new View.OnClickListener() {
@@ -164,14 +199,46 @@ public class PieChartFragment extends Fragment {
 
     private void loadPieChartData() {
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(0.4f, "12/02/2021"));
-        entries.add(new PieEntry(0.6f, "13/02/2021"));
+
+        Bundle bundle = getActivity().getIntent().getExtras();
+        User user = bundle.getParcelable("loginUser");
+
+        userViewModel.getMovementByEmail(user.getEmail()).observe(getViewLifecycleOwner(), new Observer<List<UserWithMovements>>() {
+            @Override
+            public void onChanged(List<UserWithMovements> userWithMovements) {
+                long totalDistance = 0;
+                for (UserWithMovements temp : userWithMovements){
+                    for(Movement temp2: temp.movements){
+
+                        Date movementDate = convertStringDate(temp2.getTime());
+                        if(!movementDate.before(startReportDate) && !movementDate.after(endReportDate)){
+                            totalDistance += temp2.getMovement();
+                        }
+                        if(!movementDate.before(startReportDate) && !movementDate.after(endReportDate)){
+                            entries.add(new PieEntry((float) (temp2.getMovement()/totalDistance),temp2.getTime()));
+                        }
+                    }
+                }
+
+                PieDataSet pieDataSet = new PieDataSet(entries, "FitBud");
+                pieDataSet.setColors(pieColors);
+                PieData data = new PieData(pieDataSet);
+                data.setDrawValues(true);
+                data.setValueFormatter(new PercentFormatter(pieChart));
+                data.setValueTextSize(12f);
+                data.setValueTextColor(Color.BLACK);
+
+                pieChart.setData(data);
+                pieChart.invalidate();
+            }
+
+        });
+
 
         ArrayList<Integer> colors = new ArrayList<>();
         for (int color : ColorTemplate.MATERIAL_COLORS) {
             colors.add(color);
         }
-
         for (int color : ColorTemplate.VORDIPLOM_COLORS) {
             colors.add(color);
         }
@@ -187,6 +254,18 @@ public class PieChartFragment extends Fragment {
 
         pieChart.setData(data);
         pieChart.invalidate();
+    }
+
+    private Date convertStringDate(String stringDate){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
+        try {
+            Date date = sdf.parse(stringDate);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            System.out.println("hey");
+            return null;
+        }
     }
 
     @Override

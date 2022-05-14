@@ -174,6 +174,9 @@ public class ReportFragment extends Fragment {
 
 
     private String makeDateString(int day, int month, int year) {
+        if (month < 10){
+            return day + "/0" + month + "/" + year;
+        }
         return day + "/" + month + "/" + year;
     }
 
