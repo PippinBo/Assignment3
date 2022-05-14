@@ -2,7 +2,9 @@ package com.example.assignment3.ui.report;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -63,7 +65,7 @@ public class ReportFragment extends Fragment {
         View root = binding.getRoot();
 
         // Report Type Input
-        autoCompleteTxt = root.findViewById(R.id.dropMenuReportType);
+        /*autoCompleteTxt = root.findViewById(R.id.dropMenuReportType);
         adapterReportTypes = new ArrayAdapter<String>(getActivity(),R.layout.list_report_type,reportTypes);
         autoCompleteTxt.setAdapter(adapterReportTypes);
         autoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -71,7 +73,7 @@ public class ReportFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String itemType = adapterView.getItemAtPosition(i).toString();
             }
-        });
+        });*/
 
         // Start/End Date Picker
         initStartDatePicker();
@@ -91,8 +93,11 @@ public class ReportFragment extends Fragment {
                 endDatePickerDialog.show();
             }
         });
-
         endDateButton.setText(getTodaysDate());
+
+
+
+
 
 
         Button ID = (Button) root.findViewById(R.id.generate_report);
@@ -106,6 +111,12 @@ public class ReportFragment extends Fragment {
                 BarChartFragment GenerateReport = new BarChartFragment();
                 fragmentTransaction.replace(R.id.nav_host_fragment, GenerateReport);
                 fragmentTransaction.commit();
+                SharedPreferences sharedPref = requireActivity().getSharedPreferences("Message",  Context.MODE_PRIVATE);
+                SharedPreferences.Editor spEditor = sharedPref.edit();
+                spEditor.putString("startDate", startDateButton.getText().toString());
+                spEditor.putString("endDate", endDateButton.getText().toString());
+                spEditor.apply();
+
             }
         });
         ID2.setOnClickListener(new View.OnClickListener() {
@@ -167,7 +178,10 @@ public class ReportFragment extends Fragment {
 
 
     private String makeDateString(int day, int month, int year) {
-        return month + "/" + day + "/" + year;
+        if (month < 10){
+            return day + "/0" + month + "/" + year;
+        }
+        return day + "/" + month + "/" + year;
     }
 
     private String getTodaysDate() {

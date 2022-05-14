@@ -13,26 +13,12 @@ import com.example.assignment3.entity.User;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Movement.class}, version = 6, exportSchema = false)
+@Database(entities = {User.class, Movement.class}, version = 7, exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
-
     private static UserDatabase INSTANCE;
-
-    public static UserDatabase getDatabase(final Context context){
-        if (INSTANCE == null){
-            synchronized (UserDatabase.class){
-                if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),UserDatabase.class, "user_database").build();
-                }
-            }
-        }
-        return INSTANCE;
-    }
-
     private static final int NUMBER_OF_THREADS = 4;
-
     public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static synchronized UserDatabase getInstance(final Context context) {
