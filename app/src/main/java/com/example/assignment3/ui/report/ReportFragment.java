@@ -96,6 +96,10 @@ public class ReportFragment extends Fragment {
         endDateButton.setText(getTodaysDate());
 
 
+
+
+
+
         Button ID = (Button) root.findViewById(R.id.generate_report);
         Button ID2 = (Button) root.findViewById(R.id.generate_pieChart);
         ID.setOnClickListener(new View.OnClickListener() {

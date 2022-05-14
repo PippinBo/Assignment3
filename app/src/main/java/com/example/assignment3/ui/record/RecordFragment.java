@@ -5,8 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 
-import android.content.Intent;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import android.widget.TextView;
-import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,17 +35,14 @@ import com.example.assignment3.entity.User;
 import com.example.assignment3.entity.relationship.UserWithMovements;
 import com.example.assignment3.repository.UserRepository;
 import com.example.assignment3.viewmodel.UserViewModel;
-import com.github.mikephil.charting.data.BarEntry;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 //import com.example.assignment3.ui.record.adapter.RecyclerViewAdapter;
 
@@ -65,6 +59,8 @@ public class RecordFragment extends Fragment {
     private View root;
     private User user;
     private Context context = getActivity();
+    private CompletableFuture<Movement> dailyCheck;
+    private AtomicBoolean flag;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecordViewModel recordViewModel = new ViewModelProvider(this).get(RecordViewModel.class);
@@ -97,14 +93,11 @@ public class RecordFragment extends Fragment {
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = new Date();
 
-                //CompletableFuture<Movement> test = userViewModel.checkDailyEntry(user.getUid(),dateFormat.format(date));
-                //if (test != null){
-                  //  Toast.makeText(getActivity(), "Already recorded today!", Toast.LENGTH_SHORT).show();
-                    //return;
-                //}
-
-
-                // Return error if so
+                //If statement for card display
+                if (recordList.get(0).getTime().equals(dateFormat.format(date).toString())){
+                    Toast.makeText(getActivity(),"Already exists!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 Dialog dialog = new Dialog(root.getContext());
                 dialog.setContentView(R.layout.layout_add_record);
