@@ -35,6 +35,7 @@ import com.facebook.appevents.AppEventsLogger;
 
 
 import java.util.Calendar;
+import java.util.Date;
 
 // this fragment is for report page, feel free to edit
 
@@ -140,7 +141,7 @@ public class ReportFragment extends Fragment {
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
         startDatePickerDialog = new DatePickerDialog(getActivity(),style,dateSetListener, year,month, day);
-        startDatePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        startDatePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
 
     }
 
@@ -166,7 +167,7 @@ public class ReportFragment extends Fragment {
 
 
     private String makeDateString(int day, int month, int year) {
-        return getMonthFormat(month) + " " + day + " " + year;
+        return month + "/" + day + "/" + year;
     }
 
     private String getTodaysDate() {
