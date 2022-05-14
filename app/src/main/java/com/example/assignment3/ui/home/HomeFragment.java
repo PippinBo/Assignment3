@@ -82,15 +82,14 @@ public class HomeFragment extends Fragment {
                         String dailyDistance = String.valueOf(distance);
                         String calories = String.valueOf((int)distance*0.062);
                         binding.dailyCalories.setText(calories + "Kcal");
-                        binding.dailyDistance.setText(dailyDistance +  "m");
-
+                        binding.dailyDistance.setText(dailyDistance +  "M");
                     }
                 }
             }
         });
 
 
-
+        binding.todayDate.setText(String.valueOf(date));
         final TextView textView = binding.location;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         weatherApi();

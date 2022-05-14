@@ -13,6 +13,9 @@
     <string name="today_activity">Todays activity</string>
     <string name="activity_distance">Distance</string>
     <string name="activity_calories">Calories burned</string>
+    <string name="default_distance">0M</string>
+    <string name="default_calories">0Kcal</string>
+
 
 
 
