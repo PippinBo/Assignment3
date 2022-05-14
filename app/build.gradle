@@ -35,6 +35,9 @@ android {
 }
 
 dependencies {
+
+    def work_version = "2.7.1"
+
     // Recycle View
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -88,9 +91,9 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
     implementation 'com.facebook.android:facebook-share:latest.release'
     implementation 'com.squareup.picasso:picasso:2.71828'
-
-    //recyclerview
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    
+    //workManager
+    implementation "androidx.work:work-runtime:$work_version"
 
     //add gif
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'

@@ -108,14 +108,12 @@ public class BarChartFragment extends Fragment {
         });
 
         // Dates
-
         SharedPreferences sharedPref = requireActivity().getSharedPreferences("Message",  Context.MODE_PRIVATE);
         String startReportDateString = sharedPref.getString("startDate",null);
         String endReportDateString = sharedPref.getString("endDate",null);
         startReportDate = convertStringDate(startReportDateString);
         endReportDate = convertStringDate(endReportDateString);
 
-        System.out.println(startReportDate);
 
         barChart = root.findViewById(R.id.barReportChart);
         getData();
@@ -192,12 +190,12 @@ public class BarChartFragment extends Fragment {
                         }
                     }
                 }
-                BarDataSet barDataSet = new BarDataSet(barArrayList, "FitBud");
+                BarDataSet barDataSet = new BarDataSet(barArrayList, "Dates");
                 BarData barData = new BarData(barDataSet);
                 barChart.setData(barData);
                 barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
                 barDataSet.setValueTextSize(16f);
-                barChart.getDescription().setEnabled(true);
+                barChart.getDescription().setEnabled(false);
             }
 
         });

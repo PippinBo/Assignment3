@@ -11,7 +11,7 @@ public class RecordViewModel extends ViewModel {
 
     public RecordViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is record fragment");
+        mText.setValue("Hold down record to edit");
     }
 
     public LiveData<String> getText() {

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -36,8 +38,11 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 // this fragment is for report page, feel free to edit
 
@@ -64,6 +69,7 @@ public class ReportFragment extends Fragment {
         binding = FragmentReportBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+
         // Report Type Input
         /*autoCompleteTxt = root.findViewById(R.id.dropMenuReportType);
         adapterReportTypes = new ArrayAdapter<String>(getActivity(),R.layout.list_report_type,reportTypes);
@@ -74,6 +80,8 @@ public class ReportFragment extends Fragment {
                 String itemType = adapterView.getItemAtPosition(i).toString();
             }
         });*/
+
+
 
         // Start/End Date Picker
         initStartDatePicker();
@@ -105,34 +113,69 @@ public class ReportFragment extends Fragment {
         ID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fragmentManager = getFragmentManager();
-                assert fragmentManager != null;
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                BarChartFragment GenerateReport = new BarChartFragment();
-                fragmentTransaction.replace(R.id.nav_host_fragment, GenerateReport);
-                fragmentTransaction.commit();
-                SharedPreferences sharedPref = requireActivity().getSharedPreferences("Message",  Context.MODE_PRIVATE);
-                SharedPreferences.Editor spEditor = sharedPref.edit();
-                spEditor.putString("startDate", startDateButton.getText().toString());
-                spEditor.putString("endDate", endDateButton.getText().toString());
-                spEditor.apply();
+                Date endDate = convertStringDate(startDateButton.getText().toString());
+                Date startDate = convertStringDate(endDateButton.getText().toString());
+                System.out.println(endDate);
+                System.out.println(startDate);
+                if (startDate.after(endDate)) {
+
+                    FragmentManager fragmentManager = getFragmentManager();
+                    assert fragmentManager != null;
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    BarChartFragment GenerateReport = new BarChartFragment();
+                    fragmentTransaction.replace(R.id.nav_host_fragment, GenerateReport);
+                    fragmentTransaction.commit();
+                    SharedPreferences sharedPref = requireActivity().getSharedPreferences("Message", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor spEditor = sharedPref.edit();
+                    spEditor.putString("startDate", startDateButton.getText().toString());
+                    spEditor.putString("endDate", endDateButton.getText().toString());
+                    spEditor.apply();
+                }
+                else{
+                    Toast.makeText(getActivity(),"Start date must earlier than end date", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
         ID2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fragmentManager = getFragmentManager();
-                assert fragmentManager != null;
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, new PieChartFragment());
-                fragmentTransaction.commit();
+                Date endDate = convertStringDate(startDateButton.getText().toString());
+                Date startDate = convertStringDate(endDateButton.getText().toString());
+                if (startDate.after(endDate)) {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    assert fragmentManager != null;
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.nav_host_fragment, new PieChartFragment());
+                    fragmentTransaction.commit();
+
+                    SharedPreferences sharedPref = requireActivity().getSharedPreferences("Message", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor spEditor = sharedPref.edit();
+                    spEditor.putString("startDate", startDateButton.getText().toString());
+                    spEditor.putString("endDate", endDateButton.getText().toString());
+                    spEditor.apply();
+                }
+                else{
+                    Toast.makeText(getActivity(),"Start date must earlier than end date", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         final TextView textView = binding.textSlideshow;
         reportViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
+    }
+
+    private Date convertStringDate(String stringDate){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
+        try {
+            Date date = sdf.parse(stringDate);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            System.out.println("hey");
+            return null;
+        }
     }
 
     private void initStartDatePicker(){
@@ -220,6 +263,20 @@ public class ReportFragment extends Fragment {
             return "DEC";
 
         return "JAN";
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        Log.i("test", "----- requestCode= "+requestCode);
+        Log.i("test", "----- resultCode= "+resultCode);
+        switch (resultCode) {
+            case 1: // get the information
+                Toast.makeText(getContext(),"successful",Toast.LENGTH_LONG).show();
+                break;
+            case 2:
+                break;
+        }
     }
 
     @Override

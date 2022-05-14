@@ -6,7 +6,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.work.Data;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import com.example.assignment3.databinding.RegistrationCheckBinding;
 import com.example.assignment3.entity.User;
@@ -14,6 +19,11 @@ import com.example.assignment3.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 //Version 1.0.3: data entry --- Lichen
 public class RegistrationCheckActivity extends AppCompatActivity {
@@ -46,6 +56,7 @@ public class RegistrationCheckActivity extends AppCompatActivity {
         // return to login screen
         binding.redoButton.setOnClickListener(v -> startActivity(new Intent(RegistrationCheckActivity.this, LoginActivity.class)));
         binding.createButton.setOnClickListener(v -> registerUser(user));
+
     }
 
     private void registerUser(User user) {
