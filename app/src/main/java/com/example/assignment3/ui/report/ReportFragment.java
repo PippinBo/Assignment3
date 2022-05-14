@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -262,6 +263,20 @@ public class ReportFragment extends Fragment {
             return "DEC";
 
         return "JAN";
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        Log.i("test", "----- requestCode= "+requestCode);
+        Log.i("test", "----- resultCode= "+resultCode);
+        switch (resultCode) {
+            case 1: // get the information
+                Toast.makeText(getContext(),"successful",Toast.LENGTH_LONG).show();
+                break;
+            case 2:
+                break;
+        }
     }
 
     @Override
