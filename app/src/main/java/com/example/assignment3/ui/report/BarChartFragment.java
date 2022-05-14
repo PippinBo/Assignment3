@@ -1,7 +1,9 @@
 package com.example.assignment3.ui.report;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -50,6 +52,8 @@ public class BarChartFragment extends Fragment {
     private ArrayList barArrayList;
 
     private UserViewModel userViewModel;
+    private String startReportDate;
+    private String endReportDate;
 
     private Bitmap bitmap;
     private Button shareButton;
@@ -95,9 +99,15 @@ public class BarChartFragment extends Fragment {
             }
         });
 
+        SharedPreferences sharedPref = requireActivity().getSharedPreferences("Message",  Context.MODE_PRIVATE);
+        startReportDate = sharedPref.getString("startDate",null);
+        System.out.println(startReportDate);
+        endReportDate = sharedPref.getString("endDate",null);
+        System.out.println(endReportDate);
+
 
         barChart = root.findViewById(R.id.barReportChart);
-        loadBarChartData();
+        getData();
 
 
         id.setOnClickListener(new View.OnClickListener() {
@@ -148,17 +158,7 @@ public class BarChartFragment extends Fragment {
         }
     }
 
-    private void loadBarChartData() {
-        ArrayList<PieEntry> entries = new ArrayList<>();
-        getData();
-        BarDataSet barDataSet = new BarDataSet(barArrayList, "FitBud");
-        BarData barData = new BarData(barDataSet);
-        barChart.setData(barData);
-        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        barDataSet.setValueTextSize(16f);
-        barChart.getDescription().setEnabled(true);
 
-    }
 
     private void getData() {
         barArrayList = new ArrayList();
@@ -177,9 +177,16 @@ public class BarChartFragment extends Fragment {
                         System.out.println(temp2.getMovement());
                     }
                 }
-                System.out.println(barArrayList);
+                BarDataSet barDataSet = new BarDataSet(barArrayList, "FitBud");
+                BarData barData = new BarData(barDataSet);
+                barChart.setData(barData);
+                barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                barDataSet.setValueTextSize(16f);
+                barChart.getDescription().setEnabled(true);
             }
+
         });
+        System.out.println(barArrayList.size() + 4);
 
     }
 
