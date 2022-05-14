@@ -94,10 +94,12 @@ public class RecordFragment extends Fragment {
                 Date date = new Date();
 
                 //If statement for card display
-                if (recordList.get(0).getTime().equals(dateFormat.format(date).toString())){
-                    Toast.makeText(getActivity(),"Already exists!",Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                /*if (recordList.size() != 0) {
+                    if (recordList.get(0).getTime().equals(dateFormat.format(date).toString())) {
+                        Toast.makeText(getActivity(), "Already exists!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }*/
 
                 Dialog dialog = new Dialog(root.getContext());
                 dialog.setContentView(R.layout.layout_add_record);
@@ -122,8 +124,16 @@ public class RecordFragment extends Fragment {
                         userViewModel.insertMovement(movement);
 
                         // Recycler
-                        recordList.add(recordList.size()-1, new Movement(user.getUid(), todayDate, distanceNum));
-                        adapter.notifyItemInserted(recordList.size()-1);
+                        if (recordList.size() == 0){
+                            recordList.add(new Movement(user.getUid(), todayDate, distanceNum));
+                            adapter.notifyItemInserted(0);
+                        }
+                        else{
+                            recordList.add(recordList.size()-1, new Movement(user.getUid(), todayDate, distanceNum));
+                            adapter.notifyItemInserted(recordList.size()-1);
+                        }
+
+
                         recyclerView.scrollToPosition(0);
 
                         dialog.dismiss();

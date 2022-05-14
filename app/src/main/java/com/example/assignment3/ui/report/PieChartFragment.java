@@ -214,7 +214,6 @@ public class PieChartFragment extends Fragment {
                         if(!movementDate.before(startReportDate) && !movementDate.after(endReportDate)){
                             totalDistance += temp2.getMovement();
                         }
-
                     }
                     for(Movement temp2: temp.movements){
 
