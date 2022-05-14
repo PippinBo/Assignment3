@@ -173,9 +173,11 @@ public class BarChartFragment extends Fragment {
                 for (UserWithMovements temp : userWithMovements){
                     for(Movement temp2: temp.movements){
                         count += 1;
-                        barArrayList.add(new BarEntry(count,temp2.getMovement()));
+                        barArrayList.add(new BarEntry(count,(int)temp2.getMovement()));
+                        System.out.println(temp2.getMovement());
                     }
                 }
+                System.out.println(barArrayList);
             }
         });
 
