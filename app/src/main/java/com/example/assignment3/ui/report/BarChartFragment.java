@@ -19,11 +19,17 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.assignment3.BitmapUtil;
 import com.example.assignment3.R;
 import com.example.assignment3.databinding.FragmentBarchartBinding;
+import com.example.assignment3.entity.Movement;
+import com.example.assignment3.entity.User;
+import com.example.assignment3.entity.relationship.UserWithMovements;
+import com.example.assignment3.viewmodel.UserViewModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -33,6 +39,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 // this fragment is for report page, feel free to edit
 
@@ -41,6 +48,9 @@ public class BarChartFragment extends Fragment {
     private FragmentBarchartBinding binding;
     private BarChart barChart;
     private ArrayList barArrayList;
+
+    private UserViewModel userViewModel;
+
     private Bitmap bitmap;
     private Button shareButton;
     private Button id;
@@ -56,6 +66,7 @@ public class BarChartFragment extends Fragment {
         return bmp;
     }
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         BarChartViewModel barChartViewModel =
@@ -63,8 +74,12 @@ public class BarChartFragment extends Fragment {
 
         binding = FragmentBarchartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(UserViewModel.class);
+
         id = (Button) root.findViewById(R.id.back_button);
         shareButton = (Button) root.findViewById(R.id.facebook_button);
+
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +97,7 @@ public class BarChartFragment extends Fragment {
 
 
         barChart = root.findViewById(R.id.barReportChart);
-        loadPieChartData();
+        loadBarChartData();
 
 
         id.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +116,7 @@ public class BarChartFragment extends Fragment {
         barChartViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
+
 
     private void extracted(Button shareButton, Button ID) {
         shareButton.setVisibility(View.GONE);
@@ -132,7 +148,7 @@ public class BarChartFragment extends Fragment {
         }
     }
 
-    private void loadPieChartData() {
+    private void loadBarChartData() {
         ArrayList<PieEntry> entries = new ArrayList<>();
         getData();
         BarDataSet barDataSet = new BarDataSet(barArrayList, "FitBud");
@@ -146,10 +162,24 @@ public class BarChartFragment extends Fragment {
 
     private void getData() {
         barArrayList = new ArrayList();
-        barArrayList.add(new BarEntry(2f, 10));
-        barArrayList.add(new BarEntry(3f, 20));
-        barArrayList.add(new BarEntry(4f, 30));
-        barArrayList.add(new BarEntry(5f, 40));
+
+        Bundle bundle = getActivity().getIntent().getExtras();
+        User user = bundle.getParcelable("loginUser");
+
+        userViewModel.getMovementByEmail(user.getEmail()).observe(getViewLifecycleOwner(), new Observer<List<UserWithMovements>>() {
+            @Override
+            public void onChanged(List<UserWithMovements> userWithMovements) {
+                float count =0;
+                for (UserWithMovements temp : userWithMovements){
+                    for(Movement temp2: temp.movements){
+                        count += 1;
+                        barArrayList.add(new BarEntry(count,(int)temp2.getMovement()));
+                        System.out.println(temp2.getMovement());
+                    }
+                }
+                System.out.println(barArrayList);
+            }
+        });
 
     }
 
