@@ -144,11 +144,8 @@ public class RecordFragment extends Fragment {
                     recordList.add(test1);
                     //Collections.reverse(recordList);
                 }
-
             }
             setAdapter();
-
-
     });
     }
 
