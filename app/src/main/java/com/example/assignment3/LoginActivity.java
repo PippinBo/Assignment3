@@ -7,8 +7,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.work.Data;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import com.example.assignment3.databinding.LoginActivityBinding;
 import com.example.assignment3.entity.Movement;
@@ -16,8 +22,13 @@ import com.example.assignment3.entity.User;
 import com.example.assignment3.entity.relationship.UserWithMovements;
 import com.example.assignment3.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
 
+import java.util.HashMap;
 import java.util.List;
+
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 //Version 1.0.2: set up --- Lichen
 
@@ -25,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private LoginActivityBinding binding;
     private UserViewModel userViewModel;
+
     // Idea from Tut9
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +68,44 @@ public class LoginActivity extends AppCompatActivity {
             String txt_Pwd = binding.passwordEditText.getText().toString();
             loginUser(txt_Email,txt_Pwd);
         });
+
+        //List all users
+        //LiveData<List<User>> userList = userViewModel.getAllUsers();
+        Data.Builder builder = new Data.Builder();
+        Map<String, Object> userMap = new HashMap<>();
+        Gson gson = new Gson();
+
+        userViewModel.getAllUsers().observe(this, new Observer<List<User>>() {
+
+            @Override
+            public void onChanged(List<User> users) {
+                for (int i = 0; i < users.size(); i++) {
+                    //Integer userId = users.get(i).getUid();
+                    userMap.put(String.valueOf(users.get(i).getUid()), users);
+                    System.out.println(userMap);
+                }
+            }
+        });
+        // transfer information as JSON
+        //userList.forEach (u -> userMap.put(u.getUid(),u));
+
+        String jsonString = gson.toJson(userMap);
+        System.out.println(jsonString);
+
+        userMap.put("UserTest", jsonString);
+        System.out.println(userMap);
+
+        builder.putAll(userMap);
+        Data placeInputData = builder.build();
+        WorkRequest workRequest =
+                new PeriodicWorkRequest.Builder(UploadWorker.class,
+                        1, TimeUnit.DAYS,
+                        1, TimeUnit.MINUTES)
+                        .setInputData(placeInputData)
+                        .build();
+
+        WorkManager.getInstance(LoginActivity.this).enqueue(workRequest);
+
     }
 
     private void loginUser(String txt_email, String txt_pwd) {
@@ -112,19 +162,5 @@ public class LoginActivity extends AppCompatActivity {
                 userViewModel.insertMovement(move2);
             }
         });
-        //
-        // Hi benson, here is the sample code for changing all movements' times attribute for one User
-        //
-        //userViewModel.getMovementByEmail( USER EMAIL HERE).observe(this, new Observer<List<UserWithMovements>>() {
-        //    @Override
-        //    public void onChanged(List<UserWithMovements> userWithMovements) {
-        //        for (UserWithMovements temp : userWithMovements){
-        //            for (Movement m : temp.movements){
-        //                m.setTime("11111");
-        //                userViewModel.updateMovement(m);
-        //            }
-        //        }
-        //    }
-        //});
     }
 }

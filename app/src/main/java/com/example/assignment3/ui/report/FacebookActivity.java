@@ -7,12 +7,16 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.assignment3.BitmapUtil;
 import com.example.assignment3.R;
@@ -51,11 +55,11 @@ public class FacebookActivity extends AppCompatActivity {
         sbLink = findViewById(R.id.sb_link);
         sbPhoto = findViewById(R.id.sb_photo);
         callbackManager = CallbackManager.Factory.create();
-        imageView.setImageResource(R.drawable.unnamed);
+        //imageView.setImageResource(R.drawable.unnamed);
         shareDialog = new ShareDialog(this);
         Intent intent = getIntent();
         if (intent != null) {
-            //显示图像
+            //show image
             Uri imgUri = Uri.parse(intent.getStringExtra("bitmap"));
             try {
                 Bitmap srcBitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imgUri));
@@ -64,8 +68,8 @@ public class FacebookActivity extends AppCompatActivity {
                     Log.i("TAG", "can not load the picture");
                     finish();
                 }
-                Bitmap myBitmap = Bitmap.createScaledBitmap(srcBitmap, 800, 700, true);
-                imageView.setImageBitmap(myBitmap); //显示拍照图片
+                Bitmap myBitmap = Bitmap.createScaledBitmap(srcBitmap, 500, 900, true);
+                imageView.setImageBitmap(myBitmap); //show shoot picture
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -87,6 +91,14 @@ public class FacebookActivity extends AppCompatActivity {
 
             }
         });
+        Button back = findViewById(R.id.facebook_back_button);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(1);
+                finish();
+            }
+        });
 
     }
 
@@ -95,12 +107,12 @@ public class FacebookActivity extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-//        imageView.setImageResource(R.drawable.unnamed);
+        //imageView.setImageResource(R.drawable.unnamed);
 
         ShareLinkContent shareLinkContent = new ShareLinkContent.Builder()
                 .setContentUrl(Uri.parse("https://www.facebook.com/profile.php?id=100080892737577"))
                 .setShareHashtag(new ShareHashtag.Builder()
-                        .setHashtag("#My fitness report").build())
+                        .setHashtag("#fitness").build())
                 .build();
 
         sbLink.setShareContent(shareLinkContent);

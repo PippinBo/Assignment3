@@ -27,7 +27,7 @@ public class BitmapUtil {
     }
 
     /**
-     * bitmap转base64
+     * bitmap transfer to base64
      *
      * @param bitmap
      * @return
@@ -60,18 +60,18 @@ public class BitmapUtil {
     }
 
     /**
-     * 压缩图片（质量压缩）
+     * Compress picture quality
      *
      * @param bitmap
      */
     public static File compressImage(Bitmap bitmap, Context context) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos);//The mass compression method, where 100 means no compression, stores the compressed data in BAOS
         int options = 100;
-        while (baos.toByteArray().length / 1024 > 500) {  //循环判断如果压缩后图片是否大于500kb,大于继续压缩
-            baos.reset();//重置baos即清空baos
-            options -= 10;//每次都减少10
-            bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+        while (baos.toByteArray().length / 1024 > 500) {  //Loop to determine if the image is larger than 500KB after compression, if larger than continue compression
+            baos.reset();//Resetting the BAOS
+            options -= 10;// -10 each time
+            bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);//Compress options% to store the compressed data in baOS
             long length = baos.toByteArray().length;
         }
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -95,7 +95,7 @@ public class BitmapUtil {
     }
 
     /**
-     * 释放bitmap
+     * Release bitmap
      *
      * @param bitmaps
      */
