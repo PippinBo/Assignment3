@@ -1,50 +1,30 @@
 package com.example.assignment3.ui.map;
 
 
-import static java.util.Calendar.DATE;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
+
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.assignment3.MainActivity;
 import com.example.assignment3.R;
-import com.example.assignment3.entity.Movement;
 import com.example.assignment3.entity.User;
-import com.example.assignment3.ui.record.RecordViewModel;
-import com.example.assignment3.ui.report.FacebookActivity;
 import com.example.assignment3.viewmodel.UserViewModel;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -52,192 +32,123 @@ import com.google.android.gms.maps.model.LatLng;
 
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.maps.GeoApiContext;
-import com.google.maps.PlacesApi;
-import com.google.maps.model.PlaceType;
-import com.google.maps.model.PlacesSearchResponse;
 import com.google.maps.model.PlacesSearchResult;
-import com.google.maps.model.RankBy;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
-import java.io.IOError;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
-//version 1.0.1: map fragment --Hongyu
+// version 1.0.1: map fragment --Hongyu
+// setup google using google api and add marker to nearly gym and users
 public class MapFragment extends Fragment {
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Initialize view
-        View view=inflater.inflate(R.layout.fragment_map, container, false);
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
         // Initialize map fragment
-        SupportMapFragment supportMapFragment=(SupportMapFragment)
+        SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.google_map);
 
-
-        UserViewModel userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(UserViewModel.class);
+        UserViewModel userViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()).create(UserViewModel.class);
         Context context = requireActivity().getApplicationContext();
 
-        Bundle bundle = getActivity().getIntent().getExtras();
+        Bundle bundle = requireActivity().getIntent().getExtras();
         User user = bundle.getParcelable("loginUser");
         String address = user.getAddress();
-        int id = user.getUid();
-//
-//
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        String dates = dateFormat.format(date);
-
-        userViewModel.getMovementById(id).observe(getViewLifecycleOwner(), new Observer<List<Movement>>() {
-            @Override
-            public void onChanged(List<Movement> movements) {
-                for (int i=0; i< movements.size(); i++){
-                    if (movements.get(i).getTime().equals(dates)){
-                        long distance = movements.get(i).getMovement();
-                        String dailyDistance = String.valueOf(distance);
-                    }
-                }
-            }
-
-        });
-
 
 
         // Async map
-        assert supportMapFragment != null;
-        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(@NonNull GoogleMap googleMap) {
+        Objects.requireNonNull(supportMapFragment).getMapAsync(googleMap -> {
+            LatLng latLng = getLocationFromAddress(context,address);
+            Double latitude = latLng.latitude;
+            Double longitude = latLng.longitude;
+            // convert latLng due to here are two different LatLng in java
+            // com.google.android.gms.maps.model.LatLng and com.google.maps.model.LatLng;
+            PlacesSearchResult[] placesSearchResults = NearlyPlace.run(latitude, longitude).results;
+            // reset the location icon size
+            int height = 110;
+            int width = 110;
+            @SuppressLint("UseCompatLoadingForDrawables")
+            BitmapDrawable bitMapDraw1 = (BitmapDrawable) getResources().getDrawable(R.drawable.gym1);
+            @SuppressLint("UseCompatLoadingForDrawables")
+            BitmapDrawable bitMapDraw2 = (BitmapDrawable) getResources().getDrawable(R.drawable.gym2);
+            @SuppressLint("UseCompatLoadingForDrawables")
+            BitmapDrawable bitMapDraw3 = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_user);
+            Bitmap b1 = bitMapDraw1.getBitmap();
+            Bitmap b2 = bitMapDraw2.getBitmap();
+            Bitmap b3 = bitMapDraw3.getBitmap();
+            Bitmap APIGymLogo = Bitmap.createScaledBitmap(b1, width, height, false); // blue icon
+            Bitmap UserGymLogo = Bitmap.createScaledBitmap(b2, width, height, false); // red icon
+            Bitmap UserLogo = Bitmap.createScaledBitmap(b3, width, height, false);
 
-                LatLng latLng=getLocationFromAddress(context,
-                        address );
-                Double latitude = latLng.latitude;
-                Double longitude = latLng.longitude;
-
-                PlacesSearchResult[] placesSearchResults = NearlyPlace.run(latitude,longitude).results;
-                int height = 110;
-                int width = 110;
-                @SuppressLint("UseCompatLoadingForDrawables")
-                BitmapDrawable bitMapDraw1 = (BitmapDrawable)getResources().getDrawable(R.drawable.gym1);
-                @SuppressLint("UseCompatLoadingForDrawables")
-                BitmapDrawable bitMapDraw2 = (BitmapDrawable)getResources().getDrawable(R.drawable.gym2);
-                @SuppressLint("UseCompatLoadingForDrawables")
-                BitmapDrawable bitMapDraw3 = (BitmapDrawable)getResources().getDrawable(R.drawable.ic_user);
-
-                Bitmap b1 = bitMapDraw1.getBitmap();
-                Bitmap b2 = bitMapDraw2.getBitmap();
-                Bitmap b3 = bitMapDraw3.getBitmap();
-                Bitmap APIGymLogo = Bitmap.createScaledBitmap(b1, width, height, false);
-                Bitmap UserGymLogo = Bitmap.createScaledBitmap(b2, width, height, false);
-                Bitmap UserLogo = Bitmap.createScaledBitmap(b3, width, height, false);
-
-                for (PlacesSearchResult placesSearchResult : placesSearchResults) {
-                    double lat = placesSearchResult.geometry.location.lat;
-                    double lng = placesSearchResult.geometry.location.lng;
-
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(lat, lng))
-                            .title(placesSearchResult.name)
-                            .icon(BitmapDescriptorFactory.fromBitmap(APIGymLogo))
-                    );
-                }
-
-                userViewModel.getAllUsers().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
-                    @Override
-                    public void onChanged(List<User> users) {
-                        for (int i=0; i < users.size(); i++) {
-                            if (users.get(i).getRole().equals("Gym")) {
-                                LatLng latLngGym = getLocationFromAddress(context,users.get(i).getAddress());
-                                System.out.println(latLngGym);
-                                googleMap.addMarker(new MarkerOptions()
-                                        .position(latLngGym)
-                                        .title(users.get(i).getName())
-                                        .icon(BitmapDescriptorFactory.fromBitmap(UserGymLogo))
-                                );
-                            }
-                        }
-                    }
-                });
-
-                if (!latLng.equals(new LatLng (-37.8136663,144.9633777))){
-                    googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(latLng , 12.0f) );
-                    googleMap.setMinZoomPreference(6.0f);
-                    googleMap.setMaxZoomPreference(14.0f);
-                    Marker userLocation = googleMap.addMarker(new MarkerOptions()
-                            .position(latLng)
-                            .title("You are here")
-                            .draggable(true)
-                            .icon(BitmapDescriptorFactory.fromBitmap(UserLogo))
-                    );
-                    assert userLocation != null;
-                    userLocation.showInfoWindow();
-                }
-                else {
-                    googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(latLng, 12.0f) );
-                    googleMap.setMinZoomPreference(6.0f);
-                    googleMap.setMaxZoomPreference(14.0f);
-                    Marker userLocation = googleMap.addMarker(new MarkerOptions()
-                            .position(latLng)
-                            .title("Position not find/default position")
-                            .draggable(true)
-
-                    );
-                    assert userLocation != null;
-                    userLocation.showInfoWindow();
-                }
-
-
-//                googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(latLng , 12.0f) );
-//                googleMap.setMinZoomPreference(6.0f);
-//                googleMap.setMaxZoomPreference(14.0f);
-
-                Button zoomOutButton = (Button) view.findViewById(R.id.zoom_out);
-                zoomOutButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        googleMap.animateCamera(CameraUpdateFactory.zoomOut());
-                    }
-                });
-
-                ImageButton locationButton = (ImageButton) view.findViewById(R.id.location);
-                locationButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        googleMap.moveCamera( CameraUpdateFactory.newLatLngZoom(latLng , 12.0f) );
-                    }
-                });
-
-
-
-                Button zoomInButton = (Button) view.findViewById(R.id.zoom_in);
-                zoomInButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        googleMap.animateCamera(CameraUpdateFactory.zoomIn());
-                    }
-                });
-
+            // add nearly gym marker from google api
+            for (PlacesSearchResult placesSearchResult : placesSearchResults) {
+                double lat = placesSearchResult.geometry.location.lat;
+                double lng = placesSearchResult.geometry.location.lng;
+                googleMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(lat, lng))
+                        .title(placesSearchResult.name)
+                        .icon(BitmapDescriptorFactory.fromBitmap(APIGymLogo))
+                );
             }
+
+            // add marker of all Gym user's location on the map
+            userViewModel.getAllUsers().observe(getViewLifecycleOwner(), users -> {
+                for (int i = 0; i < users.size(); i++) {
+                    if (users.get(i).getRole().equals("Gym")) {
+                        LatLng latLngGym = getLocationFromAddress(context, users.get(i).getAddress());
+                        System.out.println(latLngGym);
+                        googleMap.addMarker(new MarkerOptions()
+                                .position(latLngGym)
+                                .title(users.get(i).getName())
+                                .icon(BitmapDescriptorFactory.fromBitmap(UserGymLogo))
+                        );
+                    }
+                }
+            });
+
+            // set the default camera view and user's location
+            if (!latLng.equals(new LatLng(-37.8136663, 144.9633777))) {
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
+                googleMap.setMinZoomPreference(6.0f);
+                googleMap.setMaxZoomPreference(14.0f);
+                Marker userLocation = googleMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title("You are here")
+                        .draggable(true)
+                        .icon(BitmapDescriptorFactory.fromBitmap(UserLogo))
+                );
+                assert userLocation != null;
+                userLocation.showInfoWindow();
+            } else {
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
+                googleMap.setMinZoomPreference(6.0f);
+                googleMap.setMaxZoomPreference(14.0f);
+                Marker userLocation = googleMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title("Position not find/default position")
+                        .draggable(true)
+                );
+                assert userLocation != null;
+                userLocation.showInfoWindow();
+            }
+
+            // zoom out button
+            Button zoomOutButton = (Button) view.findViewById(R.id.zoom_out);
+            zoomOutButton.setOnClickListener(view1 -> googleMap.animateCamera(CameraUpdateFactory.zoomOut()));
+
+            // zoom in button
+            Button zoomInButton = (Button) view.findViewById(R.id.zoom_in);
+            zoomInButton.setOnClickListener(view13 -> googleMap.animateCamera(CameraUpdateFactory.zoomIn()));
+
+            // zoom to current location icon button
+            ImageButton locationButton = (ImageButton) view.findViewById(R.id.location);
+            locationButton.setOnClickListener(view12 -> googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f)));
         });
         return view;
     }
-
-
-//
-
 
     // get the lat and long from address
     public LatLng getLocationFromAddress(Context context, String strAddress) {
@@ -246,26 +157,25 @@ public class MapFragment extends Fragment {
         String defaultAddress = "350 Bourke Street Melbourne VIC 3000";
         List<Address> addressList;
         LatLng latLng = null;
-            try {
-                addressList = geocoder.getFromLocationName(strAddress, 1);
-                if (addressList!=null) {
-                    // This try catch can handle IndexOutOfBoundsException
-                    // Because if address is valid List<Address>.get(0)
-                    // will through IndexOutOfBoundsException
-                    try {
-                        Address location = addressList.get(0);
-                        latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    } catch (IndexOutOfBoundsException ex1) {
-                        addressList = geocoder.getFromLocationName(defaultAddress, 1);
-                        Address location = addressList.get(0);
-                        latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    }
+        try {
+            addressList = geocoder.getFromLocationName(strAddress, 1);
+            if (addressList != null) {
+                // This try catch can handle IndexOutOfBoundsException
+                // Because if address is valid List<Address>.get(0)
+                // will through IndexOutOfBoundsException
+                try {
+                    Address location = addressList.get(0);
+                    latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                } catch (IndexOutOfBoundsException ex1) {
+                    addressList = geocoder.getFromLocationName(defaultAddress, 1);
+                    Address location = addressList.get(0);
+                    latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 }
-            } catch (Exception ex2) {
-                ex2.printStackTrace();
             }
-            return latLng;
+        } catch (Exception ex2) {
+            ex2.printStackTrace();
         }
-
+        return latLng;
+    }
 
 }

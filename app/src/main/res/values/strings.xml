@@ -15,6 +15,7 @@
     <string name="activity_calories">Calories burned</string>
     <string name="default_distance">0M</string>
     <string name="default_calories">0Kcal</string>
+    <string name="update">Press card to update distance</string>
 
 
 

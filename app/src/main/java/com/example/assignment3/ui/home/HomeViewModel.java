@@ -14,5 +14,7 @@ public class HomeViewModel extends ViewModel {
         mText.setValue("Melbourne");
     }
 
-    public LiveData<String> getText() { return mText; }
+    public LiveData<String> getText() {
+        return mText;
+    }
 }

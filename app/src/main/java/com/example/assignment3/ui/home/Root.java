@@ -3,7 +3,7 @@ package com.example.assignment3.ui.home;
 import java.util.ArrayList;
 
 //version 1.0.1: get openWeather API data --Hongyu
-public class Root{
+public class Root {
     public Coord coord;
     public ArrayList<Weather> weather;
     public String base;
@@ -27,12 +27,12 @@ public class Root{
     }
 }
 
-class Coord{
+class Coord {
     public double lon;
     public double lat;
 }
 
-class Weather{
+class Weather {
     public int id;
     public String main;
     public String description;
@@ -47,7 +47,7 @@ class Weather{
     }
 }
 
-class Main{
+class Main {
     public double temp;
     public double feels_like;
     public double temp_min;
@@ -55,21 +55,21 @@ class Main{
     public int pressure;
     public int humidity;
 
-    public double getTemp(){
+    public double getTemp() {
         return temp;
     }
 }
 
-class Wind{
+class Wind {
     public double speed;
     public int deg;
 }
 
-class Clouds{
+class Clouds {
     public int all;
 }
 
-class Sys{
+class Sys {
     public int type;
     public int id;
     public String country;
