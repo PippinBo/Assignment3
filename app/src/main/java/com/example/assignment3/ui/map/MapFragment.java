@@ -1,6 +1,8 @@
 package com.example.assignment3.ui.map;
 
 
+import static java.util.Calendar.DATE;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -9,10 +11,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -60,15 +64,20 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOError;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 //version 1.0.1: map fragment --Hongyu
 public class MapFragment extends Fragment {
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,6 +94,26 @@ public class MapFragment extends Fragment {
         Bundle bundle = getActivity().getIntent().getExtras();
         User user = bundle.getParcelable("loginUser");
         String address = user.getAddress();
+        int id = user.getUid();
+//
+//
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        String dates = dateFormat.format(date);
+
+        userViewModel.getMovementById(id).observe(getViewLifecycleOwner(), new Observer<List<Movement>>() {
+            @Override
+            public void onChanged(List<Movement> movements) {
+                for (int i=0; i< movements.size(); i++){
+                    if (movements.get(i).getTime().equals(dates)){
+                        long distance = movements.get(i).getMovement();
+                        String dailyDistance = String.valueOf(distance);
+                    }
+                }
+            }
+
+        });
+
 
 
         // Async map

@@ -30,6 +30,8 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+
 }
 
 dependencies {
@@ -89,4 +91,7 @@ dependencies {
 
     //recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    //add gif
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
 }

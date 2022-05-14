@@ -10,7 +10,15 @@
 
     <string name="background_image">Background Image</string>
 
-    <string name="activity">Todays activity</string>
+    <string name="today_activity">Todays activity</string>
+    <string name="activity_distance">Distance</string>
+    <string name="activity_calories">Calories burned</string>
+    <string name="default_distance">0M</string>
+    <string name="default_calories">0Kcal</string>
+
+
+
+
 
     <string name="menu_home">Home</string>
     <string name="menu_map">Map</string>
