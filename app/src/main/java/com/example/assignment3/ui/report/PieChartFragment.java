@@ -237,7 +237,11 @@ public class PieChartFragment extends Fragment {
                 data.setValueTextColor(Color.BLACK);
 
                 pieChart.setData(data);
+                pieChart.setCenterTextSize(20f);
                 pieChart.setCenterText("Total Travel:" + "\n" + ((float)totalDistance/1000) + "km");
+                if(entries.size()==0){
+                    pieChart.setCenterText("No records within \n time period");
+                }
                 pieChart.invalidate();
             }
 

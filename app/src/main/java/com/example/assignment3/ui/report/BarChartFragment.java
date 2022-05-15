@@ -197,6 +197,8 @@ public class BarChartFragment extends Fragment {
                         }
                     }
                 }
+
+
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 BarDataSet barDataSet = new BarDataSet(barArrayList, "All Movement Records: ("
                         + sdf.format(startReportDate) + " - " + sdf.format(endReportDate) + ")");
@@ -206,7 +208,11 @@ public class BarChartFragment extends Fragment {
                 barDataSet.setValueTextSize(10f);
                 barChart.getDescription().setEnabled(true);
                 Description description = new Description();
+
                 description.setText("Y-Axis: Distance (kilometres)");
+                if (barArrayList.size()==0){
+                    description.setText("No entries within the time period");
+                }
                 barChart.setDescription(description);
 
                 YAxis yAxis = barChart.getAxisLeft();
