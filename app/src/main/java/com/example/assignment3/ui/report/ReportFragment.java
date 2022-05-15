@@ -147,9 +147,7 @@ public class ReportFragment extends Fragment {
             }
         });
 
-        final TextView textView = binding.textSlideshow;
-        reportViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+         return root;
     }
 
     private Date convertStringDate(String stringDate){

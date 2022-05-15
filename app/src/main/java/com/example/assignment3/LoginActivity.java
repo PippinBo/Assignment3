@@ -1,17 +1,18 @@
 package com.example.assignment3;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
@@ -19,14 +20,13 @@ import androidx.work.WorkRequest;
 import com.example.assignment3.databinding.LoginActivityBinding;
 import com.example.assignment3.entity.Movement;
 import com.example.assignment3.entity.User;
-import com.example.assignment3.entity.relationship.UserWithMovements;
 import com.example.assignment3.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -73,39 +73,55 @@ public class LoginActivity extends AppCompatActivity {
         //LiveData<List<User>> userList = userViewModel.getAllUsers();
         Data.Builder builder = new Data.Builder();
         Map<String, Object> userMap = new HashMap<>();
+        Map<String, Object> TransferMap = new HashMap<>();
         Gson gson = new Gson();
 
+        // Hi zhixue, here
         userViewModel.getAllUsers().observe(this, new Observer<List<User>>() {
+            ArrayList<String> userList = new ArrayList<String>();
+            @Override
+            public void onChanged(List<User> users) {
+                for (User user : users) {
+                    userList.add(user.toString());
+                    userMap.put(String.valueOf(user.getUid()), user);
+                }
+                System.out.println(userList);
 
+                if (userList.size() > 1) {
+                    String jsonString = gson.toJson(userMap);
+                    //System.out.println(jsonString);
+                    TransferMap.put("UserTest", jsonString);
+                    //System.out.println(userMap);
+
+                    builder.putAll(TransferMap);
+                    Data placeInputData = builder.build();
+                    WorkRequest workRequest =
+                            new OneTimeWorkRequest.Builder(UploadWorker.class)
+                                    .setInputData(placeInputData)
+                                    .build();
+
+//                    WorkRequest workRequest =
+//                            new PeriodicWorkRequest.Builder(UploadWorker.class,
+//                                    15, TimeUnit.MINUTES)
+//                                    .setInputData(placeInputData)
+//                                    .build();
+
+                    WorkManager.getInstance(LoginActivity.this).enqueue(workRequest);
+                }
+            }
+        });
+        /*
+        userViewModel.getAllUsers().observe(this, new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> users) {
                 for (int i = 0; i < users.size(); i++) {
                     //Integer userId = users.get(i).getUid();
                     userMap.put(String.valueOf(users.get(i).getUid()), users);
-                    System.out.println(userMap);
                 }
             }
-        });
+        });*/
         // transfer information as JSON
         //userList.forEach (u -> userMap.put(u.getUid(),u));
-
-        String jsonString = gson.toJson(userMap);
-        System.out.println(jsonString);
-
-        userMap.put("UserTest", jsonString);
-        System.out.println(userMap);
-
-        builder.putAll(userMap);
-        Data placeInputData = builder.build();
-        WorkRequest workRequest =
-                new PeriodicWorkRequest.Builder(UploadWorker.class,
-                        1, TimeUnit.DAYS,
-                        1, TimeUnit.MINUTES)
-                        .setInputData(placeInputData)
-                        .build();
-
-        WorkManager.getInstance(LoginActivity.this).enqueue(workRequest);
-
     }
 
     private void loginUser(String txt_email, String txt_pwd) {
@@ -162,5 +178,19 @@ public class LoginActivity extends AppCompatActivity {
                 userViewModel.insertMovement(move2);
             }
         });
+        // Hi zhixue, here
+        /*
+        userViewModel.getAllUsers().observe(this, new Observer<List<User>>() {
+            ArrayList<String> userList = new ArrayList<String>();
+            @Override
+            public void onChanged(List<User> users) {
+                for (User user : users) {
+                    userList.add(user.toString());
+                }
+                for (String u : userList) {
+                    System.out.println(u);
+                }
+            }
+        });*/
     }
 }

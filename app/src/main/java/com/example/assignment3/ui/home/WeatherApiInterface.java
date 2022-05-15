@@ -1,5 +1,7 @@
 package com.example.assignment3.ui.home;
 
+import com.example.assignment3.R;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -8,6 +10,7 @@ import retrofit2.http.GET;
 
 
 public interface WeatherApiInterface {
+ //   String apiLink = "weather?lat=-37.840935&lon=144.946457&appid=" + R.string.open_weather_API_key;
     @GET("weather?lat=-37.840935&lon=144.946457&appid=0891ee5dc748292618ab5b5fc73361bf")
     Call<Root> getWeather();
 }
