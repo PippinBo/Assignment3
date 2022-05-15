@@ -234,7 +234,7 @@ public class PieChartFragment extends Fragment {
                 data.setValueTextColor(Color.BLACK);
 
                 pieChart.setData(data);
-                pieChart.setCenterText("Total Travel:" + "\n" + totalDistance + " m");
+                pieChart.setCenterText("Total Travel:" + "\n" + ((float)totalDistance/1000) + "km");
                 pieChart.invalidate();
             }
 

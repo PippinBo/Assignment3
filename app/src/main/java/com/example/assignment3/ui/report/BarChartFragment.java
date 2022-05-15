@@ -40,6 +40,7 @@ import com.example.assignment3.viewmodel.UserViewModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -189,7 +190,7 @@ public class BarChartFragment extends Fragment {
                         //Get date
                         if(!movementDate.before(startReportDate) || !movementDate.after(endReportDate)){
                             count += 1;
-                            barArrayList.add(new BarEntry(count,(int)temp2.getMovement()));
+                            barArrayList.add(new BarEntry(count,(float) ((float)temp2.getMovement() / 1000)));
                             labelNames.add(temp2.getTime());
                             System.out.println(temp2.getTime());
                         }
@@ -203,19 +204,25 @@ public class BarChartFragment extends Fragment {
                 barDataSet.setValueTextSize(10f);
                 barChart.getDescription().setEnabled(true);
                 Description description = new Description();
-                description.setText("Distance (metres)");
+                description.setText("Y-Axis: Distance (kilometres)");
                 barChart.setDescription(description);
-                XAxis xAxis = barChart.getXAxis();
 
+                YAxis yAxis = barChart.getAxisLeft();
+                yAxis.setAxisMinimum(0f);
+                yAxis.setSpaceTop(0f);
+
+                XAxis xAxis = barChart.getXAxis();
+                xAxis.setGranularity(1f);
+                xAxis.setGranularityEnabled(true);
+
+                //xAxis.setAxisMaximum(labelNames.size()+1);
+                //xAxis.setLabelCount(labelNames.size());
                 xAxis.setValueFormatter(new IndexAxisValueFormatter(labelNames));
-                xAxis.setLabelCount(labelNames.size());
                 xAxis.setDrawGridLines(false);
                 xAxis.setDrawAxisLine(false);
-
-                xAxis.setGranularity(1f);
-                xAxis.setPosition(XAxis.XAxisPosition.TOP);
-                //xAxis.setCenterAxisLabels(true);
-                xAxis.setLabelRotationAngle(0);
+                xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
+                xAxis.setCenterAxisLabels(true);
+                xAxis.setLabelRotationAngle(270);
 
                 barChart.animateY(2000);
                 barChart.invalidate();
@@ -236,9 +243,6 @@ public class BarChartFragment extends Fragment {
             return null;
         }
     }
-
-
-
 
 
     @Override

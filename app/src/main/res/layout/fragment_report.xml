@@ -125,8 +125,8 @@
 
     <Button
         android:id="@+id/generate_report"
-        android:layout_width="209dp"
-        android:layout_height="68dp"
+        android:layout_width="220dp"
+        android:layout_height="70dp"
         android:layout_marginBottom="124dp"
         android:gravity="center"
         android:text="Generate Barchart"
@@ -138,8 +138,8 @@
 
     <Button
         android:id="@+id/generate_pieChart"
-        android:layout_width="207dp"
-        android:layout_height="63dp"
+        android:layout_width="220dp"
+        android:layout_height="70dp"
         android:text="Generate PieChart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
