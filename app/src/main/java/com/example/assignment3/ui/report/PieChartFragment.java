@@ -33,11 +33,13 @@ import com.example.assignment3.entity.Movement;
 import com.example.assignment3.entity.User;
 import com.example.assignment3.entity.relationship.UserWithMovements;
 import com.example.assignment3.viewmodel.UserViewModel;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -259,6 +261,7 @@ public class PieChartFragment extends Fragment {
         data.setValueTextSize(12f);
         data.setValueTextColor(Color.BLACK);
 
+        pieChart.animateY(1000, Easing.EaseInOutQuad);
         pieChart.setData(data);
         pieChart.invalidate();
     }
