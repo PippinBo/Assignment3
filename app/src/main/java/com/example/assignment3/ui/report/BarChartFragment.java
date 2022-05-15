@@ -197,7 +197,7 @@ public class BarChartFragment extends Fragment {
                         }
                     }
                 }
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 BarDataSet barDataSet = new BarDataSet(barArrayList, "All Movement Records: ("
                         + sdf.format(startReportDate) + " - " + sdf.format(endReportDate) + ")");
                 BarData barData = new BarData(barDataSet);
