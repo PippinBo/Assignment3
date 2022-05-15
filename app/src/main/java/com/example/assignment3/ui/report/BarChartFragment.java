@@ -183,12 +183,13 @@ public class BarChartFragment extends Fragment {
             public void onChanged(List<UserWithMovements> userWithMovements) {
                 float count =0;
                 ArrayList<String> labelNames = new ArrayList<>();
+                labelNames.add("No entries");
                 for (UserWithMovements temp : userWithMovements){
                     for(Movement temp2: temp.movements){
 
                         Date movementDate = convertStringDate(temp2.getTime());
                         //Get date
-                        if(!movementDate.before(startReportDate) || !movementDate.after(endReportDate)){
+                        if(!movementDate.before(startReportDate) && !movementDate.after(endReportDate)){
                             count += 1;
                             barArrayList.add(new BarEntry(count,(float) ((float)temp2.getMovement() / 1000)));
                             labelNames.add(temp2.getTime());
@@ -197,7 +198,8 @@ public class BarChartFragment extends Fragment {
                     }
                 }
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-                BarDataSet barDataSet = new BarDataSet(barArrayList, sdf.format(startReportDate) + " - " + sdf.format(endReportDate));
+                BarDataSet barDataSet = new BarDataSet(barArrayList, "All Movement Records: ("
+                        + sdf.format(startReportDate) + " - " + sdf.format(endReportDate) + ")");
                 BarData barData = new BarData(barDataSet);
                 barChart.setData(barData);
                 barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -209,22 +211,22 @@ public class BarChartFragment extends Fragment {
 
                 YAxis yAxis = barChart.getAxisLeft();
                 yAxis.setAxisMinimum(0f);
-                yAxis.setSpaceTop(0f);
 
                 XAxis xAxis = barChart.getXAxis();
                 xAxis.setGranularity(1f);
-                xAxis.setGranularityEnabled(true);
+                //xAxis.setGranularityEnabled(true);
 
                 //xAxis.setAxisMaximum(labelNames.size()+1);
-                //xAxis.setLabelCount(labelNames.size());
-                xAxis.setValueFormatter(new IndexAxisValueFormatter(labelNames));
+                xAxis.setLabelCount(labelNames.size()-1);
+
                 xAxis.setDrawGridLines(false);
                 xAxis.setDrawAxisLine(false);
-                xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
-                xAxis.setCenterAxisLabels(true);
-                xAxis.setLabelRotationAngle(270);
+                xAxis.setPosition(XAxis.XAxisPosition.TOP);
+                //xAxis.setCenterAxisLabels(true);
+                //xAxis.setLabelRotationAngle(270);
+                xAxis.setValueFormatter(new IndexAxisValueFormatter(labelNames));
 
-                barChart.animateY(2000);
+                barChart.animateY(1200);
                 barChart.invalidate();
              }
 
