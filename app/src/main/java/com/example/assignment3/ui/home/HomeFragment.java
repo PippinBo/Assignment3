@@ -103,46 +103,45 @@ public class HomeFragment extends Fragment {
                 String weather = root.getWeather().get(0).getDescription();
                 int weatherId = root.getWeather().get(0).getId();
                 int temps = (int) temp;
-                try {
-                    binding.tempTextView.setText(temps + "°C");
-                }catch (NullPointerException e) {
-                    System.out.println("Unknown error appear");
-                }
-                binding.tempDesc.setText(weather);
                 Calendar calendar = Calendar.getInstance();
                 int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
- //               binding.weatherIcon.setImageResource(R.drawable.ic_clear_night);
-                if (weatherId == 800 && (hour24hrs <= 6 || hour24hrs >= 20)) {
-                    binding.weatherIcon.setImageResource(R.drawable.ic_clear_night);
-                } else if (weatherId == 800) {
-                    binding.weatherIcon.setImageResource(R.drawable.ic_clear_day);
-                } else if (weatherId >= 200 && weatherId <= 232) {
-                    binding.weatherIcon.setImageResource(R.drawable.thunderstorms);
-                } else if (weatherId >= 600 && weatherId <= 622) {
-                    binding.weatherIcon.setImageResource(R.drawable.ic_snow);
-                } else if (weatherId >= 300 && weatherId <= 321) {
-                    binding.weatherIcon.setImageResource(R.drawable.ic_drizzle);
-                } else if (weatherId >= 701 && weatherId <= 781) {
-                    binding.weatherIcon.setImageResource(R.drawable.ic_haze);
-                } else if (weatherId >= 801 && weatherId <= 804) {
-                    binding.weatherIcon.setImageResource(R.drawable.ic_cloudy);
-                } else if (weatherId >= 500 && weatherId <= 531) {
-                    binding.weatherIcon.setImageResource(R.drawable.ic_rain);
-                }
-
-                if (hour24hrs <= 6 || hour24hrs >= 20) {
-                    binding.tempSuggestions.setText(R.string.weather_night);
-                } else if (temps > 10 && temps < 30 && weatherId == 800 || (weatherId >= 801 && weatherId <= 804)) {
-                    binding.tempSuggestions.setText(R.string.weather_good);
-                } else if (
-                        temps < 9 || temps > 31 ||
-                                ((weatherId >= 600 && weatherId <= 622) ||           //snow
-                                        (weatherId >= 500 && weatherId <= 531) ||    //rain
-                                        (weatherId >= 300 && weatherId <= 321) ||    //drizzle
-                                        (weatherId >= 200 && weatherId <= 232) ||    //thunderstorms
-                                        (weatherId >= 701 && weatherId <= 781)       //haze
-                                )) {
-                    binding.tempSuggestions.setText(R.string.weathet_bad);
+                try {
+                    binding.tempTextView.setText(temps + "°C");
+                    TextView tempDesc = (TextView) requireActivity().getWindow().getDecorView().findViewById(R.id.tempDesc);
+                    tempDesc.setText(weather);
+                    if (weatherId == 800 && (hour24hrs <= 6 || hour24hrs >= 20)) {
+                        binding.weatherIcon.setImageResource(R.drawable.ic_clear_night);
+                    } else if (weatherId == 800) {
+                        binding.weatherIcon.setImageResource(R.drawable.ic_clear_day);
+                    } else if (weatherId >= 200 && weatherId <= 232) {
+                        binding.weatherIcon.setImageResource(R.drawable.thunderstorms);
+                    } else if (weatherId >= 600 && weatherId <= 622) {
+                        binding.weatherIcon.setImageResource(R.drawable.ic_snow);
+                    } else if (weatherId >= 300 && weatherId <= 321) {
+                        binding.weatherIcon.setImageResource(R.drawable.ic_drizzle);
+                    } else if (weatherId >= 701 && weatherId <= 781) {
+                        binding.weatherIcon.setImageResource(R.drawable.ic_haze);
+                    } else if (weatherId >= 801 && weatherId <= 804) {
+                        binding.weatherIcon.setImageResource(R.drawable.ic_cloudy);
+                    } else if (weatherId >= 500 && weatherId <= 531) {
+                        binding.weatherIcon.setImageResource(R.drawable.ic_rain);
+                    }
+                    if (hour24hrs <= 6 || hour24hrs >= 20) {
+                        binding.tempSuggestions.setText(R.string.weather_night);
+                    } else if (temps > 10 && temps < 30 && weatherId == 800 || (weatherId >= 801 && weatherId <= 804)) {
+                        binding.tempSuggestions.setText(R.string.weather_good);
+                    } else if (
+                            temps < 9 || temps > 31 ||
+                                    ((weatherId >= 600 && weatherId <= 622) ||           //snow
+                                            (weatherId >= 500 && weatherId <= 531) ||    //rain
+                                            (weatherId >= 300 && weatherId <= 321) ||    //drizzle
+                                            (weatherId >= 200 && weatherId <= 232) ||    //thunderstorms
+                                            (weatherId >= 701 && weatherId <= 781)       //haze
+                                    )) {
+                        binding.tempSuggestions.setText(R.string.weathet_bad);
+                    }
+                }catch (NullPointerException e) {
+                    System.out.println("Unknown error appear");
                 }
             }
             @Override
