@@ -29,9 +29,11 @@ public class UploadWorker extends Worker {
     public Result doWork() {
 
         String userJsonString = getInputData().getString("UserTest");
-        System.out.println("getInputData(): Receiving JsonString ...");
+        System.out.println(userJsonString);
         if (userJsonString != null) {
 
+            System.out.println("getInputData(): Receiving JsonString ...");
+            // upload to Firebase
             FirebaseDatabase database = FirebaseDatabase.getInstance("https://as3-5046-default-rtdb.asia-southeast1.firebasedatabase.app/");
             DatabaseReference databaseReference = database.getReference("User");
             System.out.println("FirebaseDatabase.getInstance(): Connecting to firebase ...");
