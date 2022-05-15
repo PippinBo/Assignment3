@@ -6,24 +6,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.work.Data;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
-import androidx.work.WorkRequest;
 
 import com.example.assignment3.databinding.RegistrationCheckBinding;
 import com.example.assignment3.entity.User;
 import com.example.assignment3.viewmodel.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 //Version 1.0.3: data entry --- Lichen
 public class RegistrationCheckActivity extends AppCompatActivity {
@@ -61,7 +49,7 @@ public class RegistrationCheckActivity extends AppCompatActivity {
 
     private void registerUser(User user) {
         auth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(task -> {
-            if(task.isSuccessful()) {
+            if (task.isSuccessful()) {
                 String msg = "Registration Successful";
                 toastMsg(msg);
                 // update to database
@@ -78,7 +66,7 @@ public class RegistrationCheckActivity extends AppCompatActivity {
         });
     }
 
-    public void toastMsg(String message){
-        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
+    public void toastMsg(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

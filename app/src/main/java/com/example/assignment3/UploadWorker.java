@@ -39,7 +39,8 @@ public class UploadWorker extends Worker {
             System.out.println("FirebaseDatabase.getInstance(): Connecting to firebase ...");
 
             Gson gson = new Gson();
-            Type userMapType = new TypeToken<Map<String, User>>() {}.getType();
+            Type userMapType = new TypeToken<Map<String, User>>() {
+            }.getType();
 
             Map<String, User> userMap = gson.fromJson(userJsonString, userMapType);
             System.out.println("Preparing upload data...");

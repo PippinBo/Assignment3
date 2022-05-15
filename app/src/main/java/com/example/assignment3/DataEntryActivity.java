@@ -23,7 +23,7 @@ public class DataEntryActivity extends AppCompatActivity {
         setContentView(view);
 
         // Picker
-        final String[] roles = { "User", "Gym" };
+        final String[] roles = {"User", "Gym"};
         binding.numberPicker.setMinValue(0);
         binding.numberPicker.setMaxValue(roles.length - 1);
         binding.numberPicker.setWrapSelectorWheel(true);
@@ -51,7 +51,7 @@ public class DataEntryActivity extends AppCompatActivity {
             String address_txt_3 = binding.stateEditText.getText().toString();
             //validation
             if (TextUtils.isEmpty(role_txt) || TextUtils.isEmpty(name_txt) ||
-                    TextUtils.isEmpty(address_txt_1) || TextUtils.isEmpty(address_txt_2) || TextUtils.isEmpty(address_txt_3)){
+                    TextUtils.isEmpty(address_txt_1) || TextUtils.isEmpty(address_txt_2) || TextUtils.isEmpty(address_txt_3)) {
                 String msg = "Please enter your information";
                 toastMsg(msg);
             } else {
@@ -64,17 +64,17 @@ public class DataEntryActivity extends AppCompatActivity {
         });
     }
 
-    private void addUserData(User user){
+    private void addUserData(User user) {
         // complete a User object and pass it to next view
         Intent intent = new Intent(DataEntryActivity.this, RegistrationCheckActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("userInfo", user);
-        intent.putExtras (bundle);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    public void toastMsg(String message){
-        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
+    public void toastMsg(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
 }

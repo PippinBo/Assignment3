@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
-        @Override
-        protected void onCreate (Bundle savedInstanceState){
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
@@ -37,25 +37,25 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         User user = bundle.getParcelable("loginUser");
-        
 
-            NavigationView mNavigation = (NavigationView)findViewById(R.id.nav_view);
-            //Get the headerview first
-            View headerView = mNavigation.getHeaderView(0);
-            // Get Username and Email TextViews
-            TextView userName = headerView.findViewById(R.id.user_name);
-            TextView userEmail = headerView.findViewById(R.id.email_address);
-            // set user name and email
-            userName.setText(user.getName());
-            userEmail.setText(user.getEmail());
+
+        NavigationView mNavigation = (NavigationView) findViewById(R.id.nav_view);
+        //Get the headerview first
+        View headerView = mNavigation.getHeaderView(0);
+        // Get Username and Email TextViews
+        TextView userName = headerView.findViewById(R.id.user_name);
+        TextView userEmail = headerView.findViewById(R.id.email_address);
+        // set user name and email
+        userName.setText(user.getName());
+        userEmail.setText(user.getEmail());
 
 
         drawerNavigation();
     }
 
 
-        //version 1.0.1: drawer navigation --Hongyu
-        public void drawerNavigation () {
+    //version 1.0.1: drawer navigation --Hongyu
+    public void drawerNavigation() {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = findViewById(R.id.nav_view);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_view);
@@ -72,25 +72,25 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 
-        @Override
-        public boolean onCreateOptionsMenu (Menu menu){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
-        @Override
-        public boolean onSupportNavigateUp () {
+    @Override
+    public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
 
-        public void logOut (MenuItem item){
+    public void logOut(MenuItem item) {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 
-    }
+}
 
 

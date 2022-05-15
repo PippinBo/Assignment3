@@ -74,8 +74,7 @@ public class ResetActivity extends AppCompatActivity {
                 firebaseUser.updatePassword(password_txt_1);
                 auth.updateCurrentUser(firebaseUser);
                 startActivity(new Intent(ResetActivity.this, LoginActivity.class));
-            }
-            else {
+            } else {
                 msg = "No such user, please check your email again!";
                 binding.emailEditText.setText("");
                 binding.passwordEditText.setText("");
@@ -85,8 +84,8 @@ public class ResetActivity extends AppCompatActivity {
         });
     }
 
-    public void toastMsg(String message){
-        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
+    public void toastMsg(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     public boolean isValidPassword(final String password) {

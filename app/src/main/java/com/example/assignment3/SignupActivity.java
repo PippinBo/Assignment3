@@ -63,8 +63,8 @@ public class SignupActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void toastMsg(String message){
-        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
+    public void toastMsg(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     public boolean isValidPassword(final String password) {
