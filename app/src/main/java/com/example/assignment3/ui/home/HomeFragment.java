@@ -140,16 +140,18 @@ public class HomeFragment extends Fragment {
                                     )) {
                         binding.tempSuggestions.setText(R.string.weathet_bad);
                     }
-                }catch (NullPointerException e) {
+                } catch (NullPointerException e) {
                     System.out.println("Unknown error appear");
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<Root> call, @NonNull Throwable t) {
                 System.out.println(t.getMessage());
             }
         });
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
