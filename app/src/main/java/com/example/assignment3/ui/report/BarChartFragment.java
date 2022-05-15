@@ -235,7 +235,7 @@ public class BarChartFragment extends Fragment {
     }
 
     private Date convertStringDate(String stringDate){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         try {
             Date date = sdf.parse(stringDate);
             return date;
