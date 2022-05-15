@@ -74,12 +74,12 @@ public class RecordFragment extends Fragment {
             Date date = new Date();
 
             //If statement for card display
-            /*if (recordList.size() != 0) {
+            if (recordList.size() != 0) {
                 if (recordList.get(0).getTime().equals(dateFormat.format(date))) {
                     Toast.makeText(getActivity(), "Already exists!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-            }*/
+            }
 
             Dialog dialog = new Dialog(root.getContext());
             dialog.setContentView(R.layout.layout_add_record);
