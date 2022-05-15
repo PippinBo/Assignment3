@@ -114,6 +114,16 @@ public class MovementAdapter extends RecyclerView.Adapter<MovementAdapter.MyView
                 editDistance.setText(String.valueOf((records.get(position)).getMovement()));
                 oldDistance = Long.parseLong(editDistance.getText().toString());
 
+                ImageView exitButton = dialog.findViewById(R.id.exitButton);
+
+                exitButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        return;
+                    }
+                });
+
                 confirmUpdate.setText("Update");
                 confirmUpdate.setOnClickListener(new View.OnClickListener() {
                     @Override

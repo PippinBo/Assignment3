@@ -26,26 +26,25 @@
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barReportChart"
-        android:layout_width="350dp"
-        android:layout_height="568dp"
+        android:layout_width="match_parent"
+        android:layout_height="565dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.093" />
+        app:layout_constraintVertical_bias="0.259" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_width="23dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="60dp"
         android:gravity="center"
         android:text="d\ni\ns\nt\na\nn\nc\ne\n(m)"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.43" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/back_button"
@@ -66,8 +65,9 @@
         android:text="Share to Facebook"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.477"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barReportChart"
-        app:layout_constraintVertical_bias="0.168" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

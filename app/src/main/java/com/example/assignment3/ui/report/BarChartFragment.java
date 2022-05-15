@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,10 +38,13 @@ import com.example.assignment3.entity.User;
 import com.example.assignment3.entity.relationship.UserWithMovements;
 import com.example.assignment3.viewmodel.UserViewModel;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.File;
@@ -177,26 +181,45 @@ public class BarChartFragment extends Fragment {
             @Override
             public void onChanged(List<UserWithMovements> userWithMovements) {
                 float count =0;
+                ArrayList<String> labelNames = new ArrayList<>();
                 for (UserWithMovements temp : userWithMovements){
                     for(Movement temp2: temp.movements){
 
                         Date movementDate = convertStringDate(temp2.getTime());
                         //Get date
-                        if(!movementDate.before(startReportDate) && !movementDate.after(endReportDate)){
-                            //if (temp2.getTime().toString()
+                        if(!movementDate.before(startReportDate) || !movementDate.after(endReportDate)){
                             count += 1;
                             barArrayList.add(new BarEntry(count,(int)temp2.getMovement()));
-                            System.out.println(temp2.getMovement());
+                            labelNames.add(temp2.getTime());
+                            System.out.println(temp2.getTime());
                         }
                     }
                 }
-                BarDataSet barDataSet = new BarDataSet(barArrayList, "Dates");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+                BarDataSet barDataSet = new BarDataSet(barArrayList, sdf.format(startReportDate) + " - " + sdf.format(endReportDate));
                 BarData barData = new BarData(barDataSet);
                 barChart.setData(barData);
                 barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                barDataSet.setValueTextSize(16f);
-                barChart.getDescription().setEnabled(false);
-            }
+                barDataSet.setValueTextSize(10f);
+                barChart.getDescription().setEnabled(true);
+                Description description = new Description();
+                description.setText("Distance (metres)");
+                barChart.setDescription(description);
+                XAxis xAxis = barChart.getXAxis();
+
+                xAxis.setValueFormatter(new IndexAxisValueFormatter(labelNames));
+                xAxis.setLabelCount(labelNames.size());
+                xAxis.setDrawGridLines(false);
+                xAxis.setDrawAxisLine(false);
+
+                xAxis.setGranularity(1f);
+                xAxis.setPosition(XAxis.XAxisPosition.TOP);
+                //xAxis.setCenterAxisLabels(true);
+                xAxis.setLabelRotationAngle(0);
+
+                barChart.animateY(2000);
+                barChart.invalidate();
+             }
 
         });
 
