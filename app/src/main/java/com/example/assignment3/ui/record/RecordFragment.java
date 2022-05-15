@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,6 +88,15 @@ public class RecordFragment extends Fragment {
             dateTxt.setText(dateFormat.format(date));
             EditText editDistance = dialog.findViewById(R.id.addRecordDistance);
             Button confirmButton = dialog.findViewById(R.id.confirmAddRecord);
+            ImageView exitButton = dialog.findViewById(R.id.exitButton);
+
+            exitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                    return;
+                }
+            });
 
             confirmButton.setOnClickListener(view1 -> {
                 String distance;

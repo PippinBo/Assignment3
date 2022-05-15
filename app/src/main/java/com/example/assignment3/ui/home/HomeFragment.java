@@ -103,7 +103,11 @@ public class HomeFragment extends Fragment {
                 String weather = root.getWeather().get(0).getDescription();
                 int weatherId = root.getWeather().get(0).getId();
                 int temps = (int) temp;
-                binding.tempTextView.setText(temps + "°C");
+                try {
+                    binding.tempTextView.setText(temps + "°C");
+                }catch (NullPointerException e) {
+                    System.out.println("Unknown error appear");
+                }
                 binding.tempDesc.setText(weather);
                 Calendar calendar = Calendar.getInstance();
                 int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);

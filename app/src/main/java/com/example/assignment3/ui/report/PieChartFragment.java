@@ -93,6 +93,7 @@ public class PieChartFragment extends Fragment {
         startReportDate = convertStringDate(startReportDateString);
         endReportDate = convertStringDate(endReportDateString);
 
+
         // Pie Chart Color Palette
         pieColors = new ArrayList<>();
         for (int color : ColorTemplate.MATERIAL_COLORS) { pieColors.add(color); }
@@ -234,7 +235,7 @@ public class PieChartFragment extends Fragment {
                 data.setValueTextColor(Color.BLACK);
 
                 pieChart.setData(data);
-                pieChart.setCenterText("Total Travel:" + "\n" + totalDistance + " m");
+                pieChart.setCenterText("Total Travel:" + "\n" + ((float)totalDistance/1000) + "km");
                 pieChart.invalidate();
             }
 
@@ -263,7 +264,7 @@ public class PieChartFragment extends Fragment {
     }
 
     private Date convertStringDate(String stringDate){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         try {
             Date date = sdf.parse(stringDate);
             return date;
