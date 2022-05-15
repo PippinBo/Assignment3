@@ -106,8 +106,7 @@ public class HomeFragment extends Fragment {
                 try {
                     binding.tempTextView.setText(temps + "°C");
                 }catch (NullPointerException e) {
-                    String degree = "-";
-                    binding.tempTextView.setText(degree);
+                    System.out.println("Unknown error appear");
                 }
                 binding.tempDesc.setText(weather);
                 Calendar calendar = Calendar.getInstance();
