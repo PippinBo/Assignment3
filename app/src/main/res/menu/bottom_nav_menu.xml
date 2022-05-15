@@ -9,11 +9,11 @@
     <item
         android:id="@+id/nav_map"
         android:icon="@drawable/ic_map"
-        android:title="@string/menu_map" />
+        android:title="@string/nearly_gym" />
 
     <item
-        android:id="@+id/nav_report"
-        android:icon="@drawable/ic_report"
-        android:title="@string/menu_report" />
+        android:id="@+id/nav_record"
+        android:icon="@drawable/ic_add"
+        android:title="@string/menu_record" />
 
 </menu>

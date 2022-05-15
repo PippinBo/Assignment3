@@ -11,7 +11,7 @@
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_map"
-            android:title="@string/menu_map" />
+            android:title="@string/nearly_gym" />
         <item
             android:id="@+id/nav_report"
             android:icon="@drawable/ic_report"

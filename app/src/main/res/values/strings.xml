@@ -24,8 +24,8 @@
     <string name="zoom_in">zoom in</string>
     <string name="zoom_out">zoom out</string>
     <string name="current_location">back to current location</string>
-    <string name="google_map_API_key">AIzaSyCXFqRRFtTpVqba8_b6AHnmMqktyMwItM</string>
-
+    <string name="google_map_API_key">AIzaSyA9hNLiGJ-qLbpKAvW7mwFi7queyx3oApg</string>
+    <string name="nearly_gym">Nearly Gym</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_map">Map</string>
