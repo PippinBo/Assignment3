@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
@@ -97,18 +98,18 @@ public class LoginActivity extends AppCompatActivity {
 
 
                         // on time work
-                        //WorkRequest workRequest =
-                        //      new OneTimeWorkRequest.Builder(UploadWorker.class)
-                        //              .setInputData(placeInputData)
-                        //              .build();
+                        WorkRequest workRequest =
+                              new OneTimeWorkRequest.Builder(UploadWorker.class)
+                                      .setInputData(placeInputData)
+                                      .build();
 
                         // fixed time work
-                        WorkRequest workRequest =
-                                new PeriodicWorkRequest.Builder(UploadWorker.class,
-                                        1, TimeUnit.DAYS,
-                                        1, TimeUnit.MINUTES)
-                                        .setInputData(placeInputData)
-                                        .build();
+//                        WorkRequest workRequest =
+//                                new PeriodicWorkRequest.Builder(UploadWorker.class,
+//                                        1, TimeUnit.DAYS,
+//                                        1, TimeUnit.MINUTES)
+//                                        .setInputData(placeInputData)
+//                                        .build();
 
                         System.out.println("build(): WorkLoad starting ...");
 

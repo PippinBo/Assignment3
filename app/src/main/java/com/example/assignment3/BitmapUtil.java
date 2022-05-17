@@ -20,7 +20,6 @@ public class BitmapUtil {
             FileInputStream fis = new FileInputStream(url);
             return BitmapFactory.decodeStream(fis);
         } catch (FileNotFoundException e) {
-//            CrashHandlerUtil.getInstance().uncaughtException(null, e);
             e.printStackTrace();
             return null;
         }

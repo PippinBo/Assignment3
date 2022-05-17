@@ -68,7 +68,7 @@ public class PieChartFragment extends Fragment {
 
 
     /**
-     * 截取全屏
+     * get full screen shoot
      *
      * @return
      */
@@ -107,27 +107,12 @@ public class PieChartFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    //请求权限
+                    //get request
                     requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 //                    ActivityCompat.requestPermissions(getContext(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 } else {
-                    //调用
                     extracted(facebookButton, id);
                 }
-//                facebookButton.setVisibility(View.GONE);
-//                ID.setVisibility(View.GONE);
-//                Bitmap bitmap = captureScreenWindow();
-//                facebookButton.setVisibility(View.VISIBLE);
-//                ID.setVisibility(View.VISIBLE);
-//                Log.d("TAG", "onClick: " + bitmap);
-//                FragmentManager fragmentManager = getFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                File file = BitmapUtil.compressImage(bitmap, getContext());
-//                Uri uriForFile = FileProvider.getUriForFile(getContext(), "com.example.assignment3.fileprovider", file);
-//                Log.d("TAG", "uriForFile" + uriForFile);
-//                Intent intent = new Intent(getActivity(), FacebookActivity.class).putExtra("bitmap", uriForFile.toString());
-//                startActivity(intent);
-//                fragmentTransaction.commit();
             }
         });
 

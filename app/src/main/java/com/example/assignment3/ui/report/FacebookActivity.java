@@ -55,7 +55,6 @@ public class FacebookActivity extends AppCompatActivity {
         sbLink = findViewById(R.id.sb_link);
         sbPhoto = findViewById(R.id.sb_photo);
         callbackManager = CallbackManager.Factory.create();
-        //imageView.setImageResource(R.drawable.unnamed);
         shareDialog = new ShareDialog(this);
         Intent intent = getIntent();
         if (intent != null) {
@@ -107,7 +106,6 @@ public class FacebookActivity extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-        //imageView.setImageResource(R.drawable.unnamed);
 
         ShareLinkContent shareLinkContent = new ShareLinkContent.Builder()
                 .setContentUrl(Uri.parse("https://www.facebook.com/profile.php?id=100080892737577"))

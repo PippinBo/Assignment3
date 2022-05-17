@@ -73,7 +73,7 @@ public class BarChartFragment extends Fragment {
 
 
     /**
-     * 截取全屏
+     * Get full screen shoot
      *
      * @return
      */
@@ -101,11 +101,10 @@ public class BarChartFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    //请求权限
+                    //get request
                     requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 //                    ActivityCompat.requestPermissions(getContext(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 } else {
-                    //调用
                     extracted(shareButton, id);
                 }
 
