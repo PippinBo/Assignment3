@@ -10,7 +10,7 @@ public class ShareViewModel extends ViewModel {
 
     public ShareViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This page is userd for manager role in the future.");
+        mText.setValue("This page is used for manager role in the future.");
     }
 
     public LiveData<String> getText() {

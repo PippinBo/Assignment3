@@ -15,48 +15,56 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class BitmapUtil {
-    public static Bitmap getPathBitmap(String url) {
-        try {
-            FileInputStream fis = new FileInputStream(url);
-            return BitmapFactory.decodeStream(fis);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+    /**
+     *
+     *
+     * @param bitmap
+     * @return
+     *
+     */
+//    public static Bitmap getPathBitmap(String url) {
+//        try {
+//            FileInputStream fis = new FileInputStream(url);
+//            return BitmapFactory.decodeStream(fis);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     /**
      * bitmap transfer to base64
      *
      * @param bitmap
      * @return
+     *
      */
-    public static String bitmapToBase64(Bitmap bitmap) {
-        String result = null;
-        ByteArrayOutputStream baos = null;
-        try {
-            if (bitmap != null) {
-                baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                baos.flush();
-                baos.close();
-                byte[] bitmapBytes = baos.toByteArray();
-                result = Base64.encodeToString(bitmapBytes, Base64.NO_WRAP);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (baos != null) {
-                    baos.flush();
-                    baos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return result;
-    }
+//    public static String bitmapToBase64(Bitmap bitmap) {
+//        String result = null;
+//        ByteArrayOutputStream baos = null;
+//        try {
+//            if (bitmap != null) {
+//                baos = new ByteArrayOutputStream();
+//                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//                baos.flush();
+//                baos.close();
+//                byte[] bitmapBytes = baos.toByteArray();
+//                result = Base64.encodeToString(bitmapBytes, Base64.NO_WRAP);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (baos != null) {
+//                    baos.flush();
+//                    baos.close();
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return result;
+//    }
 
     /**
      * Compress picture quality
@@ -96,16 +104,18 @@ public class BitmapUtil {
     /**
      * Release bitmap
      *
+     * recycle bitmap, but this app is not used to recycle it
+     *
      * @param bitmaps
      */
-    public static void recycleBitmap(Bitmap... bitmaps) {
-        if (bitmaps == null) {
-            return;
-        }
-        for (Bitmap bm : bitmaps) {
-            if (null != bm && !bm.isRecycled()) {
-                bm.recycle();
-            }
-        }
-    }
+//    public static void recycleBitmap(Bitmap... bitmaps) {
+//        if (bitmaps == null) {
+//            return;
+//        }
+//        for (Bitmap bm : bitmaps) {
+//            if (null != bm && !bm.isRecycled()) {
+//                bm.recycle();
+//            }
+//        }
+//    }
 }
