@@ -142,6 +142,8 @@ public class BarChartFragment extends Fragment {
 
 
     private void extracted(Button shareButton, Button ID) {
+
+        // get full screen and save file, get the url pass to next page
         shareButton.setVisibility(View.GONE);
         ID.setVisibility(View.GONE);
         Bitmap bitmap = captureScreenWindow();

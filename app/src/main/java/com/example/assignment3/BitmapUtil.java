@@ -16,7 +16,8 @@ import java.util.Date;
 
 public class BitmapUtil {
     /**
-     *
+     * transfer the bitmap by using path
+     * used for test, not working forgot to delete
      *
      * @param bitmap
      * @return
